@@ -78,7 +78,7 @@ class RestartTor(QWidget):
         Use subprocess.Popen instead of subprocess.call in order to catch
         possible errors from "restart tor" command.
         '''
-        command = Popen(['leaprun', 'acw-tor-control-restart'], stdout=PIPE, stderr=PIPE)
+        command = Popen(['leaprun', 'tcp-tor-control-restart'], stdout=PIPE, stderr=PIPE)
         stdout, stderr = command.communicate()
 
         std_err = stderr.decode()
@@ -89,7 +89,7 @@ class RestartTor(QWidget):
             box.setIcon(QMessageBox.Critical)
             box.setWindowTitle("restart-tor - Error")
             text = (
-                "Command 'leaprun acw-tor-control-restart' failed.\n\n"
+                "Command 'leaprun tcp-tor-control-restart' failed.\n\n"
                 "stderr: " + std_err
             )
             print("ERROR: " + text)

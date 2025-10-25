@@ -745,7 +745,7 @@ class TorControlPanel(QDialog):
         self.stop_tor()
         self.restart_button.setEnabled(False)
 
-        restart_command = 'leaprun acw-tor-control-restart'
+        restart_command = 'leaprun tcp-tor-control-restart'
         p = Popen(restart_command, shell=True)
         self.start_bootstrap()
 
@@ -754,7 +754,7 @@ class TorControlPanel(QDialog):
         if not self.bootstrap_done:
             self.bootstrap_progress.hide()
             self.bootstrap_thread.terminate()
-        stop_command = 'leaprun acw-tor-control-stop'
+        stop_command = 'leaprun tcp-tor-control-stop'
         p = Popen(stop_command, shell=True)
         p.wait()
         self.refresh(True)
