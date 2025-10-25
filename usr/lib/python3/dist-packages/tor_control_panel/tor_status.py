@@ -133,15 +133,15 @@ def write_to_temp_then_move(content):
 
     with open(tcp_comm_file_path, 'w') as comm_file:
         ## Using flock here prevents another anon-connection-wizard process
-        ## from trying to write to the file until acw-write-torrc is finished
+        ## from trying to write to the file until tcp-write-torrc is finished
         ## processing it.
         fcntl.flock(comm_file, fcntl.LOCK_EX)
         comm_file.write(content)
 
-        command = ['leaprun', 'acw-write-torrc']
+        command = ['leaprun', 'tcp-write-torrc']
         print("tor_status.py: executing:", ' '.join(command))
         subprocess.check_call(command)
-        ## No need to unlock, acw-write-torrc deletes the original file.
+        ## No need to unlock, tcp-write-torrc deletes the original file.
 
     print(torrc_file_path)
     print("after:")
