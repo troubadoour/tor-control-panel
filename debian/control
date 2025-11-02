@@ -15,8 +15,7 @@ Rules-Requires-Root: no
 
 Package: tor-control-panel
 Architecture: all
-Depends: anon-connection-wizard,
-         helper-scripts,
+Depends: helper-scripts,
          pkexec,
          mate-polkit,
          python3,
