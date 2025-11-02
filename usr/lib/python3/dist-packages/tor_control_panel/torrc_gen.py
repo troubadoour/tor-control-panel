@@ -9,10 +9,10 @@ import json
 from subprocess import call
 from . import info
 
-from anon_connection_wizard.edit_etc_resolv_conf import edit_etc_resolv_conf_add
+from .edit_etc_resolv_conf import edit_etc_resolv_conf_add
 from anon_connection_wizard.edit_etc_resolv_conf import edit_etc_resolv_conf_remove
 from anon_connection_wizard.tor_status import tor_status
-from anon_connection_wizard.tor_status import write_to_temp_then_move
+from .tor_status import write_to_temp_then_move
 
 whonix = os.path.exists('/usr/share/anon-gw-base-files/gateway')
 

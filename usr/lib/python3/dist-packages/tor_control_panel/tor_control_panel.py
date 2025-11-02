@@ -18,7 +18,7 @@ import re
 import glob
 import tempfile
 
-from anon_connection_wizard import tor_status
+from . import tor_status
 from . import tor_bootstrap, torrc_gen, info
 
 

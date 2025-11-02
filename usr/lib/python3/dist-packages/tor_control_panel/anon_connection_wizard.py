@@ -26,12 +26,9 @@ import fcntl
 from guimessages.translations import _translations
 from guimessages.guimessage import gui_message
 
-from anon_connection_wizard import tor_status
-from anon_connection_wizard import repair_torrc
-from anon_connection_wizard.tor_status import cat
-from anon_connection_wizard.tor_status import write_to_temp_then_move
-from anon_connection_wizard.edit_etc_resolv_conf import edit_etc_resolv_conf_add
-from anon_connection_wizard.edit_etc_resolv_conf import edit_etc_resolv_conf_remove
+from . import tor_status, repair_torrc
+from .tor_status import cat, write_to_temp_then_move
+from .edit_etc_resolv_conf import edit_etc_resolv_conf_add, edit_etc_resolv_conf_remove
 
 
 def signal_handler(sig, frame):
