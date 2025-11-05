@@ -491,7 +491,7 @@ class BridgesWizardPage2(QtWidgets.QWizardPage):
         reformat_lines = []
         for bridge in self.custom_bridges.toPlainText().split('\n'):
             elements = bridge.split()
-            # auto-remove prepending commonly misuse 'bridge' string
+            # auto-remove prepending Commonly misuse 'bridge' string
             try:
                 while elements[0].lower() == 'bridge':
                     elements.pop(0)
@@ -1071,12 +1071,12 @@ class AnonConnectionWizard(QtWidgets.QWizard):
 
         self.args = torrc_gen.parse_torrc()
 
-        self.common.bridge_type = self.args[0]
-        self.common.proxy_type = self.args[1]
-        self.common.proxy_ip = self.args[2]
-        self.common.proxy_port = self.args[3]
-        self.common.proxy_username = self.args[4]
-        self.common.proxy_password = self.args[5]
+        self.Common.bridge_type = self.args[0]
+        self.Common.proxy_type = self.args[1]
+        self.Common.proxy_ip = self.args[2]
+        self.Common.proxy_port = self.args[3]
+        self.Common.proxy_username = self.args[4]
+        self.Common.proxy_password = self.args[5]
 
         self.parseTorrc()
         Common.init_tor_status = tor_status.tor_status()
