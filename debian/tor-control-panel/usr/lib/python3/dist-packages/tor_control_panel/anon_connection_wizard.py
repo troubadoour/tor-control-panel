@@ -1071,12 +1071,12 @@ class AnonConnectionWizard(QtWidgets.QWizard):
 
         self.args = torrc_gen.parse_torrc()
 
-        self.Common.bridge_type = self.args[0]
-        self.Common.proxy_type = self.args[1]
-        self.Common.proxy_ip = self.args[2]
-        self.Common.proxy_port = self.args[3]
-        self.Common.proxy_username = self.args[4]
-        self.Common.proxy_password = self.args[5]
+        Common.bridge_type = self.args[0]
+        Common.proxy_type = self.args[1]
+        Common.proxy_ip = self.args[2]
+        Common.proxy_port = self.args[3]
+        Common.proxy_username = self.args[4]
+        Common.proxy_password = self.args[5]
 
         self.parseTorrc()
         Common.init_tor_status = tor_status.tor_status()

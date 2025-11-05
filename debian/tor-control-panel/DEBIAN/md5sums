@@ -2,7 +2,7 @@
 1884eff144f7c6f87d81089f77508ad5  usr/bin/restart-tor-gui
 dd6577c4000411acb3a9917da5086370  usr/bin/tor-control-panel
 d41d8cd98f00b204e9800998ecf8427e  usr/lib/python3/dist-packages/tor_control_panel/__init__.py
-af4fc0bfc5104b171a9e8303f7c654f1  usr/lib/python3/dist-packages/tor_control_panel/anon_connection_wizard.py
+fd0bc88f6f977cd40a7934024ba33ede  usr/lib/python3/dist-packages/tor_control_panel/anon_connection_wizard.py
 71daea9dbbdf0ad0a5d48894f4282417  usr/lib/python3/dist-packages/tor_control_panel/edit_etc_resolv_conf.py
 43c5788a708ff4352ce177c298dad5bc  usr/lib/python3/dist-packages/tor_control_panel/info.py
 8fa57b62019ea8b66490d135c2727757  usr/lib/python3/dist-packages/tor_control_panel/repair_torrc.py
