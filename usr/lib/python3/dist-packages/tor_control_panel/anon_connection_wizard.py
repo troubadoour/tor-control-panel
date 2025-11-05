@@ -1067,8 +1067,6 @@ class AnonConnectionWizard(QtWidgets.QWizard):
         translation = _translations(Common.translations_path, 'anon-connection-wizard')
         self._ = translation.gettext
 
-        args = []
-
         self.args = torrc_gen.parse_torrc()
 
         Common.bridge_type = self.args[0]
