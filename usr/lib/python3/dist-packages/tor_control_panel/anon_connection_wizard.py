@@ -26,7 +26,7 @@ import fcntl
 from guimessages.translations import _translations
 from guimessages.guimessage import gui_message
 
-from . import tor_status, repair_torrc, tor_bootstrap
+from . import tor_status, repair_torrc, tor_bootstrap, torrc_gen
 from .tor_status import cat, write_to_temp_then_move
 from .edit_etc_resolv_conf import edit_etc_resolv_conf_add, edit_etc_resolv_conf_remove
 
@@ -1067,6 +1067,17 @@ class AnonConnectionWizard(QtWidgets.QWizard):
         translation = _translations(Common.translations_path, 'anon-connection-wizard')
         self._ = translation.gettext
 
+        args = []
+
+        self.args = torrc_gen.parse_torrc()
+
+        self.common.bridge_type = self.args[0]
+        self.common.proxy_type = self.args[1]
+        self.common.proxy_ip = self.args[2]
+        self.common.proxy_port = self.args[3]
+        self.common.proxy_username = self.args[4]
+        self.common.proxy_password = self.args[5]
+
         self.parseTorrc()
         Common.init_tor_status = tor_status.tor_status()
 
@@ -1485,59 +1496,6 @@ class AnonConnectionWizard(QtWidgets.QWizard):
                 # proxies = json.loads(open(Common.well_known_proxy_setting_default_path).read())  # default bridges will be loaded, however, what does the variable  bridges do? A: for bridge in bridges
                 # for proxy in proxies['proxies'][Common.well_known_proxy_setting]:
                 #    f.write('{0}\n'.format(proxy))
-
-
-    def parseTorrc(self):
-        if not os.path.exists(Common.torrc_file_path):
-            print("Tor config file does not exist yet: " + Common.torrc_file_path)
-
-        if os.path.exists(Common.torrc_file_path):
-            with open(Common.torrc_file_path, 'r') as f:
-                for line in f:
-                    if line.startswith(Common.command_use_custom_bridge):  # this condition must be above '#' condition, because it also contains '#'
-                        Common.use_default_bridge = False
-                    elif line.startswith('#'):
-                        pass  # add this line to improve efficiency
-                    elif line.startswith(Common.command_useBridges):
-                        Common.use_bridges = True
-                    elif line.startswith(Common.command_bridgeInfo):
-                        ## TODO: bridge_type should be a data
-                        ## structure, not a value to correctly show
-                        ## multiple types of bridges used at the same
-                        ## time. Every element should be unique in
-                        ## this array and the element should be
-                        ## predefined.
-                        Common.bridge_type = line.split(' ')[1]
-                        Common.bridge_custom += ' '.join(line.split(' ')[1:])  # eliminate the 'Bridge'
-
-                    elif line.startswith(Common.command_http):
-                        Common.use_proxy = True
-                        Common.proxy_type = 'HTTP / HTTPS'
-                        ''' Using the following parsing fragments is too fixed,
-                        which is not good implementation.
-                        But as long as leave .conf untouched by user, it will be Okay.
-                        We should also be careful when changing the command line format in this app
-                        '''
-                        Common.proxy_ip = line.split(' ')[1].split(':')[0]
-                        Common.proxy_port = line.split(' ')[1].split(':')[1].split('\n')[0]
-
-                    elif line.startswith(Common.command_httpAuth):
-                        Common.proxy_username = line.split(' ')[1].split(':')[0]
-                        Common.proxy_password = line.split(' ')[1].split(':')[1]
-                    elif line.startswith(Common.command_sock4):
-                        Common.use_proxy = True
-                        Common.proxy_type = 'SOCKS4'
-                        Common.proxy_ip = line.split(' ')[1].split(':')[0]
-                        Common.proxy_port = line.split(' ')[1].split(':')[1].split('\n')[0]
-                    elif line.startswith(Common.command_sock5):
-                        Common.use_proxy = True
-                        Common.proxy_type = 'SOCKS5'
-                        Common.proxy_ip = line.split(' ')[1].split(':')[0]
-                        Common.proxy_port = line.split(' ')[1].split(':')[1].split('\n')[0]
-                    elif line.startswith(Common.command_sock5Username):
-                        Common.proxy_username = line.split(' ')[1]
-                    elif line.startswith(Common.command_sock5Password):
-                        Common.proxy_password = line.split(' ')[1]
 
         if Common.bridge_type == 'obfs4':
             Common.bridge_type_with_comment = 'obfs4'
