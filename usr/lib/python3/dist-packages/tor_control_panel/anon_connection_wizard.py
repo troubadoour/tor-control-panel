@@ -47,10 +47,9 @@ class Common:
     ## Needs an AppArmor profile modification.
     ## https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=866187
 
-    etc_torrc_d_folder_path = '/usr/local/etc/torrc.d/'
-    torrc_file_path = '/usr/local/etc/torrc.d/40_tor_control_panel.conf'
+    torrc_file_path = torrc_gen.torrc_path()
+    torrc_user_file_path = torrc_gen.user_path()
     acw_comm_file_path = '/run/anon-connection-wizard/tor.conf'
-    torrc_user_file_path = '/usr/local/etc/torrc.d/50_user.conf'
     torrc_tmp_file_path = ''
 
     #torrc_file_path = "/etc/tor/torrc"
@@ -1075,6 +1074,8 @@ class AnonConnectionWizard(QtWidgets.QWizard):
         Common.proxy_port = self.args[3]
         Common.proxy_username = self.args[4]
         Common.proxy_password = self.args[5]
+        Common.use_bridges = self.args[6]
+        Common.use_proxy = self.args[7]
 
         Common.init_tor_status = tor_status.tor_status()
 
