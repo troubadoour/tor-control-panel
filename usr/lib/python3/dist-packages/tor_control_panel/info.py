@@ -49,8 +49,10 @@ You need to know the port number you are trying to connect to. It should be a po
 If you do not know these, leave them blank and see if the connection succeeds. In most cases, they are not required.</blockquote>''', QtWidgets.QMessageBox.Ok)
     reply.exec_()
 
+
 def custom_bridges_help():
-    text = '''
+    reply = QtWidgets.QMessageBox(QtWidgets.QMessageBox.NoIcon, 'Custom Bridges Help',
+ '''
 <p>As an alternative to using the provided bridges, you can obtain a
 custom set of addresses using one of the following methods:</p>
 
@@ -62,8 +64,8 @@ custom set of addresses using one of the following methods:</p>
 https://www.riseup.net, https://mail.google.com, or https://mail.yahoo.com</p>
 <p>For assistance, visit <b>torproject.org/about/contact.html#support</b></p>
 <p>Paste the bridge list received from the Tor Project:</p>
-'''
-    return text.strip()
+''', QtWidgets.QMessageBox.Ok)
+    reply.exec_()
 
 
 def tor_stopped():
@@ -96,6 +98,7 @@ In the <b>Logs</b> tab, check the content of torrc and inspect the Tor log and s
     ]
     return text
 
+
 def socket_error():
     text = '''
 <b>ERROR: Tor Controller Authentication Failed</b> \
@@ -117,14 +120,16 @@ but we cannot read that file (probably due to permissions)</p>
 
 
 def no_controller():
-    text = '''
-<b>ERROR: Tor Controller Not Constructed</b><p>The Tor \
+    reply = QtWidgets.QMessageBox(QtWidgets.QMessageBox.NoIcon, 'Tor Controller',
+'''<b>ERROR: Tor Controller Not Constructed</b><p>The Tor \
 controller cannot be constructed. This is most likely because \
 you have a \"DisableNetwork 1\" line in a torrc file.\
 Please manually remove or comment out those lines, then run \
 anon-connection-wizard or restart Tor.
-'''
-    return text.strip()
+''', QtWidgets.QMessageBox.Ok)
+    reply.exec_()
+
+
 
 
 def invalid_ip_port():

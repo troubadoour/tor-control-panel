@@ -26,7 +26,7 @@ import fcntl
 from guimessages.translations import _translations
 from guimessages.guimessage import gui_message
 
-from . import tor_status, repair_torrc, tor_bootstrap, torrc_gen
+from . import tor_status, repair_torrc, tor_bootstrap, torrc_gen, info
 from .tor_status import cat, write_to_temp_then_move
 from .edit_etc_resolv_conf import edit_etc_resolv_conf_add, edit_etc_resolv_conf_remove
 
@@ -305,7 +305,7 @@ class BridgesWizardPage2(QtWidgets.QWizardPage):
         self.layout.addWidget(self.groupBox)
 
         self.checkBox = QtWidgets.QCheckBox(self.groupBox)  # bridge checkBox
-        self.pushButton_show_help_censorship = QtWidgets.QPushButton(self.groupBox)
+        self.show_help_censorship = QtWidgets.QPushButton(self.groupBox)
 
         '''
         self.groupBox_default = QtWidgets.QGroupBox(self)
@@ -324,7 +324,7 @@ class BridgesWizardPage2(QtWidgets.QWizardPage):
 
         self.label_4 = QtWidgets.QLabel(self.groupBox)
         self.custom_bridges = QtWidgets.QTextEdit(self.groupBox)  # QTextEdit box for bridges.
-        self.pushButton_show_help_bridge = QtWidgets.QPushButton(self.groupBox)
+        self.custom_bridges_help = QtWidgets.QPushButton(self.groupBox)
 
         self.label_5 = QtWidgets.QLabel(self.groupBox)
 
@@ -350,10 +350,10 @@ class BridgesWizardPage2(QtWidgets.QWizardPage):
         self.checkBox.setToolTip("")  # ToolTip may not be needed since a help button is offered
         self.checkBox.setGeometry(QtCore.QRect(20, 35, 430, 20))
 
-        self.pushButton_show_help_censorship.setEnabled(True)
-        self.pushButton_show_help_censorship.setGeometry(QtCore.QRect(440, 32, 90, 25))
-        self.pushButton_show_help_censorship.setText('&No idea?')
-        self.pushButton_show_help_censorship.clicked.connect(self.show_help_censorship)
+        self.show_help_censorship.setEnabled(True)
+        self.show_help_censorship.setGeometry(QtCore.QRect(440, 32, 90, 25))
+        self.show_help_censorship.setText('&No idea?')
+        self.show_help_censorship.clicked.connect(info.show_help_censorship)
 
         self.groupBox.setMinimumSize(QtCore.QSize(Common.groupBox_width, Common.groupBox_height))
         self.groupBox.setGeometry(QtCore.QRect(0, 20, 0, 0))
@@ -423,10 +423,10 @@ class BridgesWizardPage2(QtWidgets.QWizardPage):
         # https://doc.qt.io/archives/qq/qq21-syntaxhighlighter.html
         # self.custom_bridges.setPlaceholderText('type address:port')
 
-        self.pushButton_show_help_bridge.setEnabled(True)
-        self.pushButton_show_help_bridge.setGeometry(QtCore.QRect(360, 160, 150, 25))
-        self.pushButton_show_help_bridge.setText('&How to get Bridges?')
-        self.pushButton_show_help_bridge.clicked.connect(self.show_help_bridge)
+        self.custom_bridges_help.setEnabled(True)
+        self.custom_bridges_help.setGeometry(QtCore.QRect(360, 160, 150, 25))
+        self.custom_bridges_help.setText('&How to get Bridges?')
+        self.custom_bridges_help.clicked.connect(info.custom_bridges_help)
 
         self.label_5.setVisible(True)
         self.label_5.setGeometry(10, 300, 500, 15)
@@ -444,7 +444,7 @@ class BridgesWizardPage2(QtWidgets.QWizardPage):
 
         self.label_4.setVisible(Common.use_bridges and (not Common.use_default_bridge))
         self.custom_bridges.setVisible(Common.use_bridges and (not Common.use_default_bridge))
-        self.pushButton_show_help_bridge.setVisible(Common.use_bridges and (not Common.use_default_bridge))
+        self.custom_bridges_help.setVisible(Common.use_bridges and (not Common.use_default_bridge))
 
 
     def nextId(self):
@@ -526,63 +526,6 @@ class BridgesWizardPage2(QtWidgets.QWizardPage):
         else:
             return False
 
-    def show_help_censorship(self):
-        reply = QtWidgets.QMessageBox(QtWidgets.QMessageBox.NoIcon, 'Censorship Circumvention Help',
-                                  '''<p><b>  Censorship Circumvention Help</b></p>
-
-<p>If you are unable to connect to the Tor network, it could be that your Internet Service
-Provider (ISP) or another agency is blocking Tor.  Often, you can work around this problem
-by using Tor Bridges, which are unlisted relays that are more difficult to block.</p>
-
-
-<p>Tor bridges are the recommended way to circumvent the Tor censorship. You should always take it as the first option to help you bypass the Tor censorship. However, if you are living in a heavily censored area where all the Tor bridges are invalid, you may need to use some third-party censorship circumvention tools to help you instead. In such a case, you should choose not using Tor bridges to help you bypass the Tor censorship.</p>
-
-<p> Using a third-party censorship circumvention tool may harm you security and/or anonymity. However, in case you do need it, the following is an instruction on how to connect to the Tor network using different censorship circumvention tools:</p>
-
-<blockquote><b>1. VPN</b><br>
-1. Establish your connection to the VPN server; 2. Hit the "back" button on this page, going to the first page; 3. Hit the "Connect" button on the first page.</blockquote>
-
-<blockquote><b>2. HTTP/Socks Proxy</b><br>
-1. Choose not using Tor bridges in this page; 2. Hit the "next" button on this page, going the Proxy Configuration page; 3. Configure a proxy.</blockquote>
-
-<blockquote><b>3. Specialized Tool </b><br>
-1. Figure out the listening port of the tool, including the port protocol and the port number; 2. Choose not using Tor bridges in this page; 3. Hit the "next" button on this page, going the Proxy Configuration page; 4. Configure a proxy.</blockquote>
-''', QtWidgets.QMessageBox.Ok)
-        reply.exec_()
-
-
-
-    def show_help_bridge(self):
-        reply = QtWidgets.QMessageBox(QtWidgets.QMessageBox.NoIcon, 'Bridges Configuration Help',
-                                  '''<p><b>  Bridge Relay Help</b></p>
-
-<p>If you are unable to connect to the Tor network, it could be that your Internet Service
-Provider (ISP) or another agency is blocking Tor.  Often, you can work around this problem
-by using Tor Bridges, which are unlisted relays that are more difficult to block.</p>
-
-<p>You may use the preconfigured, provided set of bridge addresses or you may obtain a
-                                  custom set of addresses by using one of these two methods:</p>
-
-<blockquote><b>1. Through the Web</b><br>
-Use a web browser to visit:<br>
-https://bridges.torproject.org/options</blockquote>
-
-<blockquote><b>2. Through the Email Autoresponder</b><br>
-Send email to bridges@torproject.org with the line 'get bridges' by itself in the body
-of the message.  However, to make it harder for an attacker to learn a lot of bridge
-addresses, you must send this request from one of the following email providers
-(listed in order of preference):<br>
-https://www.riseup.net, https://mail.google.com, or https://mail.yahoo.com</blockquote>
-
-<p> Notice that when choosing the bridge type, only <b>obfs4</b> are supported currently.<br><br>
-The bridges you paste into the custom bridge box should look like these:</p>
-
-<blockquote><b>For obfs4 bridges</b><br>
-obfs4 154.35.22.89:80 8FB9F4319E89E5C6223052AA525A192AFBC85D55 cert=GGGS1TX4R81m3r0HBl79wKy1OtPPNR2CZUIrHjkRg65Vc2VR8fOyo64f9kmT1UAFG7j0HQ iat-mode=0<br>
-obfs4 109.15.109.12:10527 8DFCD8FB3285E855F5A55EDDA35696C743ABFC4E cert=Bvg/itxeL4TWKLP6N1MaQzSOC6tcRIBv6q57DYAZc3b2AzuM+/TfB7mqTFEfXILCjEwzVA iat-mode=1</blockquote>
-'''
-                                      , QtWidgets.QMessageBox.Ok)
-        reply.exec_()
 
     def show_default_bridge(self, default_button_checked):
         if default_button_checked:
@@ -591,14 +534,14 @@ obfs4 109.15.109.12:10527 8DFCD8FB3285E855F5A55EDDA35696C743ABFC4E cert=Bvg/itxe
 
             self.label_4.setVisible(False)
             self.custom_bridges.setVisible(False)
-            self.pushButton_show_help_bridge.setVisible(False)
+            self.custom_bridges_help.setVisible(False)
         else:
             self.label_3.setVisible(False)
             self.comboBox.setVisible(False)
 
             self.label_4.setVisible(True)
             self.custom_bridges.setVisible(True)
-            self.pushButton_show_help_bridge.setVisible(True)
+            self.custom_bridges_help.setVisible(True)
 
     def enable_bridge(self, state):
         ## state is a boolean indicating if checkBox is checked or not
@@ -612,7 +555,8 @@ obfs4 109.15.109.12:10527 8DFCD8FB3285E855F5A55EDDA35696C743ABFC4E cert=Bvg/itxe
 
         self.label_4.setVisible(state and (not self.default_button.isChecked()))
         self.custom_bridges.setVisible(state and (not self.default_button.isChecked()))
-        self.pushButton_show_help_bridge.setVisible(state and (not self.default_button.isChecked()))
+        self.custom_bridges_help.setVisible(state and (not self.default_button.isChecked()))
+
 
 class ProxyWizardPage2(QtWidgets.QWizardPage):
     def __init__(self):
@@ -654,7 +598,7 @@ class ProxyWizardPage2(QtWidgets.QWizardPage):
         self.lineEdit_3 = QtWidgets.QLineEdit(self.groupBox)  # Username input
         self.lineEdit_4 = QtWidgets.QLineEdit(self.groupBox)  # password input
         self.lineEdit_4.setEchoMode(QLineEdit.Password)  # password mask
-        self.pushButton = QtWidgets.QPushButton(self.groupBox)
+        self.show_proxy_help = QtWidgets.QPushButton(self.groupBox)
 
         self.setupUi()
 
@@ -760,9 +704,9 @@ class ProxyWizardPage2(QtWidgets.QWizardPage):
         self.label_4.setText(Common.assistance)
         self.label_4.setFont(font_description_minor)
 
-        self.pushButton.setGeometry(QtCore.QRect(400, 235, 86, 25))
-        self.pushButton.setText('&Help')
-        self.pushButton.clicked.connect(self.show_help)
+        self.show_proxy_help.setGeometry(QtCore.QRect(400, 235, 86, 25))
+        self.show_proxy_help.setText('&Help')
+        self.show_proxy_help.clicked.connect(info.show_proxy_help)
 
         # Show proxy settings according to previous settings
         self.label_2.setVisible(Common.use_proxy)
@@ -777,7 +721,7 @@ class ProxyWizardPage2(QtWidgets.QWizardPage):
         self.lineEdit_3.setVisible(Common.use_proxy)
         self.lineEdit_4.setVisible(Common.use_proxy)
         self.lineEdit_4.setVisible(Common.use_proxy)
-        self.pushButton.setVisible(Common.use_proxy)
+        self.show_proxy_help.setVisible(Common.use_proxy)
 
 
     def nextId(self):
@@ -836,25 +780,6 @@ class ProxyWizardPage2(QtWidgets.QWizardPage):
         except (ValueError, TypeError):
             return False
 
-    def show_help(self):
-        reply = QtWidgets.QMessageBox(QtWidgets.QMessageBox.NoIcon, 'Proxy Configuration Help',
-                                  '''<p><b>  Proxy Help</b></p>
-                                  <p>In some situations, you may want to transfer your traffic through a proxy server before connecting to the Tor network. For example, if you are trying to use a third-party censorship circumvention tool to bypass the Tor censorship, you need to configure Tor to connect to the listening port of that circumvention tools. </p>
-
-<p> The following is a brief introduction on what each blank means and how you may find the proper input value:</p>
-
-<blockquote><b>1. Proxy Type</b><br>
-                                  The proxy type is protocol you use to communicate with the proxy server. Since there are only three options, you can try all of them to see which one works.</blockquote>
-
-<blockquote><b>2. Proxy IP/hostname</b><br>
-You have to know the port number you are trying to connect to. If you are trying to connect to a local proxy, you should try 127.0.0.1 since it means localhost.</blockquote>
-
-<blockquote><b>3. Proxy Port number</b><br>
-You have to know the port number you are trying to connect to. It should be a positive integer from 1 to 65535. If you are trying to find the listening port number of a well-known censorship circumvention tool, you may simply search it online.</blockquote>
-
-<blockquote><b>4. Username and Password</b><br>
-If you do not know what they are, just leave them blank to see if the connection will success. Because in most cases, you do not need them.</blockquote>''', QtWidgets.QMessageBox.Ok)
-        reply.exec_()
 
     # called by button toggled signal.
     def set_next_button_state(self, state):
@@ -906,7 +831,7 @@ If you do not know what they are, just leave them blank to see if the connection
         self.lineEdit_3.setVisible(state)
         self.lineEdit_4.setVisible(state)
         self.lineEdit_4.setVisible(state)
-        self.pushButton.setVisible(state)
+        self.show_proxy_help.setVisible(state)
 
 class TorrcPage(QtWidgets.QWizardPage):
     def __init__(self):
