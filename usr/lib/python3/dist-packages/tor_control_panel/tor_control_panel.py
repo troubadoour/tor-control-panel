@@ -388,9 +388,8 @@ class TorControlPanel(QDialog):
         self.custom_cancel_button.setFlat(True)
         self.custom_accept_button.setFlat(True)
         self.custom_bridges_help.setWordWrap(True)
-        self.custom_bridges_help.setTextInteractionFlags(
-            Qt.TextSelectableByMouse)
-        self.custom_bridges_help.setText(info.custom_bridges_help())
+        self.custom_bridges_help.setTextInteractionFlags(Qt.TextSelectableByMouse)
+        self.custom_bridges_help.setText(info.tcp_custom_bridges_help())
 
         self.newnym_box.setMaximumHeight(130)
         self.newnym_button.setMaximumWidth(120)
