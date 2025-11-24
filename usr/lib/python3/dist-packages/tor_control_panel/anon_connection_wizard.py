@@ -28,7 +28,7 @@ class Common:
     torrc_file_path = torrc_gen.torrc_path()
     torrc_user_file_path = torrc_gen.user_path()
     acw_comm_file_path = '/run/anon-connection-wizard/tor.conf'
-    torrc_tmp_file_path = ''
+    # torrc_file_path = ''
 
     bridges_default_path = '/usr/share/anon-connection-wizard/bridges_default'
     control_cookie_path = '/run/tor/control.authcookie'
@@ -36,9 +36,9 @@ class Common:
 
     use_bridges = False
     use_default_bridge = True
-    bridge_type = 'obfs4'
-    bridge_type_with_comment = 'obfs4'
+    bridge_type = ''
     bridge_custom = ''
+    use_custom_bridges = False
 
     use_proxy = False
     proxy_type = 'HTTP / HTTPS'
@@ -50,32 +50,12 @@ class Common:
     init_tor_status = ''  # it records the initial status of Tor, serving as a backup
     disable_tor = False
 
-    ''' The following is command lines available to be added to .conf,
-    since they are used more than once in the code,
-    it is easier for later maintenance of the code to write them all here and refer them when used
-    Notice that:
-    1. they do not include '\n'
-    2. the ' ' appended at last should not be eliminate
-    '''
     command_useBridges = 'UseBridges 1'
     command_use_custom_bridge = '# Custom Bridge is used:'
     command_obfs4 = 'ClientTransportPlugin obfs4 exec /usr/bin/obfs4proxy'
-    command_fte = 'ClientTransportPlugin fte exec /usr/bin/fteproxy --managed'
-
-    ## ref: https://gitweb.torproject.org/pluggable-transports/snowflake.git/tree/client/torrc
-    ## /home/user/.tb/tor-browser/Browser/TorBrowser/Data/Tor/torrc-defaults
     command_snowflake = 'ClientTransportPlugin snowflake exec /usr/bin/snowflake-client'
-
-    ## The Tor pluggable transport 'meek' requires functional clearnet system DNS.
-    ##
-    ## See also:
-    ## - edit_etc_resolv_conf_add
-    ## - edit_etc_resolv_conf_remove
-    ##
-    ## https://forums.whonix.org/t/censorship-circumvention-tor-pluggable-transports/2601/9
     command_meek_lite = 'ClientTransportPlugin meek_lite exec /usr/bin/obfs4proxy'
     command_meek_azure_address = 'ajax.aspnetcdn.com\n'
-    command_bridgeInfo = 'Bridge '
 
     command_http = 'HTTPSProxy '
     command_httpAuth = 'HTTPSProxyAuthenticator'
@@ -135,11 +115,11 @@ class ConnectionMainPage(QtWidgets.QWizardPage):
         self.groupBox = QtWidgets.QGroupBox(self)
         self.label = QtWidgets.QLabel(self.groupBox)
         self.label_2 = QtWidgets.QLabel(self.groupBox)
-        self.pushButton_1 = QtWidgets.QRadioButton(self.groupBox)
+        self.connect_option = QtWidgets.QRadioButton(self.groupBox)
         self.label_4 = QtWidgets.QLabel(self.groupBox)
-        self.pushButton_2 = QtWidgets.QRadioButton(self.groupBox)
+        self.configure_option = QtWidgets.QRadioButton(self.groupBox)
         self.label_5 = QtWidgets.QLabel(self.groupBox)
-        self.pushButton_3 = QtWidgets.QRadioButton(self.groupBox)
+        self.disable_option = QtWidgets.QRadioButton(self.groupBox)
 
         self.verticalLayout.addWidget(self.groupBox)
 
@@ -171,17 +151,17 @@ class ConnectionMainPage(QtWidgets.QWizardPage):
         self.label_3.setText('I would like to connect directly to the Tor network. This will work in most situations.')
         self.label_3.setFont(font_description_minor)
 
-        self.pushButton_1.setGeometry(QtCore.QRect(20, 133, 125, 26))
-        self.pushButton_2.setGeometry(QtCore.QRect(20, 213, 125, 26))
-        self.pushButton_3.setGeometry(QtCore.QRect(20, 288, 125, 26))
-        self.pushButton_1.setFont(font_option)
-        self.pushButton_1.setText('Connect')
-        self.pushButton_1.setChecked(True)
-        self.pushButton_2.setFont(font_option)
-        self.pushButton_2.setText('Configure')
-        self.pushButton_3.setFont(font_option)
-        self.pushButton_3.setText('Disable Tor')
-        self.pushButton_3.setVisible(True)
+        self.connect_option.setGeometry(QtCore.QRect(20, 133, 125, 26))
+        self.configure_option.setGeometry(QtCore.QRect(20, 213, 125, 26))
+        self.disable_option.setGeometry(QtCore.QRect(20, 288, 125, 26))
+        self.connect_option.setFont(font_option)
+        self.connect_option.setText('Connect')
+        self.connect_option.setChecked(True)
+        self.configure_option.setFont(font_option)
+        self.configure_option.setText('Configure')
+        self.disable_option.setFont(font_option)
+        self.disable_option.setText('Disable Tor')
+        self.disable_option.setVisible(True)
 
         self.label_4.setGeometry(QtCore.QRect(10, 166, 381, 41))
         self.label_4.setWordWrap(True)
@@ -197,22 +177,22 @@ class ConnectionMainPage(QtWidgets.QWizardPage):
         self.label_5.setVisible(True)
 
         if Common.use_bridges or Common.use_proxy:
-            self.pushButton_2.setChecked(True)
+            self.configure_option.setChecked(True)
         else:
-            self.pushButton_1.setChecked(True)
+            self.connect_option.setChecked(True)
 
 
     def nextId(self):
-        if self.pushButton_1.isChecked():
+        if self.connect_option.isChecked():
             # clear all setting
             Common.disable_tor = False
             Common.use_bridges = False
             Common.use_proxy = False
             return self.steps.index('torrc_page')
-        elif self.pushButton_2.isChecked():
+        elif self.configure_option.isChecked():
             Common.disable_tor = False
             return self.steps.index('bridge_wizard_page_2')
-        elif self.pushButton_3.isChecked():
+        elif self.disable_option.isChecked():
             Common.disable_tor = True
             return self.steps.index('tor_status_page')
 
@@ -224,7 +204,6 @@ class BridgesWizardPage2(QtWidgets.QWizardPage):
 
         self.steps = Common.wizard_steps
 
-        # self.bridges in consistence with Common.bridge_type_with_comment
         self.bridges = ['obfs4',
                         'meek-azure',
                         'snowflake',
@@ -232,59 +211,59 @@ class BridgesWizardPage2(QtWidgets.QWizardPage):
 
         self.layout = QtWidgets.QVBoxLayout(self)
 
-        self.label = QtWidgets.QLabel(self)
-        self.layout.addWidget(self.label)
+        self.header_label = QtWidgets.QLabel(self)
+        self.layout.addWidget(self.header_label)
 
-        self.groupBox = QtWidgets.QGroupBox(self)
-        self.layout.addWidget(self.groupBox)
+        self.group_box = QtWidgets.QGroupBox(self)
+        self.layout.addWidget(self.group_box)
 
-        self.checkBox = QtWidgets.QCheckBox(self.groupBox)  # bridge checkBox
-        self.show_help_censorship = QtWidgets.QPushButton(self.groupBox)
+        self.bridges_checkbox = QtWidgets.QCheckBox(self.group_box)
+        self.show_help_censorship = QtWidgets.QPushButton(self.group_box)
 
-        self.horizontal_line_1 = QFrame(self.groupBox)
-        self.default_button = QtWidgets.QRadioButton(self.groupBox)
-        self.horizontal_line_2 = QFrame(self.groupBox)
-        self.custom_button = QtWidgets.QRadioButton(self.groupBox)
+        self.horizontal_line_1 = QFrame(self.group_box)
+        self.default_button = QtWidgets.QRadioButton(self.group_box)
+        self.horizontal_line_2 = QFrame(self.group_box)
+        self.custom_button = QtWidgets.QRadioButton(self.group_box)
 
-        self.label_3 = QtWidgets.QLabel(self.groupBox)
-        self.comboBox = QtWidgets.QComboBox(self.groupBox)
+        self.label_3 = QtWidgets.QLabel(self.group_box)
+        self.comboBox = QtWidgets.QComboBox(self.group_box)
 
-        self.label_4 = QtWidgets.QLabel(self.groupBox)
-        self.custom_bridges = QtWidgets.QTextEdit(self.groupBox)  # QTextEdit box for bridges.
-        self.custom_bridges_help = QtWidgets.QPushButton(self.groupBox)
+        self.label_4 = QtWidgets.QLabel(self.group_box)
+        self.custom_bridges = QtWidgets.QTextEdit(self.group_box)
+        self.custom_bridges_help = QtWidgets.QPushButton(self.group_box)
 
-        self.label_5 = QtWidgets.QLabel(self.groupBox)
+        self.label_5 = QtWidgets.QLabel(self.group_box)
 
         self.setupUi()
 
 
     def setupUi(self):
-        self.label.setMinimumSize(QtCore.QSize(16777215, 35))
+        self.header_label.setMinimumSize(QtCore.QSize(16777215, 35))
 
         font_title = Common.font_title
         font_description_main = Common.font_description_main
         font_description_minor = Common.font_description_minor
         font_option = Common.font_option
 
-        self.label.setText('   Tor Bridges Configuration')
-        self.label.setFont(font_title)
-        self.label.setGeometry(QtCore.QRect(0, 0, 0, 0))
+        self.header_label.setText('   Tor Bridges Configuration')
+        self.header_label.setFont(font_title)
+        self.header_label.setGeometry(QtCore.QRect(0, 0, 0, 0))
 
-        self.checkBox.setChecked(Common.use_bridges)
-        self.checkBox.stateChanged.connect(self.enable_bridge)
-        self.checkBox.setText("I need Tor bridges to bypass the Tor censorship.")
-        self.checkBox.setFont(font_description_main)
-        self.checkBox.setToolTip("")  # ToolTip may not be needed since a help button is offered
-        self.checkBox.setGeometry(QtCore.QRect(20, 35, 430, 20))
+        self.bridges_checkbox.setChecked(Common.use_bridges)
+        self.bridges_checkbox.stateChanged.connect(self.enable_bridge)
+        self.bridges_checkbox.setText("I need Tor bridges to bypass the Tor censorship.")
+        self.bridges_checkbox.setFont(font_description_main)
+        self.bridges_checkbox.setToolTip("")  # ToolTip may not be needed since a help button is offered
+        self.bridges_checkbox.setGeometry(QtCore.QRect(20, 35, 430, 20))
 
         self.show_help_censorship.setEnabled(True)
         self.show_help_censorship.setGeometry(QtCore.QRect(440, 32, 90, 25))
         self.show_help_censorship.setText('&No idea?')
         self.show_help_censorship.clicked.connect(info.show_help_censorship)
 
-        self.groupBox.setMinimumSize(QtCore.QSize(Common.groupBox_width, Common.groupBox_height))
-        self.groupBox.setGeometry(QtCore.QRect(0, 20, 0, 0))
-        self.groupBox.setFlat(True)
+        self.group_box.setMinimumSize(QtCore.QSize(Common.groupBox_width, Common.groupBox_height))
+        self.group_box.setGeometry(QtCore.QRect(0, 20, 0, 0))
+        self.group_box.setFlat(True)
 
         self.horizontal_line_1.setFrameShape(QFrame.HLine)
         self.horizontal_line_1.setFrameShadow(QFrame.Sunken)
@@ -299,7 +278,7 @@ class BridgesWizardPage2(QtWidgets.QWizardPage):
         self.horizontal_line_2.setGeometry(15, 140, 510, 5)
 
         self.custom_button.setGeometry(QtCore.QRect(18, 160, 500, 25))
-        self.custom_button.setText('Provide a bridge I know')
+        self.custom_button.setText('Provide bridges I know')
         self.custom_button.setFont(font_description_minor)
 
         if Common.use_default_bridge:
@@ -318,13 +297,12 @@ class BridgesWizardPage2(QtWidgets.QWizardPage):
         for bridge in self.bridges:
             self.comboBox.addItem(bridge)
 
-        # The default value is adjust according to Common.bridge_type
-        if Common.use_default_bridge:
-            self.comboBox.setCurrentIndex(self.bridges.index(Common.bridge_type_with_comment))
+        index = self.comboBox.findText(Common.bridge_type)
+        self.comboBox.setCurrentIndex(index)
 
         self.label_4.setEnabled(False)
         self.label_4.setGeometry(QtCore.QRect(38, 185, 300, 20))
-        self.label_4.setText('Enter one or more bridge relay (one per line).')
+        self.label_4.setText('Enter at least 2 bridge relays (one per line).')
 
         self.custom_bridges.setEnabled(True)
         self.custom_bridges.setGeometry(QtCore.QRect(38, 205, 500, 76))
@@ -365,7 +343,7 @@ class BridgesWizardPage2(QtWidgets.QWizardPage):
 
 
     def nextId(self):
-        if not self.checkBox.isChecked():
+        if not self.bridges_checkbox.isChecked():
             Common.use_bridges = False
             return self.steps.index('proxy_wizard_page_2')
         else:
@@ -393,6 +371,7 @@ class BridgesWizardPage2(QtWidgets.QWizardPage):
                 return self.steps.index('proxy_wizard_page_2')
 
             elif self.custom_button.isChecked():
+                Common.use_custom_bridges = True
                 Common.bridge_custom = str(self.custom_bridges.toPlainText())
                 Common.use_default_bridge = False
 
@@ -955,7 +934,7 @@ class AnonConnectionWizard(QtWidgets.QWizard):
 
         elif bootstrap_phase == 'cookie_authentication_failed':
             self.bootstrap_thread.terminate()
-            buttonReply = QMessageBox.warning(self, 'Tor Controller Authentication Failed', 'Tor allows \ '
+            buttonReply = QMessageBox.Warning(self, 'Tor Controller Authentication Failed', 'Tor allows \ '
                                               'for authentication by reading it a cookie file, but we cannot read \ '
                                               'that file (probably due to permissions)')
             if buttonReply == QMessageBox.Ok:
@@ -1037,7 +1016,7 @@ class AnonConnectionWizard(QtWidgets.QWizard):
                             self.torrc_page.label_5.setText('Custom vanilla')
 
                 self.torrc_page.label_7.setText('Tor will be enabled.')
-                torrc_text = open(Common.torrc_tmp_file_path).read()
+                torrc_text = open(Common.torrc_file_path).read()
                 self.torrc_page.torrc.setPlainText(torrc_text)
 
             else:
@@ -1075,12 +1054,12 @@ class AnonConnectionWizard(QtWidgets.QWizard):
 
             '''Arranging different tor_status_page according to the value of disable_tor.'''
             if not Common.disable_tor:
-                if os.path.exists(Common.torrc_tmp_file_path):
+                if os.path.exists(Common.torrc_file_path):
                     ## Move the tmp file to the real .conf only when user
                     ## clicks the connect button. This may overwrite the
                     ## previous .conf, but it does not matter.
                     cat(Common.acw_comm_file_path)
-                    content = open(Common.torrc_tmp_file_path).read()
+                    content = open(Common.torrc_file_path).read()
                     write_to_temp_then_move(content)
 
                 self.tor_status_page.bootstrap_progress.setVisible(True)
@@ -1195,91 +1174,50 @@ class AnonConnectionWizard(QtWidgets.QWizard):
             self.button(QtWidgets.QWizard.FinishButton).setFocus()
 
 
-    '''This overwritten event handler is called with the given event
-    when Qt receives a window close request for a top-level widget from the window system.
-    We let it call cancel_button_clicked() to make the consequences of clicking close button
-    same with clicking the cancel button.
-    '''
-    def closeEvent(self, event):
-        self.cancel_button_clicked()
-        event.accept()  # let the window close
-
     def io(self):
         repair_torrc.repair_torrc()  # This guarantees a good set of torrc files
-        # Creates a file and returns a tuple containing both the handle and the path.
-        # We are responsible for removing tmp file when finished which is the reason
-        # why 'mv' (move) and not 'cp' (copy) is used below.
-        handle, Common.torrc_tmp_file_path = tempfile.mkstemp()
 
-        with open(handle, "w") as f:
-            f.write("\
-# This file is generated by and should ONLY be used by anon-connection-wizard.\n\
-# User configuration should go to " + Common.torrc_user_file_path + ", not here. Because:\n\
-#    1. This file can be easily overwritten by anon-connection-wizard.\n\
-#    2. Even a single character change in this file may cause error.\n\
-# However, deleting this file will be fine since a new plain file will be generated the next time \
- you run anon-connection-wizard.")
-
-        print("torrc_file_path: " + Common.torrc_file_path)
+        args = []
 
         if Common.use_bridges:
-            with open(Common.torrc_tmp_file_path, 'a') as f:
-                f.write(Common.command_useBridges + '\n')
-                if Common.use_default_bridge:
-                    if Common.bridge_type == 'obfs4':
-                        f.write(Common.command_obfs4 + '\n')
-                    elif Common.bridge_type == 'meek-azure':
-                        f.write(Common.command_meek_lite + '\n')
-                    elif Common.bridge_type == 'snowflake':
-                        f.write(Common.command_snowflake + '\n')
-                    elif Common.bridge_type == '':
-                        pass
-                    bridges = json.loads(open(Common.bridges_default_path).read())
-                    # The bridges variable are like a multilayer-dictionary
-                    for bridge in bridges['bridges'][Common.bridge_type]:
-                        f.write('{0}\n'.format(bridge))
+            if Common.bridge_type == 'obfs4':
+                args.append('obfs4')
+            elif Common.bridge_type == 'meek-azure':
+                args.append('meek_lite')
+            elif Common.bridge_type == 'snowflake':
+                args.append('snowflake')
+            elif Common.bridge_type == '':
+                pass
 
-                else:  # Use custom bridges
-                    f.write(Common.command_use_custom_bridge + '\n')  # custom bridges mark
-                    if Common.bridge_custom.lower().startswith('obfs4'):
-                        f.write(Common.command_obfs4 + '\n')
-                    elif Common.bridge_custom.lower().startswith('fte'):
-                        f.write(Common.command_fte + '\n')
-                    elif Common.bridge_custom.lower().startswith('meek_lite'):
-                        f.write(Common.command_meek_lite + '\n')
-                    elif Common.bridge_custom.lower().startswith('snowflake'):
-                        f.write(Common.command_snowflake + '\n')
+            bridges = json.loads(open(Common.bridges_default_path).read())
+            for bridge in bridges['bridges'][Common.bridge_type]:
+                args.append('{0}\n'.format(bridge))
 
-                    # Write the specific bridge address, port, cert etc.
-                    bridge_custom_list = Common.bridge_custom.split('\n')
-                    for bridge in bridge_custom_list:
-                        if bridge == '':
-                            pass
-                        f.write('Bridge {0}\n'.format(bridge))
+        elif Common.use_custom_bridges:
+            args.append('Custom bridges')
+            print(f"[DEBUG] Custom : {Common.bridge_custom}")
+            if not Common.bridge_custom == '':
+                args.append(Common.bridge_custom)
 
         if Common.use_proxy:
-            with open(Common.torrc_tmp_file_path, 'a') as f:
-                if Common.proxy_type == 'HTTP/HTTPS':
-                    f.write('HTTPSProxy {0}:{1}\n'.format(Common.proxy_ip, Common.proxy_port))
-                    if Common.proxy_username:
-                        f.write('HTTPSProxyAuthenticator {0}:{1}\n'.format(Common.proxy_username,
-                                                                           Common.proxy_password))
-                elif Common.proxy_type == 'SOCKS4':
-                    # Notice that SOCKS4 does not support proxy username and password
-                    f.write('Socks4Proxy {0}:{1}\n'.format(Common.proxy_ip, Common.proxy_port))
+            if Common.proxy_type == 'HTTP/HTTPS':
+                args.append('HTTPSProxy {0}:{1}\n'.format(Common.proxy_ip, Common.proxy_port))
+                if Common.proxy_username:
+                    args.append('HTTPSProxyAuthenticator {0}:{1}\n'.format(Common.proxy_username,
+                                                                        Common.proxy_password))
+            elif Common.proxy_type == 'SOCKS4':
+                # Notice that SOCKS4 does not support proxy username and password
+                args.append('Socks4Proxy {0}:{1}\n'.format(Common.proxy_ip, Common.proxy_port))
 
-                elif Common.proxy_type == 'SOCKS5':
-                    f.write('Socks5Proxy {0}:{1}\n'.format(Common.proxy_ip, Common.proxy_port))
-                    if Common.proxy_username:
-                        f.write(f'Socks5ProxyUsername {Common.proxy_username}\n')
-                        if Common.proxy_password:
-                            f.write(f'Socks5ProxyPassword {Common.proxy_password}\n')
+            elif Common.proxy_type == 'SOCKS5':
+                args.append('Socks5Proxy {0}:{1}\n'.format(Common.proxy_ip, Common.proxy_port))
+                if Common.proxy_username:
+                    args.append(f'Socks5ProxyUsername {Common.proxy_username}\n')
+                    if Common.proxy_password:
+                        args.append(f'Socks5ProxyPassword {Common.proxy_password}\n')
 
-        if Common.bridge_type == 'obfs4':
-            Common.bridge_type_with_comment = 'obfs4'
-        elif Common.bridge_type == 'meek-azure':
-            Common.bridge_type_with_comment = 'meek-azure'
-
+        print(f"[DEBUG] args = {args}")
+        torrc_gen.gen_torrc(args)
 
 
 def main():

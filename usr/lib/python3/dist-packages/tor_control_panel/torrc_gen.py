@@ -143,7 +143,7 @@ def parse_torrc():
                 bridge_type = bridges_display[bridges_type.index(bridge_type)]
         else:
             bridge_type = 'None'
-        print(f"parse_torrc: bridge_type: '{bridge_type}'")
+        print(f"[DEBUG] parse_torrc: bridge_type: '{bridge_type}'")
 
         if use_proxy:
             auth_check = False

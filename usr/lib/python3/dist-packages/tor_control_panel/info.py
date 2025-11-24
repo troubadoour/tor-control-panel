@@ -147,8 +147,6 @@ anon-connection-wizard or restart Tor.
     reply.exec_()
 
 
-
-
 def invalid_ip_port():
     text = '''
 <p><b>ERROR: Please enter a valid address and port number.</b></p>
