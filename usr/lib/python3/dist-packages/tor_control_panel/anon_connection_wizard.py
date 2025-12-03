@@ -7,6 +7,7 @@ import json
 import os
 import signal
 import sys
+from cProfile import label
 
 from PyQt5 import QtCore, QtGui
 from PyQt5.QtCore import Qt
@@ -34,10 +35,10 @@ class Common:
     control_cookie_path = '/run/tor/control.authcookie'
     control_socket_path = '/run/tor/control'
 
-    use_bridges = False
+    use_default_bridges = False
     bridge_type = ''
-    bridge_custom = ''
     use_custom_bridges = False
+    bridge_custom = ''
 
     use_proxy = False
     proxy_type = 'HTTP / HTTPS'
@@ -67,8 +68,8 @@ class Common:
     that a "blank IP/Port" message show up even when switching from proxy_wizard_page_1
     to proxy_wizard_page_2.
     '''
-    from_proxy_page_1 = True
-    from_bridge_page_1 = True
+    # from_proxy_page_1 = True
+    # from_bridge_page_1 = True
 
     font_title = QtGui.QFont()
     font_title.setPointSize(13)
@@ -94,8 +95,8 @@ class Common:
     groupBox_height = 345
 
     wizard_steps = ['connection_main_page',
-                    'bridge_wizard_page_2',
-                    'proxy_wizard_page_2',
+                    'bridge_wizard_page',
+                    'proxy_wizard_page',
                     'torrc_page',
                     'tor_status_page']
 
@@ -175,7 +176,7 @@ See next page for more details.''')
         self.label_5.setFont(font_description_minor)
         self.label_5.show()
 
-        if Common.use_bridges or Common.use_proxy:
+        if Common.use_default_bridges or Common.use_proxy:
             self.configure_option.setChecked(True)
         else:
             self.connect_option.setChecked(True)
@@ -184,12 +185,12 @@ See next page for more details.''')
         if self.connect_option.isChecked():
             # clear all setting
             Common.disable_tor = False
-            Common.use_bridges = False
+            Common.use_default_bridges = False
             Common.use_proxy = False
             return self.steps.index('torrc_page')
         elif self.configure_option.isChecked():
             Common.disable_tor = False
-            return self.steps.index('bridge_wizard_page_2')
+            return self.steps.index('bridge_wizard_page')
         elif self.disable_option.isChecked():
             Common.disable_tor = True
             return self.steps.index('tor_status_page')
@@ -207,146 +208,157 @@ class BridgesWizardPage(QWizardPage):
                         'meek-azure',
                        ]
 
-        self.layout = QVBoxLayout(self)
-        self.header_label = QLabel(self)
-        self.layout.addWidget(self.header_label)
+        self.header_frame = QFrame()
 
-        self.group_box = QGroupBox(self)
-        self.layout.addWidget(self.group_box)
+        self.header_layout = QGridLayout(self.header_frame)
+        self.header_label = QLabel()
+        self.bridges_checkbox = QCheckBox()
+        self.show_help_censorship = QPushButton()
 
-        self.bridges_checkbox = QCheckBox(self.group_box)
-        self.show_help_censorship = QPushButton(self.group_box)
+        self.header_layout.addWidget(self.header_label, 1, 0)
+        self.header_layout.addWidget(self.bridges_checkbox, 2, 0)
+        self.header_layout.addWidget(self.show_help_censorship, 2, 1)
 
-        self.horizontal_line_1 = QFrame(self.group_box)
-        self.default_button = QRadioButton(self.group_box)
-        self.horizontal_line_2 = QFrame(self.group_box)
-        self.custom_button = QRadioButton(self.group_box)
+        self.bridges_frame = QFrame()
 
-        self.label_3 = QLabel(self.group_box)
-        self.comboBox = QComboBox(self.group_box)
+        self.bridges_layout = QGridLayout(self.bridges_frame)
+        self.hline_1 = QFrame()
+        self.default_option = QRadioButton()
+        self.bridges_label = QLabel()
+        self.bridges_combo = QComboBox()
+        self.hline_2 = QFrame()
+        self.custom_option = QRadioButton()
+        self.custom_bridges_help = QPushButton()
+        self.custom_label = QLabel()
+        self.custom_bridges = QTextEdit()
 
-        self.label_4 = QLabel(self.group_box)
-        self.custom_bridges = QTextEdit(self.group_box)
-        self.custom_bridges_help = QPushButton(self.group_box)
+        self.bridges_layout.addWidget(self.default_option, 1, 0)
+        self.bridges_layout.addWidget(self.bridges_label, 2, 0)
+        self.bridges_layout.addWidget(self.bridges_combo, 2, 1)
+        self.bridges_layout.addWidget(self.hline_2, 3, 0)
+        self.bridges_layout.addWidget(self.custom_option, 4, 0)
+        self.bridges_layout.addWidget(self.custom_bridges_help, 4, 1)
+        self.bridges_layout.addWidget(self.custom_label, 5, 0)
+        self.bridges_layout.addWidget(self.custom_bridges, 6, 0, 1, 2)
 
-        self.label_5 = QLabel(self.group_box)
+        self.layout = QVBoxLayout()
+        self.layout.addWidget(self.header_frame)
+        self.layout.addWidget(self.bridges_frame)
+        self.setLayout(self.layout)
 
         self.setup_ui()
 
     def setup_ui(self):
-        self.header_label.setMinimumSize(QtCore.QSize(16777215, 35))
-
         font_title = Common.font_title
         font_description_main = Common.font_description_main
         font_description_minor = Common.font_description_minor
-        font_option = Common.font_option
 
-        self.header_label.setText('Tor Bridges Configuration')
+        self.bridges_frame.setFrameStyle(QFrame.Panel | QFrame.Sunken)
+        self.bridges_frame.setVisible(self.bridges_checkbox.isChecked())
+
+        self.header_label.setText('Tor Bridges Configuration<br>')
         self.header_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.header_label.setFont(font_title)
-        self.header_label.setGeometry(QtCore.QRect(0, 0, 0, 0))
 
-        self.bridges_checkbox.setChecked(Common.use_bridges)
+        self.bridges_checkbox.setChecked(Common.use_default_bridges)
         self.bridges_checkbox.stateChanged.connect(self.enable_bridge)
         self.bridges_checkbox.setText("I need Tor bridges to bypass the Tor censorship.")
         self.bridges_checkbox.setFont(font_description_main)
-        self.bridges_checkbox.setToolTip("")  # ToolTip may not be needed since a help button is offered
-        self.bridges_checkbox.setGeometry(QtCore.QRect(20, 35, 430, 20))
+        self.bridges_combo.setMinimumWidth(160)
 
         self.show_help_censorship.setEnabled(True)
-        self.show_help_censorship.setGeometry(QtCore.QRect(440, 32, 90, 25))
-        self.show_help_censorship.setText('&No idea?')
+        self.show_help_censorship.setText('&Help ?')
         self.show_help_censorship.clicked.connect(info.show_help_censorship)
 
-        self.group_box.setMinimumSize(QtCore.QSize(Common.groupBox_width, Common.groupBox_height))
-        self.group_box.setGeometry(QtCore.QRect(0, 20, 0, 0))
-        self.group_box.setFlat(True)
+        self.default_option.setChecked(True)
+        self.default_option.setText('Select a built-in bridge')
+        self.default_option.setFont(font_description_minor)
 
-        self.horizontal_line_1.setFrameShape(QFrame.HLine)
-        self.horizontal_line_1.setFrameShadow(QFrame.Sunken)
-        self.horizontal_line_1.setGeometry(15, 65, 510, 5)
+        self.hline_2.setFrameShape(QFrame.HLine)
+        self.hline_2.setFrameShadow(QFrame.Sunken)
+        self.hline_2.setMinimumWidth(520)
 
-        self.default_button.setGeometry(QtCore.QRect(18, 75, 500, 24))
-        self.default_button.setText('Select a built-in bridge')
-        self.default_button.setFont(font_description_minor)
+        self.custom_option.setText('Provide bridges I know')
+        self.custom_option.setFont(font_description_minor)
 
-        self.horizontal_line_2.setFrameShape(QFrame.HLine)
-        self.horizontal_line_2.setFrameShadow(QFrame.Sunken)
-        self.horizontal_line_2.setGeometry(15, 140, 510, 5)
+        self.default_option.toggled.connect(self.show_default_bridge, True)
 
-        self.custom_button.setGeometry(QtCore.QRect(18, 160, 500, 25))
-        self.custom_button.setText('Provide bridges I know')
-        self.custom_button.setFont(font_description_minor)
-
-        if Common.use_bridges:
-            self.default_button.setChecked(True)
-        else:
-            self.custom_button.setChecked(True)
-
-        self.default_button.toggled.connect(self.show_default_bridge)
-
-        self.label_3.setGeometry(QtCore.QRect(40, 110, 106, 20))
-        self.label_3.setText('Transport type:')
-        self.label_3.setFont(font_description_minor)
-
-        self.comboBox.setGeometry(QtCore.QRect(150, 107, 230, 27))
+        self.bridges_label.setText('     Select a bridge type:')
+        self.bridges_label.setFont(font_description_minor)
 
         for bridge in self.bridges:
-            self.comboBox.addItem(bridge)
+            self.bridges_combo.addItem(bridge)
 
-        index = self.comboBox.findText(Common.bridge_type)
-        self.comboBox.setCurrentIndex(index)
+        ''' Remember previous state '''
+        index = self.bridges_combo.findText(Common.bridge_type)
+        self.bridges_combo.setCurrentIndex(index)
 
-        self.label_4.setEnabled(False)
-        self.label_4.setGeometry(QtCore.QRect(38, 185, 300, 20))
-        self.label_4.setText('Enter at least 2 bridge relays (one per line).')
+        self.custom_label.setEnabled(False)
+        self.custom_label.setText('Enter at least 2 bridge relays (one per line).')
 
         self.custom_bridges.setEnabled(True)
-        self.custom_bridges.setGeometry(QtCore.QRect(38, 205, 500, 76))
         self.custom_bridges.setStyleSheet("background-color:white;")
-        # Allow long input appears in one line.
-        self.custom_bridges.setLineWrapColumnOrWidth(1800)
-        self.custom_bridges.setLineWrapMode(QTextEdit.FixedPixelWidth)
 
-        if not Common.use_bridges:
+        if not Common.use_default_bridges:
             self.custom_bridges.setText(Common.bridge_custom)  # adjust the line according to value in Common
 
-        # TODO: The next statement can not be used yet,
-        # this is because the QTextEdit does not support setPlaceholderText.
-        # More functions need to be added to implement that:
-        # https://doc.qt.io/archives/qq/qq21-syntaxhighlighter.html
-        # self.custom_bridges.setPlaceholderText('type address:port')
-
         self.custom_bridges_help.setEnabled(True)
-        self.custom_bridges_help.setGeometry(QtCore.QRect(360, 160, 150, 25))
         self.custom_bridges_help.setText('&How to get Bridges?')
         self.custom_bridges_help.clicked.connect(info.custom_bridges_help)
 
-        self.label_5.show()
-        self.label_5.setGeometry(10, 300, 500, 15)
-        self.label_5.setText(Common.assistance)
-        self.label_5.setFont(font_description_minor)
+        self.default_option.setVisible(Common.use_default_bridges)
+        self.hline_2.setVisible(Common.use_default_bridges)
+        self.custom_option.setVisible(Common.use_default_bridges)
 
-        self.default_button.setVisible(Common.use_bridges)
-        self.horizontal_line_2.setVisible(Common.use_bridges)
-        self.custom_button.setVisible(Common.use_bridges)
+        self.bridges_label.setVisible(Common.use_default_bridges)
+        self.bridges_combo.setVisible(Common.use_default_bridges)
 
-        self.label_3.setVisible(Common.use_bridges and Common.use_bridges)
-        self.comboBox.setVisible(Common.use_bridges and Common.use_bridges)
+        self.custom_label.setVisible(Common.use_custom_bridges)
+        self.custom_bridges.setVisible(Common.use_custom_bridges)
+        self.custom_bridges_help.setVisible(Common.use_custom_bridges)
 
-        self.label_4.setVisible(Common.use_bridges and (not Common.use_bridges))
-        self.custom_bridges.setVisible(Common.use_bridges and (not Common.use_bridges))
-        self.custom_bridges_help.setVisible(Common.use_bridges and (not Common.use_bridges))
+    def enable_bridge(self, state):
+        Common.use_default_bridges = state
+        self.bridges_frame.setVisible(state)
+        self.default_option.setVisible(state)
+        self.hline_2.setVisible(state)
+        self.custom_option.setVisible(state)
+
+        self.bridges_label.setVisible(state and self.default_option.isChecked())
+        self.bridges_combo.setVisible(state and self.default_option.isChecked())
+
+        self.custom_label.setVisible(state and (self.custom_option.isChecked()))
+        self.custom_bridges.setVisible(state and (self.custom_option.isChecked()))
+        self.custom_bridges_help.setVisible(state and (self.custom_option.isChecked()))
+
+    def show_default_bridge(self, default_option_checked):
+        if default_option_checked:
+            # self.bridges_frame.show()
+            self.bridges_label.show()
+            self.bridges_combo.show()
+            self.bridges_label.setEnabled(True)
+            self.bridges_combo.setEnabled(True)
+
+            self.custom_label.hide()
+            self.custom_bridges.hide()
+            self.custom_bridges_help.hide()
+        else:
+            self.bridges_label.setEnabled(False)
+            self.bridges_combo.setEnabled(False)
+
+            self.custom_label.show()
+            self.custom_bridges.show()
+            self.custom_bridges_help.show()
 
     def nextId(self):
         if not self.bridges_checkbox.isChecked():
-            Common.use_bridges = False
-            return self.steps.index('proxy_wizard_page_2')
+            Common.use_default_bridges = False
+            return self.steps.index('proxy_wizard_page')
         else:
-            Common.use_bridges = True
+            Common.use_default_bridges = True
 
-            if self.default_button.isChecked():
-                bridge_type = str(self.comboBox.currentText())
+            if self.default_option.isChecked():
+                bridge_type = str(self.bridges_combo.currentText())
                 if bridge_type.startswith('obfs4'):
                     bridge_type = 'obfs4'
                 elif bridge_type.startswith('meek-azure'):
@@ -362,21 +374,21 @@ class BridgesWizardPage(QWizardPage):
                 bridge_type = 'fte'
                 '''
                 Common.bridge_type = bridge_type
-                Common.use_bridges = True
+                Common.use_default_bridges = True
 
-                return self.steps.index('proxy_wizard_page_2')
+                return self.steps.index('proxy_wizard_page')
 
-            elif self.custom_button.isChecked():
+            elif self.custom_option.isChecked():
                 Common.use_custom_bridges = True
                 Common.bridge_custom = str(self.custom_bridges.toPlainText())
-                Common.use_bridges = False
+                Common.use_default_bridges = False
 
                 self.reformat_custom_bridge_input()
                 # TODO: a more general RE will help filter the case where bridge_custom input is invalid
-                if not self.valid_bridge(Common.bridge_custom):
-                    return self.steps.index('bridge_wizard_page_2') # stay at the page until a bridge is given'''
+                if not self.valid_custom_bridges():
+                    return self.steps.index('bridge_wizard_page')
                 else:
-                    return self.steps.index('proxy_wizard_page_2')
+                    return self.steps.index('proxy_wizard_page')
             return None
 
     def reformat_custom_bridge_input(self):
@@ -392,54 +404,13 @@ class BridgesWizardPage(QWizardPage):
             reformat_lines.append(' '.join(elements))
         self.custom_bridges.setText('\n'.join(reformat_lines))
 
-    def valid_bridge(self, bridges):
-        # TODO: we may use re to check if the bridge input is valid
-        # we should examine if every line follows the pattern
-        # obfs4 ip:port
-        # ip:port (vanilla bridge)
-
-        # If this problem is not solved, anon-connection-wizard will not support vanilla bridge!!
-        # IPv6 bridges are not even available in bridgeDB,
-        # so we do not need to care it too much currently
-
-        #if bridges == "" or bridges.isspace():
-        #    return False
-
+    def valid_custom_bridges(self):
+        bridges = self.custom_bridges.toPlainText()
         bridge_defined_type = bridges.split(' ')[0]
         bridge_defined_type = bridge_defined_type.lower()
 
         return (bridge_defined_type.startswith('obfs4')
-                or bridge_defined_type.startswith('meek_lite')
-                or bridge_defined_type.startswith('snowflake')
                 or (('.' in bridge_defined_type) and (':' in bridge_defined_type)))
-
-    def show_default_bridge(self, default_button_checked):
-        if default_button_checked:
-            self.label_3.show()
-            self.comboBox.show()
-
-            self.label_4.setVisible(False)
-            self.custom_bridges.setVisible(False)
-            self.custom_bridges_help.setVisible(False)
-        else:
-            self.label_3.setVisible(False)
-            self.comboBox.setVisible(False)
-
-            self.label_4.show()
-            self.custom_bridges.show()
-            self.custom_bridges_help.show()
-
-    def enable_bridge(self, state):
-        self.default_button.setVisible(state)
-        self.horizontal_line_2.setVisible(state)
-        self.custom_button.setVisible(state)
-
-        self.label_3.setVisible(state and self.default_button.isChecked())
-        self.comboBox.setVisible(state and self.default_button.isChecked())
-
-        self.label_4.setVisible(state and (not self.default_button.isChecked()))
-        self.custom_bridges.setVisible(state and (not self.default_button.isChecked()))
-        self.custom_bridges_help.setVisible(state and (not self.default_button.isChecked()))
 
 
 class ProxyWizardPage(QWizardPage):
@@ -628,13 +599,13 @@ class ProxyWizardPage(QWizardPage):
 
                 return self.steps.index('torrc_page')
             else:
-                return self.steps.index('proxy_wizard_page_2') # stay at the page until a proxy type is selected'''
+                return self.steps.index('proxy_wizard_page') # stay at the page until a proxy type is selected'''
 
     def valid_ip(self, ip):
         # TODO: use re to detect if the format of IP is not correct
         # The difficulty is that the IP can be hostname which is almost free form
         # However, we should at least check if it is empty
-        return(ip == "" or ip.isspace())
+        return True #(ip == "" or ip.isspace())
 
     def valid_port(self, port):
         try:
@@ -852,7 +823,7 @@ class AnonConnectionWizard(QWizard):
         Common.proxy_port = self.args[3]
         Common.proxy_username = self.args[4]
         Common.proxy_password = self.args[5]
-        Common.use_bridges = self.args[6]
+        Common.use_default_bridges = self.args[6]
         Common.use_proxy = self.args[7]
 
         self.steps = Common.wizard_steps
@@ -860,11 +831,11 @@ class AnonConnectionWizard(QWizard):
         self.connection_main_page = ConnectionMainPage()
         self.addPage(self.connection_main_page)
 
-        self.bridge_wizard_page_2 = BridgesWizardPage()
-        self.addPage(self.bridge_wizard_page_2)
+        self.bridge_wizard_page = BridgesWizardPage()
+        self.addPage(self.bridge_wizard_page)
 
-        self.proxy_wizard_page_2 = ProxyWizardPage()
-        self.addPage(self.proxy_wizard_page_2)
+        self.proxy_wizard_page = ProxyWizardPage()
+        self.addPage(self.proxy_wizard_page)
 
         self.torrc_page = TorrcPage()
         self.addPage(self.torrc_page)
@@ -878,7 +849,6 @@ class AnonConnectionWizard(QWizard):
         self.bootstrap_done = False
 
         self.setup_ui()
-
 
     def setup_ui(self):
         self.setWindowIcon(QtGui.QIcon("/usr/share/anon-connection-wizard/advancedsettings.ico"))
@@ -900,7 +870,6 @@ class AnonConnectionWizard(QWizard):
         self.button(QWizard.CancelButton).setEnabled(True)
         self.button(QWizard.CancelButton).setText('Quit')
         self.exec_()
-
 
     def update_bootstrap(self, bootstrap_phase, bootstrap_percent):
         self.tor_status_page.bootstrap_progress.setValue(bootstrap_percent)
@@ -924,49 +893,52 @@ class AnonConnectionWizard(QWizard):
             self.bootstrap_thread.terminate()
             buttonReply = QMessageBox.Warning(self, 'Tor Controller Authentication Failed', 'Tor allows \ '
                                               'for authentication by reading it a cookie file, but we cannot read \ '
-                                              'that file (probably due to permissions)')
+                                              'that file (probably due to permissions)', QMessageBox.Ok )
             if buttonReply == QMessageBox.Ok:
                 sys.exit(1)
 
-
     def next_button_clicked(self):
-        self.bridge_wizard_page_2.reformat_custom_bridge_input()
+        self.bridge_wizard_page.reformat_custom_bridge_input()
         if self.currentId() == self.steps.index('connection_main_page'):
+
             self.button(QWizard.CancelButton).show()
             self.button(QWizard.FinishButton).hide()
-            Common.from_bridge_page_1 = True
-            Common.from_proxy_page_1 = True
+            # Common.from_bridge_page_1 = True
+            # Common.from_proxy_page_1 = True
 
-        if self.currentId() == self.steps.index('bridge_wizard_page_2'):
+        if self.currentId() == self.steps.index('bridge_wizard_page'):
             # Common.from_bridge_page_1 serves as a flag to work around the bug that
-            # message jump out when switching from bridge_wizard_page_1 to bridge_wizard_page_2
-            if not Common.from_bridge_page_1:
-                if self.bridge_wizard_page_2.checkBox.isChecked() and self.bridge_wizard_page_2.custom_button.isChecked():
-                    if not self.bridge_wizard_page_2.valid_bridge((self.bridge_wizard_page_2.custom_bridges.toPlainText())):
-                        self.reply = QMessageBox(QMessageBox.NoIcon, 'Warning',
-                            '''<p><b>  Custom bridge list is blank or invalid</b></p>
-                            <p> Please input valid custom bridges or use provided bridges instead.</p>''',
-                            QMessageBox.Ok)
-                        self.reply.exec_()
+            # message jump out when switching from bridge_wizard_page_1 to bridge_wizard_page
+            # if not Common.from_bridge_page_1:
+            # Remember previous settings
+            self.bridge_wizard_page.bridges_frame.setVisible(self.bridge_wizard_page.bridges_checkbox.isChecked())
+            if (self.bridge_wizard_page.bridges_checkbox.isChecked() and
+                    self.bridge_wizard_page.custom_option.isChecked()):
+                if not self.bridge_wizard_page.valid_custom_bridges():
+                    self.reply = QMessageBox(QMessageBox.NoIcon, 'Warning',
+                        '''<p><b>  Custom bridge list is blank or invalid</b></p>
+                        <p> Please input valid custom bridges or use provided bridges instead.</p>''',
+                        QMessageBox.Ok)
+                    self.reply.exec_()
 
-            Common.from_bridge_page_1 = False
-            Common.from_proxy_page_1 = True
+            # Common.from_bridge_page_1 = False
+            # Common.from_proxy_page_1 = True
 
-        if self.currentId() == self.steps.index('proxy_wizard_page_2'):
+        if self.currentId() == self.steps.index('proxy_wizard_page'):
             # Common.from_proxy_page_1 serves as a flag to work around the bug that
-            # message jump out when switching from proxy_wizard_page_1 to proxy_wizard_page_2
-            if not Common.from_proxy_page_1:
-                if self.proxy_wizard_page_2.checkBox.isChecked():
-                    if not (
-                    self.proxy_wizard_page_2.valid_ip(self.proxy_wizard_page_2.lineEdit.text()) and\
-                    self.proxy_wizard_page_2.valid_port(self.proxy_wizard_page_2.lineEdit_2.text())
-                    ):
-                        self.reply = QMessageBox(QMessageBox.NoIcon, 'Warning',
-                        '''<p><b>  Please input valid Address and Port number.</b></p>
-                        <p> The Address should look like: 127.0.0.1 or localhost</p>
-                        <p> The Port number should be an integer between 1 and 65535</p>''', QMessageBox.Ok)
-                        self.reply.exec_()
-            Common.from_proxy_page_1 = False
+            # message jump out when switching from proxy_wizard_page_1 to proxy_wizard_page
+            # if not Common.from_proxy_page_1:
+            if self.proxy_wizard_page.checkBox.isChecked():
+                if not (
+                self.proxy_wizard_page.valid_ip(self.proxy_wizard_page.lineEdit.text()) and
+                self.proxy_wizard_page.valid_port(self.proxy_wizard_page.lineEdit_2.text())
+                ):
+                    self.reply = QMessageBox(QMessageBox.NoIcon, 'Warning',
+                    '''<p><b>  Please input valid Address and Port number.</b></p>
+                    <p> The Address should look like: 127.0.0.1 or localhost</p>
+                    <p> The Port number should be an integer between 1 and 65535</p>''', QMessageBox.Ok)
+                    self.reply.exec_()
+            # Common.from_proxy_page_1 = False
 
         if self.currentId() == self.steps.index('torrc_page'):
             self.button(QWizard.BackButton).show()
@@ -982,11 +954,11 @@ class AnonConnectionWizard(QWizard):
 
             if not Common.disable_tor:
                 self.torrc_page.label_3.setText('Tor will be enabled.')
-                if not Common.use_bridges:
+                if not Common.use_default_bridges:
                     self.torrc_page.label_5.setText('None Selected')
 
                 else:
-                    if Common.use_bridges:
+                    if Common.use_default_bridges:
                         if Common.bridge_type == 'obfs4':
                             self.torrc_page.label_5.setText('Provided obfs4')
                         elif Common.bridge_type == 'meek-azure':
@@ -1118,16 +1090,16 @@ class AnonConnectionWizard(QWizard):
         except AttributeError:
             pass
 
-        if self.currentId() == self.steps.index('connection_main_page'):
-            Common.from_bridge_page_1 = True
-            Common.from_proxy_page_1 = True
+        # if self.currentId() == self.steps.index('connection_main_page'):
+        #     Common.from_bridge_page_1 = True
+        #     Common.from_proxy_page_1 = True
 
-            self.bootstrap_done = False
-            self.button(QWizard.FinishButton).hide()
-            self.button(QWizard.CancelButton).show()
+        self.bootstrap_done = False
+        self.button(QWizard.FinishButton).hide()
+        self.button(QWizard.CancelButton).show()
 
-        if self.currentId() == self.steps.index('bridge_wizard_page_2'):
-            Common.from_proxy_page_1 = True
+        # if self.currentId() == self.steps.index('bridge_wizard_page'):
+        #     Common.from_proxy_page_1 = True
 
     def cancel_button_clicked(self):
         try:
@@ -1162,7 +1134,7 @@ class AnonConnectionWizard(QWizard):
 
         args = []
 
-        if Common.use_bridges:
+        if Common.use_default_bridges:
             if Common.bridge_type == 'obfs4':
                 args.append('obfs4')
             elif Common.bridge_type == 'meek-azure':
