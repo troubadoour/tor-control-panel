@@ -56,6 +56,11 @@ class Common:
     font_description_main.setBold(True)
     font_description_main.setWeight(85)
 
+    font_description_minor = QtGui.QFont()
+    font_description_minor.setPointSize(10)
+    font_description_minor.setBold(False)
+    font_description_minor.setWeight(30)
+
     font_option = QtGui.QFont()
     font_option.setPointSize(11)
     font_option.setBold(True)
@@ -143,6 +148,7 @@ See next page for more details.''')
             # clear all setting
             Common.disable_tor = False
             Common.use_default_bridges = False
+            Common.use_custom_bridges = False
             Common.use_proxy = False
             return self.steps.index('torrc_page')
 
@@ -184,6 +190,8 @@ class BridgesWizardPage(QWizardPage):
         self.default_option = QRadioButton()
         self.bridges_label = QLabel()
         self.bridges_combo = QComboBox()
+        # self.spacer = QSpacerItem(0, 0, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
         self.custom_option = QRadioButton()
         self.custom_bridges_help = QPushButton()
         self.custom_label = QLabel()
@@ -191,7 +199,7 @@ class BridgesWizardPage(QWizardPage):
         self.h_line = QFrame()
         self.bridges_layout.addWidget(self.default_option, 1, 0)
         self.bridges_layout.addWidget(self.bridges_label, 2, 0)
-        self.bridges_layout.addWidget(self.bridges_combo, 2, 1)
+        self.bridges_layout.addWidget(self.bridges_combo, 2, 1, Qt.AlignmentFlag.AlignLeft) #  QSizePolicy.Minimum, QSizePolicy.Minimum)
         self.bridges_layout.addWidget(self.h_line, 3, 0, QSizePolicy.Minimum, QSizePolicy.Expanding)
         self.bridges_layout.addWidget(self.custom_option, 4, 0)
         self.bridges_layout.addWidget(self.custom_bridges_help, 4, 1, Qt.AlignmentFlag.AlignRight)
@@ -220,7 +228,9 @@ class BridgesWizardPage(QWizardPage):
         self.bridges_checkbox.stateChanged.connect(self.show_bridges_panel)
         self.bridges_checkbox.setText("I need bridges to bypass censorship.")
         self.bridges_checkbox.setFont(font_description_main)
-        # self.bridges_combo.setMinimumWidth(160)
+
+        self.bridges_combo.setMaximumHeight(140)
+        self.bridges_combo.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
 
         self.show_help_censorship.setEnabled(True)
         self.show_help_censorship.setText('&Help ?')
@@ -246,7 +256,8 @@ class BridgesWizardPage(QWizardPage):
         if self.bridges_checkbox.isChecked():
             self.bridges_combo.setCurrentIndex(self.bridges_combo.findText(Common.bridge_type))
 
-        self.custom_label.setEnabled(False)
+        # self.custom_label.setEnabled(False)
+        self.custom_label.setFont(Common.font_description_minor)
         self.custom_label.setText('Enter at least 2 bridge relays (one per line).')
 
         self.custom_bridges.setEnabled(True)
@@ -532,17 +543,13 @@ class TorrcPage(QWizardPage):
 
         self.info_frame = QFrame(self)
         self.info_layout = QGridLayout(self.info_frame)
-
         self.status_label = QLabel()
         self.bridge_type_label = QLabel()
         self.proxy_type_label = QLabel()
-
         self.status_text = QLabel()
         self.bridge_text = QLabel()
         self.proxy_text = QLabel()
-
         self.spacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-
         self.show_torrc_button = QPushButton()
 
         self.info_layout.addWidget(self.status_label, 0, 0, Qt.AlignmentFlag.AlignLeft)
