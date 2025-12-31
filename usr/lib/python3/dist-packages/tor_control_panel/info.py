@@ -102,6 +102,12 @@ https://www.riseup.net, https://mail.google.com, or https://mail.yahoo.com</p>
 '''
     return text
 
+def invalid_custom_bridges():
+    reply = QtWidgets.QMessageBox(QtWidgets.QMessageBox.Warning, 'Warning',
+                         '''<p><b>  Custom bridge list is blank or invalid</b></p>
+    <p> Please input valid custom bridges or use provided default bridges instead.</p>''',
+                         QtWidgets.QMessageBox.Ok)
+    reply.exec_()
 
 def tor_stopped():
     text = [
@@ -203,7 +209,8 @@ def torrc_text():
 # User configuration should go to /usr/local/etc/torrc.d/50_user.conf, not here, because:
 #    1. This file can be easily overwritten by tor-control-panel.
 #    2. Even a single character change in this file may cause errors.
-# However, deleting this file is fine, since a new plain file will be generated the next time you run tor-control-panel.
+# However, deleting this file is fine, since a new plain file will be generated the next time 
+#  you run tor-control-panel.
 '''
     return text.strip()
 

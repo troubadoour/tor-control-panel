@@ -19,7 +19,6 @@ torrc_user_file_path = '/usr/local/etc/torrc.d/50_user.conf'
 bridges_default_path = '/usr/share/anon-connection-wizard/bridges_default'
 
 command_useBridges = 'UseBridges 1\n'
-command_use_custom_bridge = '# Custom Bridge is used:'
 
 bridges_command = ['ClientTransportPlugin obfs4 exec /usr/bin/obfs4proxy\n',
                    'ClientTransportPlugin snowflake exec /usr/bin/snowflake-client\n',
@@ -54,7 +53,7 @@ def user_path():
 def gen_torrc(args):
     bridge_type = str(args[0])
     custom_bridges = str(args[1]) # if len(args) > 1 else 'error-unknown-bridge-type'
-    proxy_type = str(args[2]) # if len(args) > 2 else 'None'
+    proxy_type = str(args[2])  if len(args) > 2 else 'None'
 
     torrc_content = ['%s# %s\n' % (info.torrc_text(), torrc_user_file_path), 'DisableNetwork 0\n']
 
@@ -70,8 +69,8 @@ def gen_torrc(args):
         torrc_content.append('')
 
     if not custom_bridges == 'None':
-        print(f"[DEBUG] bridge in default : {custom_bridges}")
         bridge = str(custom_bridges.split()[0]).lower()
+        torrc_content.append('# Custom briges are used\n')
         torrc_content.append(command_useBridges)
         torrc_content.append(bridges_command[bridges_type.index(bridge)])
         bridge_custom_list = custom_bridges.split('\n')
@@ -102,7 +101,6 @@ def gen_torrc(args):
         torrc_content.append('')
 
     final_torrc_content = ''.join(torrc_content)
-
     write_to_temp_then_move(final_torrc_content)
 
 
@@ -113,9 +111,11 @@ def parse_torrc():
 
     if os.path.exists(torrc_file_path):
         use_bridge = 'UseBridges' in open(torrc_file_path).read()
+        use_custom_bridges = '# Custom briges are used' in open(torrc_file_path).read()
         use_proxy = 'Proxy' in open(torrc_file_path).read()
 
         bridge_type = ''
+
         if use_bridge:
             with open(torrc_file_path, 'r') as f:
                 for line in f:
@@ -125,15 +125,16 @@ def parse_torrc():
                     if line.startswith('Bridge'):
                         line = line.split()
                         # The bridge name is 'meek_lite', the bridge type is 'meek'
-                        if line[1].startswith('meek'):
+                        if line[1].startswith('meek_lite'):
                             line[1] = 'meek'
                         bridge_type = line[1]
 
+                    if use_custom_bridges:
+                        bridge_type = 'Custom bridges'
         else:
             bridge_type = 'None'
 
         if use_proxy:
-
             auth_check = False
             proxy_type = proxy_ip = proxy_port = proxy_username = proxy_password = ''
             with open(torrc_file_path, 'r') as f:
@@ -177,6 +178,7 @@ def parse_torrc():
             if not auth_check:
                 proxy_username = ''
                 proxy_password = ''
+
         else:
             proxy_type = 'None'
             proxy_ip = ''
@@ -186,4 +188,5 @@ def parse_torrc():
 
         return (bridge_type, proxy_type, proxy_ip, proxy_port, proxy_username, proxy_password,
                 use_bridge, use_proxy)
+
     return None

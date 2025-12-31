@@ -3,19 +3,23 @@
 ## Copyright (C) 2018 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
 ## See the file COPYING for copying conditions.
 
-import os
-import re
-import signal
 import sys
-import tempfile
-from subprocess import call, Popen, PIPE
+import signal
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QCursor, QTextCursor
 from PyQt5.QtWidgets import *
 
-from . import tor_bootstrap, torrc_gen, info
+from subprocess import call, Popen, PIPE
+
+import os
+import re
+import glob
+import tempfile
+
 from . import tor_status
+from . import tor_bootstrap, torrc_gen, info
 
 
 class TorControlPanel(QDialog):
@@ -48,19 +52,14 @@ class TorControlPanel(QDialog):
 
         self.message = ''
         self.tor_message = info.tor_stopped()
+        #self.tor_path = '/run/tor'
         self.tor_running_path = '/run/tor/tor.pid'
+        self.torrc_file_path = torrc_gen.torrc_path()
 
         self.button_name = ['systemd &journal', 'Tor &log', '&torrc']
 
         self.journal_command = ['leaprun',
                                 'tor-control-panel-read-tor-default-log']
-
-        self.use_default_bridges = False
-        self.use_custom_bridges = False
-
-        self.default_bridges = ['obfs4',
-                                'snowflake',
-                                'meek']
 
         self.bridges = ['None',
                         'obfs4',
@@ -68,10 +67,19 @@ class TorControlPanel(QDialog):
                         'meek',
                         'Custom bridges']
 
+        self.default_bridges = ['None',
+                                'obfs4',
+                                'snowflake',
+                                'meek']
+
         self.proxies = ['None',
                         'HTTP / HTTPS',
                         'SOCKS4',
                         'SOCKS5']
+
+        self.use_default_bridges = False
+        self.use_custom_bridges = False
+        self.use_proxy = False
 
         self.tor_log = '/run/tor/log'
 
@@ -97,7 +105,7 @@ class TorControlPanel(QDialog):
 
         self.button_box = QFrame()
         self.button_layout.addWidget(self.quit_button)
-        self.button_layout.setAlignment(Qt.AlignmentFlag.AlignRight)
+        self.button_layout.setAlignment(Qt.AlignRight)
 
         self.layout = QtWidgets.QVBoxLayout()
         self.layout.addWidget(self.tabs)
@@ -113,7 +121,7 @@ class TorControlPanel(QDialog):
         self.status.setEnabled(False)
         self.frame_layout.addWidget(self.status, 1, 0, 1, 1)
         self.tor_message_browser = QTextBrowser()
-        self.frame_layout.addWidget(self.tor_message_browser, 1, 1, 3, 1)
+        self.frame_layout.addWidget(self.tor_message_browser, 1, 1, 2, 1)
         self.bootstrap_progress = QtWidgets.QProgressBar()
         self.frame_layout.addWidget(self.bootstrap_progress, 2, 1, 1, 1)
 
@@ -122,7 +130,7 @@ class TorControlPanel(QDialog):
         self.config_frame = QGroupBox()
 
         self.bridges_label = QLabel()
-        self.bridges_type = QLabel()
+        self.bridge_type = QLabel()
         self.bridges_combo = QComboBox()
         for bridge in self.bridges:
             self.bridges_combo.addItem(bridge)
@@ -146,14 +154,14 @@ class TorControlPanel(QDialog):
 
         self.config_frame_layout = QGridLayout()
         self.config_frame_layout.addWidget(self.bridges_label, 1, 0)
-        self.config_frame_layout.addWidget(self.bridges_type, 1, 1)
+        self.config_frame_layout.addWidget(self.bridge_type, 1, 1)
         self.config_frame_layout.addWidget(self.bridges_combo, 1, 1)
         self.config_frame_layout.addWidget(self.bridge_info_button, 1, 2)
         self.config_frame_layout.addWidget(self.proxy_label, 2, 0)
         self.config_frame_layout.addWidget(self.proxy_type, 2, 1)
         self.config_frame_layout.addWidget(self.proxy_combo, 2, 1)
         self.config_frame_layout.addWidget(self.proxy_info_button, 2, 2)
-        self.config_frame_layout.setAlignment(Qt.AlignmentFlag.AlignTop)
+        self.config_frame_layout.setAlignment(Qt.AlignTop)
         self.config_frame_layout.setVerticalSpacing(6)
 
         self.proxy_ip_label = QLabel()
@@ -169,6 +177,7 @@ class TorControlPanel(QDialog):
         self.prev_button = QPushButton(self.back_icon, '')
         self.prev_button.clicked.connect(self.exit_configuration)
 
+        #self.proxy_frame = QFrame()
         self.proxy_settings_layout = QGridLayout()  #(self.proxy_frame)
         self.proxy_settings_layout.addWidget(self.proxy_ip_label, 1, 0)
         self.proxy_settings_layout.addWidget(self.proxy_ip_edit, 1, 1)
@@ -184,6 +193,7 @@ class TorControlPanel(QDialog):
         self.config_layout = QVBoxLayout(self.config_frame)
         self.config_layout.addLayout(self.config_frame_layout)
         self.config_layout.addLayout(self.proxy_settings_layout)
+        #self.config_layout.addWidget(self.proxy_frame)
 
         self.user_layout.addWidget(self.config_frame)
 
@@ -207,7 +217,7 @@ class TorControlPanel(QDialog):
 
         self.tab2_layout = QVBoxLayout(self.tab2)
         self.view_layout = QHBoxLayout()
-        self.view_layout.setAlignment(Qt.AlignmentFlag.AlignBottom)
+        self.view_layout.setAlignment(Qt.AlignBottom)
 
         self.view_frame = QFrame()
         self.view_frame.setMinimumHeight(70)
@@ -242,6 +252,7 @@ class TorControlPanel(QDialog):
         self.custom_bridges = QtWidgets.QTextEdit(self.custom_bridges_frame)
         self.custom_bridges_layout.addWidget(self.custom_bridges_help)
         self.custom_bridges_layout.addWidget(self.custom_bridges)
+        self.custom_bridges.setLineWrapMode(QTextEdit.NoWrap)
 
         self.custom_buttons = QHBoxLayout(self.custom_bridges_frame)
         self.custom_cancel_button = QPushButton(QtGui.QIcon(
@@ -298,7 +309,7 @@ class TorControlPanel(QDialog):
         self.status.setText('Tor status')
 
         self.tor_message_browser.setFrameShape(QtWidgets.QFrame.NoFrame)
-        self.tor_message_browser.setMinimumHeight(25)
+        self.tor_message_browser.setMinimumHeight(24)
         self.tor_message_browser.setStyleSheet('background-color:rgba(0, 0, 0, 0)')
 
         self.bootstrap_progress.setMaximumHeight(15)
@@ -315,8 +326,8 @@ class TorControlPanel(QDialog):
 
         self.bridges_label.setMaximumWidth(90)
         self.bridges_label.setText('Bridges type :')
-        self.bridges_type.setStyleSheet('font:bold')
-        self.bridges_type.setMinimumHeight(24)
+        self.bridge_type.setStyleSheet('font:bold')
+        self.bridge_type.setMinimumHeight(24)
         self.bridges_combo.hide()
         self.bridge_info_button.setMaximumWidth(20)
         self.bridge_info_button.setFlat(True)
@@ -420,12 +431,10 @@ class TorControlPanel(QDialog):
         call(command, shell=True)
 
     def update_bootstrap(self, bootstrap_phase, bootstrap_percent):
-        print(f"[DEBUG] bootstrap_phase = {bootstrap_phase}")
-        print(f"[DEBUG] bootstrap_percent = {bootstrap_percent}")
-
         self.bootstrap_progress.show()
         self.bootstrap_progress.setValue(bootstrap_percent)
         self.bootstrap_done = False
+
         if bootstrap_percent == 100:
             self.message = bootstrap_phase
             self.bootstrap_progress.hide()
@@ -474,42 +483,43 @@ class TorControlPanel(QDialog):
         self.custom_bridges_frame.hide()
         self.exit_configuration()
 
+    def valid_custom_bridges(self):
+        bridges = self.custom_bridges.toPlainText().split(' ')[0].lower()
+        print(f"DEBUG CUSTomm bridges {bridges}")
+
+        return (bridges.startswith('obfs4')
+                or (('.' in bridges) and (':' in bridges)))
+
     def accept_custom_bridges(self):
-        args = '' # '[self.bridges_combo.currentText()]
-        if not str(self.custom_bridges.toPlainText()) == '':
-            # args.append('')  # default bridges argument
-            args.append(str(self.custom_bridges.toPlainText()))
+        if not self.valid_custom_bridges():
+            info.invalid_custom_bridges()
         else:
-            return
+            self.hide_custom_bridges()
+            self.write_torrc()
 
-        proxy = self.proxy_combo.currentText()
-        if not proxy == 'None':
-            if self.check_proxy_ip(self.proxy_ip_edit.text()) and \
-                    self.check_proxy_port(self.proxy_port_edit.text()):
-                args.append(proxy)
-                args.append(self.proxy_ip_edit.text())
-                args.append(self.proxy_port_edit.text())
-                args.append(self.proxy_user_edit.text())
-                args.append(self.proxy_pwd_edit.text())
-
-        torrc_gen.gen_torrc(args)
-        self.restart_tor()
-        self.hide_custom_bridges()
-
-    def check_proxy_ip(self, address):
+    def valid_ip(self, address):
+        # print(f"DEBUG Checking proxy settings {address}")
         import socket
         try:
-            sock = socket.gethostbyname(address)
-            return (True)
-        except:
-            return (False)
+            socket.gethostbyname(address)
+            return True
+        except socket.error:
+            return False
 
-    def check_proxy_port(self, port):
+    def valid_port(self, port):
+        print(f"DEBUG port : {port}")
+        if port == '':
+            return False
+        port = int(port)
         r = range(1, 65535)
         try:
-            return (int(port) in r)
-        except ValueError:  # not a integer
-            return (False)
+            return port in r
+        except ValueError:
+            return False
+
+    def check_valid_proxy_settings(self):
+        return (self.valid_ip(self.proxy_ip_edit.text()) and
+                self.valid_port(self.proxy_port_edit.text()))
 
     def proxy_settings_show(self, proxy):
         if proxy == 'None':
@@ -554,7 +564,8 @@ class TorControlPanel(QDialog):
             self.proxy_info_button.show()
             self.prev_button.show()
 
-            bridge = self.bridges_type.text()
+            bridge = self.bridge_type.text()
+            print(f"DEBUG Bridge: {bridge}")
             index = self.bridges_combo.findText(bridge, QtCore.Qt.MatchFixedString)
             self.bridges_combo.setCurrentIndex(index)
 
@@ -564,68 +575,92 @@ class TorControlPanel(QDialog):
             self.proxy_settings_show(proxy)
 
         elif 'Accept' in self.configure_button.text():
-            option = self.bridges_combo.currentText()
-            default_bridges = self.default_bridges
+            bridge = self.bridges_combo.currentText()
+            print(f"DEBUG bridgo combo from wrtite: {bridge}")
+            if self.bridges_combo.currentText() in self.default_bridges:
+                self.use_default_bridges = True
+                print(f"DEBUG bridgo use default : {self.use_default_bridges}")
+                self.use_custom_bridges = False
 
-            if option == 'Custom bridges':
+            elif  self.bridges_combo.currentText() == 'Custom bridges':
                 self.status.hide()
                 self.tor_message_browser.hide()
                 self.user_frame.hide()
+
+                ## Retrieve custom bridges settings
+                if os.path.exists(self.torrc_file_path):
+                    with open(self.torrc_file_path, 'r') as f:
+                        if '# Custom' in f.read():
+                            self.custom_bridges.clear()
+                            f.seek(0)
+                            lines = f.readlines()
+                            for line in lines:
+                                if line.startswith('Bridge'):
+                                    line = line.strip('Bridge' '\n')
+                                    self.custom_bridges.append(line)
+                    f.close()
+                    print(f"DEBUG from accept : {self.custom_bridges.toPlainText()}")
+
+                # self.custom_bridges.setTextCursor
                 self.custom_bridges_frame.show()
                 self.use_custom_bridges = True
                 self.use_default_bridges = False
 
-            elif option in default_bridges:
-                self.hide_custom_bridges()
-                self.use_custom_bridges = False
-                self.use_default_bridges = True
-
-            elif option == 'Disable network':
+            elif self.bridges_combo.currentText() == 'Disable network':
                 tor_status.set_disabled()
                 self.restart_tor()
                 self.exit_configuration()
 
-            elif option == 'Enable network':
+            elif self.bridges_combo.currentText() == 'Enable network':
                 tor_status.set_enabled()
                 self.restart_tor()
                 self.exit_configuration()
 
+            if not self.proxy_combo.currentText() == 'None':
+                if self.check_valid_proxy_settings():
+                    self.use_proxy = True
+                else:
+                    reply = QMessageBox(QMessageBox.Warning, 'Warning',
+                                        info.invalid_ip_port(), QMessageBox.Ok)
+                    reply.exec_()
+                    return ()
             else:
-                args = []
+                self.use_proxy = False
 
-                if self.use_default_bridgesuse:
-                    bridge = self.bridges_combo.currentText()
-                    args.append(bridge)
+            if not self.use_custom_bridges:
+                self.write_torrc()
 
-                if not self.use_custom_bridges:
-                    args.append('None')  # custom bridges argument
+    def write_torrc(self):
+        args = []
 
-                proxy = self.proxy_combo.currentText()
-                if not proxy == 'None':
-                    if self.check_proxy_ip(str(self.proxy_ip_edit.text())) and \
-                            self.check_proxy_port(self.proxy_port_edit.text()):
-                        args.append(proxy)
-                        args.append(self.proxy_ip_edit.text())
-                        args.append(self.proxy_port_edit.text())
-                        if not self.proxy_user_edit.text() == 'None':
-                            args.append(self.proxy_user_edit.text())
-                        else:
-                            args.append('')
-                        if not self.proxy_pwd_edit.text() == 'None':
-                            args.append(self.proxy_pwd_edit.text())
-                        else:
-                            args.append('')
-                    else:
-                        self.reply = QMessageBox(QMessageBox.NoIcon, 'Warning',
-                                                 info.invalid_ip_port(),
-                                                 QtWidgets.QMessageBox.Ok)
-                        self.reply.exec_()
-                        return ()
+        if self.use_default_bridges:
+            args.append(self.bridges_combo.currentText().split()[0])
+        else:
+            args.append('None')
 
-                args.append(proxy)
-                torrc_gen.gen_torrc(args)
-                self.restart_tor()
-                self.exit_configuration()
+        if self.use_custom_bridges:
+            args.append(self.custom_bridges.toPlainText())
+        else:
+            args.append('None')
+
+        if self.use_proxy:
+            args.append(self.proxy_combo.currentText())
+            args.append(self.proxy_ip_edit.text())
+            args.append(self.proxy_port_edit.text())
+            if not self.proxy_user_edit.text() == 'None':
+                args.append(self.proxy_user_edit.text())
+            else:
+                args.append('')
+            if not self.proxy_pwd_edit.text() == 'None':
+                args.append(self.proxy_pwd_edit.text())
+            else:
+                args.append('')
+        else:
+            args.append('None')
+
+        torrc_gen.gen_torrc(args)
+        self.restart_tor()
+        self.exit_configuration()
 
     def exit_configuration(self):
         self.configure_button.setText(' Configure')
@@ -644,8 +679,6 @@ class TorControlPanel(QDialog):
         self.proxy_pwd_edit.setEnabled(False)
 
     def refresh_status(self):
-        print(f"[DEBUG] tor_status = {self.tor_status}")
-        print(f"[DEBUG] message = {self.message}")
         self.tor_message_browser.setText(self.message)
         color = self.tor_status_color[self.tor_status_list.index(
             self.tor_status)]
@@ -661,7 +694,7 @@ class TorControlPanel(QDialog):
                     text = stdout.decode()
 
                 # Get n last lines from Tor log, HTML format for highlighting
-                # warnings and errors, write to file text browser.
+                # warnings and errors, write to file for text browser.
                 elif button.text() == self.button_name[1]:
                     if os.path.exists(self.tor_log):
                         lines = os.popen('tail -n 3000 %s' % self.tor_log).read()
@@ -693,29 +726,45 @@ class TorControlPanel(QDialog):
 
     def refresh_user_configuration(self):
         args = torrc_gen.parse_torrc()
+        # print(f"DEBUG something..{args}")
 
-        self.bridges_type.setText(args[0])
-        index = self.bridges_combo.findText(args[0], QtCore.Qt.MatchFixedString)
+        self.bridge_type.setText(args[0])
+        # self.bridge_type = args[0]
+        # print(f"DEBUG self.bridge from refreesh : {args[0]}")
+        index = self.bridges_combo.findText(args[0]) #, QtCore.Qt.MatchFixedString)
         self.bridges_combo.setCurrentIndex(index)
 
+        if self.bridge_type in self.default_bridges:
+            print(f"DEBUG bridge kkkklll : {self.bridge_type}")
+            self.use_default_bridges = True
+
+        elif self.bridge_type == 'Custom bridges':
+            # print(f"DEBUG something..csutom..")
+            self.use_custom_bridges = True
+
         self.proxy_type.setText(args[1])
-        index = self.proxy_combo.findText(args[1], QtCore.Qt.MatchFixedString)
-        self.proxy_combo.setCurrentIndex(index)
-        if not args[1] == 'None':
-            self.proxy_ip_edit.setText(args[2])
-            self.proxy_port_edit.setText(args[3])
-            self.proxy_user_edit.setText(args[4])
-            self.proxy_pwd_edit.setText(args[5])
+        if not self.proxy_type == 'None':
+            self.use_proxy = True
+            index = self.proxy_combo.findText(args[1], QtCore.Qt.MatchFixedString)
+            self.proxy_combo.setCurrentIndex(index)
+            if not args[1] == 'None':
+                self.proxy_ip_edit.setText(args[2])
+                self.proxy_port_edit.setText(args[3])
+                self.proxy_user_edit.setText(args[4])
+                self.proxy_pwd_edit.setText(args[5])
+        else:
+            self.use_proxy = False
 
     def refresh(self, bootstrap):
+        ## get status
         tor_is_enabled = tor_status.tor_status() == 'tor_enabled'
         tor_is_running = os.path.exists(self.tor_running_path)
 
         if tor_is_enabled and tor_is_running:
             self.tor_status = 'running'
             tor_state = True
-            # when refresh is called from update_bootstrap, the thread
-            # would be destroyed while running, crashing the program.
+            ## when refresh is called from update_bootstrap, the thread
+            ## would be destroyed while running, crashing the program.
             if bootstrap:
                 self.start_bootstrap()
         else:
@@ -748,8 +797,8 @@ class TorControlPanel(QDialog):
     def restart_tor(self):
         if not self.bootstrap_done:
             self.bootstrap_thread.terminate()
-        # if running restart tor directly stem returns
-        # bootstrap_percent 100 or a socket error, randomly.
+        ## if running restart tor directly stem returns
+        ## bootstrap_percent 100 or a socket error, randomly.
         self.stop_tor()
         self.restart_button.setEnabled(False)
 

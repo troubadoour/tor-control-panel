@@ -30,6 +30,10 @@ class Common:
 
     bridges_default_path = '/usr/share/anon-connection-wizard/bridges_default'
 
+    default_bridges = ['obfs4',
+                       'snowflake',
+                       'meek']
+
     bridges = torrc_gen.bridges_type
     use_default_bridges = False
     bridge_type = 'obfs4'
@@ -199,7 +203,7 @@ class BridgesWizardPage(QWizardPage):
         self.h_line = QFrame()
         self.bridges_layout.addWidget(self.default_option, 1, 0)
         self.bridges_layout.addWidget(self.bridges_label, 2, 0)
-        self.bridges_layout.addWidget(self.bridges_combo, 2, 1, Qt.AlignmentFlag.AlignLeft) #  QSizePolicy.Minimum, QSizePolicy.Minimum)
+        self.bridges_layout.addWidget(self.bridges_combo, 2, 1, Qt.AlignmentFlag.AlignLeft)
         self.bridges_layout.addWidget(self.h_line, 3, 0, QSizePolicy.Minimum, QSizePolicy.Expanding)
         self.bridges_layout.addWidget(self.custom_option, 4, 0)
         self.bridges_layout.addWidget(self.custom_bridges_help, 4, 1, Qt.AlignmentFlag.AlignRight)
@@ -219,7 +223,6 @@ class BridgesWizardPage(QWizardPage):
         font_description_main = Common.font_description_main
 
         self.bridges_frame.setFrameStyle(QFrame.Panel | QFrame.Sunken)
-        # self.custom_frame.setFrameStyle(QFrame.N)
 
         self.title_label.setText('Tor Bridges Configuration')
         self.title_label.setFont(font_title)
@@ -256,7 +259,6 @@ class BridgesWizardPage(QWizardPage):
         if self.bridges_checkbox.isChecked():
             self.bridges_combo.setCurrentIndex(self.bridges_combo.findText(Common.bridge_type))
 
-        # self.custom_label.setEnabled(False)
         self.custom_label.setFont(Common.font_description_minor)
         self.custom_label.setText('Enter at least 2 bridge relays (one per line).')
 
@@ -271,7 +273,6 @@ class BridgesWizardPage(QWizardPage):
         self.custom_bridges_help.clicked.connect(info.custom_bridges_help)
 
         self.default_option.setVisible(Common.use_default_bridges)
-        # self.custom_option.setVisible(Common.use_default_bridges)
 
         self.bridges_label.setVisible(Common.use_default_bridges)
         self.bridges_combo.setVisible(Common.use_default_bridges)
@@ -280,24 +281,16 @@ class BridgesWizardPage(QWizardPage):
         self.custom_bridges.setVisible(Common.use_custom_bridges)
         self.custom_bridges_help.setVisible(Common.use_custom_bridges)
 
-    # def bridges_combo_changed(self):
-    #     print(f"DEBUD Yeaaahhh")
-    #     if self.bridges_combo.currentText() == 'Custom bridges':
-    #         self.custom_frame.show()
-    #     else:
-    #         self.custom_frame.hide()
-
-
     def show_bridges_panel(self, state):
         self.bridges_frame.setVisible(state)
         self.default_option.setVisible(state)
         self.custom_option.setVisible(state)
-        self.bridges_label.setVisible(state and self.default_option.isChecked())
-        self.bridges_combo.setVisible(state and self.default_option.isChecked())
+        self.bridges_label.setVisible(state) and self.default_option.isChecked()
+        self.bridges_combo.setVisible(state) and self.default_option.isChecked()
 
-        self.custom_label.setVisible(state and (self.custom_option.isChecked()))
-        self.custom_bridges.setVisible(state and (self.custom_option.isChecked()))
-        self.custom_bridges_help.setVisible(state and (self.custom_option.isChecked()))
+        self.custom_label.setVisible(state) and self.custom_option.isChecked()
+        self.custom_bridges.setVisible(state) and self.custom_option.isChecked()
+        self.custom_bridges_help.setVisible(state) and self.custom_option.isChecked()
 
     def show_bridges(self, default_option_checked):
         if default_option_checked:
@@ -339,7 +332,7 @@ class BridgesWizardPage(QWizardPage):
 
         elif self.custom_option.isChecked():
             Common.use_custom_bridges = True
-            Common.bridge_type = 'obfs4 (Custom Bridges)'
+            Common.bridge_type = 'Custom Bridges'
             Common.bridge_custom = str(self.custom_bridges.toPlainText())
             Common.use_default_bridges = False
 
@@ -350,20 +343,18 @@ class BridgesWizardPage(QWizardPage):
         return None
 
     def valid_custom_bridges(self):
-        bridges = self.custom_bridges.toPlainText()
-        bridge_defined_type = bridges.split(' ')[0]
-        bridge_defined_type = bridge_defined_type.lower()
+        bridges = self.custom_bridges.toPlainText().split(' ')[0].lower()
 
-        return (bridge_defined_type.startswith('obfs4')
-                or (('.' in bridge_defined_type) and (':' in bridge_defined_type)))
+        return (bridges.startswith('obfs4')
+                or (('.' in bridges) and (':' in bridges)))
 
 
-def valid_ip(ip):
-    import ipaddress
+def valid_ip(address):
+    import socket
     try:
-        ipaddress.ip_address(ip)
+        socket.gethostbyname(address)
         return True
-    except ValueError:
+    except socket.error:
         return False
 
 
@@ -642,6 +633,43 @@ class TorStatusPage(QWizardPage):
         self.bootstrap_progress.setVisible(False)
 
 
+def write_torrc():
+    repair_torrc.repair_torrc()  # This guarantees a good set of torrc files
+
+    args = []
+
+    if Common.use_default_bridges:
+        args.append(Common.bridge_type)
+    else:
+        args.append('None')
+
+    if Common.use_custom_bridges:
+        if not Common.bridge_custom == '':
+            args.append(Common.bridge_custom)
+            print(f"DEBUG from Common.use_custom_bridges {Common.bridge_custom}")
+    else:
+        args.append('None')
+
+    if Common.use_proxy:
+        proxy = Common.proxy_type
+        if valid_ip(Common.proxy_ip) and valid_port(Common.proxy_port):
+            args.append(proxy)
+            args.append(Common.proxy_ip)
+            args.append(Common.proxy_port)
+
+            if not Common.proxy_username == 'None':
+                args.append(Common.proxy_username)
+            else:
+                args.append('')
+
+            if not Common.proxy_password == 'None':
+                args.append(Common.proxy_password)
+    else:
+        args.append('None')
+
+    torrc_gen.gen_torrc(args)
+
+
 class AnonConnectionWizard(QWizard):
     def __init__(self):
         super(AnonConnectionWizard, self).__init__()
@@ -741,27 +769,21 @@ class AnonConnectionWizard(QWizard):
             self.button(QWizard.FinishButton).hide()
 
         if self.currentId() == self.steps.index('bridge_wizard_page'):
-            if self.bridge_wizard_page.default_option.isChecked():
-                self.torrc_page.bridge_text.setText(Common.bridge_type)
-                print(f"[DEBUG] from next button :  {Common.bridge_type}")
+            if self.bridge_wizard_page.bridges_checkbox.isChecked():
 
-            if (self.bridge_wizard_page.bridges_checkbox.isChecked() and
-                self.bridge_wizard_page.custom_option.isChecked()):
-                if not self.bridge_wizard_page.valid_custom_bridges():
-                    self.reply = QMessageBox(QMessageBox.Warning, 'Warning',
-                                             '''<p><b>  Custom bridge list is blank or invalid</b></p>
-                        <p> Please input valid custom bridges or use provided default bridges instead.</p>''',
-                                             QMessageBox.Ok)
-                    self.reply.exec_()
+                if self.bridge_wizard_page.default_option.isChecked():
+                    self.torrc_page.bridge_text.setText(Common.bridge_type)
+
+                elif self.bridge_wizard_page.custom_option.isChecked():
+                    if not self.bridge_wizard_page.valid_custom_bridges():
+                        info.invalid_custom_bridges()
 
         if self.currentId() == self.steps.index('proxy_wizard_page'):
             if self.proxy_wizard_page.proxy_checkbox.isChecked():
                 if not (valid_ip(self.proxy_wizard_page.ip_edit.text()) and
                         valid_port(self.proxy_wizard_page.port_edit.text())):
                             self.reply = QMessageBox(QMessageBox.Warning, 'Warning',
-                                                     '''<p><b>  Please input valid Address and Port number.</b></p>
-                            <p> The Address should look like: 127.0.0.1 or localhost</p>
-                            <p> The Port number should be an integer between 1 and 65535</p>''', QMessageBox.Ok)
+                                         info.invalid_ip_port(), QMessageBox.Ok)
                             self.reply.exec_()
 
         if self.currentId() == self.steps.index('torrc_page'):
@@ -769,7 +791,7 @@ class AnonConnectionWizard(QWizard):
             self.button(QWizard.CancelButton).show()
             self.button(QWizard.FinishButton).hide()
 
-            self.write_torrc()
+            write_torrc()
 
             if not Common.disable_tor:
                 self.torrc_page.status_text.setText('Tor will be enabled.')
@@ -910,42 +932,6 @@ class AnonConnectionWizard(QWizard):
             self.button(QWizard.FinishButton).show()
             self.button(QWizard.FinishButton).setFocus()
 
-    def write_torrc(self):
-        repair_torrc.repair_torrc()  # This guarantees a good set of torrc files
-
-        args = []
-
-        if Common.use_default_bridges:
-            args.append(Common.bridge_type)
-        else:
-            args.append('None')
-
-        if Common.use_custom_bridges:
-            if not Common.bridge_custom == '':
-                args.append(Common.bridge_custom)
-                print(f"DEBUG from Common.use_custom_bridges {Common.bridge_custom}")
-        else:
-            args.append('None')
-
-        if Common.use_proxy:
-            proxy = Common.proxy_type
-            if valid_ip(Common.proxy_ip) and valid_port(Common.proxy_port):
-                args.append(proxy)
-                args.append(Common.proxy_ip)
-                args.append(Common.proxy_port)
-
-                if not Common.proxy_username == 'None':
-                    args.append(Common.proxy_username)
-                else:
-                    args.append('')
-
-                if not Common.proxy_password == 'None':
-                    args.append(Common.proxy_password)
-        else:
-            args.append('None')
-
-        torrc_gen.gen_torrc(args)
-
 
 def main():
     if os.geteuid() == 0:
@@ -966,3 +952,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
