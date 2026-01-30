@@ -1,0 +1,2119 @@
+commit 77ce380f78c565f26b080bf5a5730f96f618cffd
+Merge: 2c8b16f eac4d3a
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Oct 23 01:44:27 2025 -0400
+
+    Merge remote-tracking branch 'ArrayBolt3/arraybolt3/trixie'
+
+commit eac4d3a5b6da499f96979fd1d4afba2fab659b50
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Wed Oct 22 21:11:40 2025 -0500
+
+    Fix journal log viewer
+
+commit 2c8b16ffff203cd7b8ffd48bcf5f8bc7c74d64b9
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Sep 9 15:57:10 2025 +0000
+
+    bumped changelog version
+
+commit c271fbe16fe7dd677b333a7dcb3bfb79257ff1e3
+Merge: 7365e52 65fa960
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Sep 9 11:50:48 2025 -0400
+
+    Merge remote-tracking branch 'ArrayBolt3/arraybolt3/trixie'
+
+commit 65fa960250aaaa5c8eb60e46c38887fce4541e0c
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Sun Sep 7 10:02:09 2025 -0500
+
+    Avoid either/or dependency bug
+
+commit 7365e5227ee4c65628c541312923dbb3598be0bc
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Sep 2 15:30:27 2025 +0000
+
+    bumped changelog version
+
+commit d70b72ed8e31b27575d6ebccdb4f1f69ff4ba624
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Aug 26 09:21:03 2025 +0000
+
+    bumped changelog version
+
+commit 031984066bfaaab7005ad55e4fe633c4833c19eb
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Aug 26 05:21:02 2025 -0400
+
+    re-generate man pages (generated using "genmkfile manpages")
+
+commit 519b9fc3af04eea9e238c4880b35661acc05c683
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Aug 20 06:57:31 2025 -0400
+
+    bumped Standards-Version
+
+commit 4cfefee8534e33ad464d14286c97f73254c8c45a
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Aug 20 06:25:37 2025 -0400
+
+    readme
+
+commit 806e72ee6297c1464b077047b4fbe5813e520970
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri May 16 18:07:44 2025 +0000
+
+    bumped changelog version
+
+commit 31d0f92e81e3284df47f1bd7f07cf40cf04bedc7
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri May 16 13:14:13 2025 -0400
+
+    improve robustness of proxy configuration code
+
+commit 1c59ba4a88375174d93dfeeca217f5eac00ea1e9
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri May 16 12:55:02 2025 -0400
+
+    fix adding custom bridges
+
+commit d2354417465c8241d1cd23cbcc66fb1ae52a2223
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed May 7 06:43:30 2025 +0000
+
+    bumped changelog version
+
+commit 5025151cfbfb69ae1ab20f00766cbaec75bf694f
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed May 7 02:37:30 2025 -0400
+
+    python -su
+
+commit a6b0122ab4ab738a97e0d4a13472ede59a5e7708
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed May 7 05:03:48 2025 +0000
+
+    bumped changelog version
+
+commit 7f37780a292987adeae277e5b4623ffa16662845
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri May 2 05:41:11 2025 -0400
+
+    shebang
+
+commit 86e947077d9252f07d5364eded86f23df75bde5d
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri May 2 05:18:58 2025 -0400
+
+    notify if Tor control socket file permission issues
+
+commit cb5438cc4c10ac98feb1402caa59223d4702c638
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri May 2 05:02:47 2025 -0400
+
+    fix
+
+commit f767fcf3a6589e1302350593644b7e49ff37f38b
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri May 2 04:44:44 2025 -0400
+
+    output
+
+commit 15eb784eb2a639218845968a967173e4df02269c
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri May 2 04:42:25 2025 -0400
+
+    refactoring
+
+commit 3988ff5f165e5e877a5b9dcca4cc34738ce79977
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri May 2 04:34:14 2025 -0400
+
+    refactoring
+
+commit a50d79c1067064497154e703365a33f5bb5e23b0
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri May 2 04:25:39 2025 -0400
+
+    fix
+
+commit ca2da1ba71894160ee57d39920d000a24406b66f
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri May 2 04:23:59 2025 -0400
+
+    comments
+
+commit 461ca07de1753ed91e8aa98b9881947bd84cc5a4
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri May 2 04:22:03 2025 -0400
+
+    output
+
+commit 8d78dd6da39f142605b84b06ef4ec2ee2e53efc4
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri May 2 04:19:18 2025 -0400
+
+    fix
+
+commit 902cb759953ece255a0349093c12df639d4c3023
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri May 2 04:07:25 2025 -0400
+
+    test
+
+commit 70128e7452099af39fd200c7b878ebe67e4f113a
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri May 2 04:02:27 2025 -0400
+
+    test
+
+commit 68bef967aca73e52f95f5ec9c208985bb57afcaf
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri May 2 03:58:10 2025 -0400
+
+    output
+
+commit 809b8e7c5aedb9efbc7cdadec1ef66a5e8c3ef8b
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri May 2 03:52:42 2025 -0400
+
+    output
+
+commit 6ebe0bcd2e9cc7bdb4f379cfca4f11ceff120b10
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri May 2 03:36:21 2025 -0400
+
+    fix
+
+commit 7e443bf7f953aaa5159688d5590bb9570c1d1ed8
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri May 2 03:35:08 2025 -0400
+
+    fix
+
+commit ef620430fb401a6d7aab3064871c26a014130757
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri May 2 03:34:25 2025 -0400
+
+    fix
+
+commit 2b6ab35ae2845485b08207772f9ac66ad479ca31
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri May 2 03:30:03 2025 -0400
+
+    fix
+
+commit 97d42b3c80e58496e0a771a365923bf441fb0720
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri May 2 03:17:27 2025 -0400
+
+    cleanup
+
+commit 5d9eadda52e090b4d845b07b56d84943d83ce57d
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu May 1 03:51:03 2025 -0400
+
+    improve error handling
+
+commit 84ebdc39d8d2d60c300c01df37041fe404496db6
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu May 1 03:48:12 2025 -0400
+
+    fix
+
+commit 3fe108d239d10fc8ad9cc23ae9eaa7a260a44577
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu May 1 03:38:34 2025 -0400
+
+    restart-tor: add sigterm signal support
+
+commit 1e2367635970f6b19922ffbe80781b5d6bd07651
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu May 1 03:34:58 2025 -0400
+
+    fix
+
+commit 967a1c6f3512eff698dd8bd0a896e679bd48ce70
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu May 1 03:23:36 2025 -0400
+
+    minor
+
+commit e9adc39dbe46ee149bbafa43405be8818e1426f1
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu May 1 03:20:46 2025 -0400
+
+    fix
+
+commit 59cc71251a9ccc073a3bb47cd4c428a0576dff4f
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu May 1 03:09:13 2025 -0400
+
+    output
+
+commit 10089ed0ce78930da25121eb5340c4cc25cd183f
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Feb 6 20:38:50 2025 +0000
+
+    bumped changelog version
+
+commit 472143154d3ad0ae1feb9543688b2c10aa3c2202
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Feb 6 15:07:52 2025 -0500
+
+    genmkfile manpages
+
+commit 60689bbc023c165434c9f3e78872f8818f94bf79
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Feb 6 15:07:39 2025 -0500
+
+    man
+
+commit 8087e3e0399a79d084a6c83845bffbda4690a42d
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Feb 6 16:23:56 2025 +0000
+
+    bumped changelog version
+
+commit 8b7d58a197e7c58215a818adee564ce7b5f94b11
+Merge: bb54d7e 711c46d
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Feb 6 11:14:41 2025 -0500
+
+    Merge remote-tracking branch 'ArrayBolt3/arraybolt3/privleap'
+
+commit 711c46d5fda6f890db5ad22513ca9dc205c8b94a
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Mon Feb 3 22:16:36 2025 -0600
+
+    Port to privleap
+
+commit bb54d7e1f25ea82b0870347a84ae92a49c31dd26
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Jan 24 11:11:29 2025 +0000
+
+    bumped changelog version
+
+commit 29c92006a3afd04cef1043b09008db8c7db7ea51
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Jan 23 11:13:03 2025 -0500
+
+    copyright
+
+commit 90c512d2d095c33384347996ea0026f5be8de354
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Dec 31 19:19:52 2024 +0000
+
+    bumped changelog version
+
+commit de7c35d9d245e0ce253b395d489b67b4443f8c0e
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Dec 31 13:26:23 2024 -0500
+
+    copyright
+
+commit 28029848d535bcf272f8c26d8c8073380b929b51
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Dec 5 15:52:12 2024 +0000
+
+    bumped changelog version
+
+commit 68ce8a7dc0da0fa523132ccb8b25a01b045b15f8
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Dec 5 05:27:51 2024 -0500
+
+    fix restart-tor-gui
+
+commit 035b374d47149b7f07e1e27c5f603c2cbaf8bd48
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Nov 28 18:31:45 2024 +0000
+
+    bumped changelog version
+
+commit 91562f6923c664415a58259b090c2c26b2b42433
+Merge: db4fafa 5390409
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Nov 28 13:31:32 2024 -0500
+
+    Merge remote-tracking branch 'ArrayBolt3/arraybolt3/pkexec'
+
+commit 5390409e9ff46cb71e6397cb9c9d89a4ef58eaff
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Thu Nov 28 11:30:21 2024 -0600
+
+    Use new calls for Tor stop and restart
+
+commit db4fafaee1781c81982488ae1e1abe7afb93ec12
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Nov 12 13:44:55 2024 +0000
+
+    bumped changelog version
+
+commit 4292197c10c9f3278b98753b40dcd86ded0d8124
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Nov 12 08:44:37 2024 -0500
+
+    no more files in /etc
+
+commit 16fae3597345c09f19f403f07b209af535c84916
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Nov 12 13:43:53 2024 +0000
+
+    bumped changelog version
+
+commit a1643323e5de0d64a1326acc7bcacb5b1c5485ca
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Nov 12 08:43:22 2024 -0500
+
+    cleanup: remove no longer already commented out sudoers.d exceptions
+
+commit 9a20b12f3b1cae483f2360a66ec2d0da92a5104b
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Sep 8 17:42:16 2024 +0000
+
+    bumped changelog version
+
+commit aacbd3e0588e4376ffa0b4ef00c7badf1df870f1
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Sep 8 13:01:07 2024 -0400
+
+    root check
+
+commit 56b67424917118fc91c91c2c3d8f295a56cbaeec
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Dec 30 00:42:22 2023 +0000
+
+    bumped changelog version
+
+commit f87885a9e8f60f09ad2db2020f758656791ac002
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Dec 29 19:34:34 2023 -0500
+
+    wrap-and-sort
+
+commit e22d912d35294845db56603fb3d5088641855f93
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Dec 29 19:34:14 2023 -0500
+
+    Depends: pkexec
+
+commit 738b38151739081e97925ff7f1c4d45f0411ffd9
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Nov 30 17:55:58 2023 +0000
+
+    bumped changelog version
+
+commit 376ba358aea968a54c4fffbef47eb0a64c2bd40f
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Nov 30 12:36:56 2023 -0500
+
+    refactoring
+
+commit 1ce88714813d6a50ae7804d217ea7cd49bcbdd6a
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Nov 11 20:26:39 2023 +0000
+
+    bumped changelog version
+
+commit 7784972ec992cd04a5cfd0313e9e9f15b57602ed
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Nov 11 14:43:09 2023 -0500
+
+    copyright
+
+commit 4ebc30bba2c9cd4860920249c240087f943fc9df
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Oct 10 08:46:46 2023 -0400
+
+    bumped changelog version
+
+commit e1ef1008c959638d9b56cdf2d0b89266c913e7a7
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Oct 10 07:52:39 2023 -0400
+
+    wayland
+
+commit 0a126241b79298d321ad4bd364d6a90706c76b4f
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Oct 10 07:46:36 2023 -0400
+
+    bumped changelog version
+
+commit 7606a67aeeb2f97cc37066bb130a109b8f25b6c6
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Oct 10 07:46:18 2023 -0400
+
+    wayland
+
+commit 9efed95ae7b8923736042358030b8c64ef1694a6
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Oct 10 07:37:39 2023 -0400
+
+    wayland
+
+commit 913451394aa7410770a7a4a666da695132a3680e
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Oct 10 07:05:05 2023 -0400
+
+    bumped changelog version
+
+commit d1ff0a03d6c66ae15bade3362d56e78374288761
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Oct 10 07:04:56 2023 -0400
+
+    wayland
+
+commit 7fe1fe38d0fba45f45c362afd1932c6ed57e4e5f
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Oct 10 06:59:11 2023 -0400
+
+    wayland
+
+commit 71207e90a7bde5c8478a652437364e591ce39ee8
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Oct 10 06:47:31 2023 -0400
+
+    bumped changelog version
+
+commit d05d117c9b9d8514a87a543a10e694d6e7e63f61
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Oct 10 06:47:21 2023 -0400
+
+    wayland
+
+commit 4d55acf629ec4abaffe666b23da893e73030b034
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Oct 10 06:46:38 2023 -0400
+
+    fix
+
+commit 3665b9118db11c2507ccb6e30454b503413a1cf0
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Oct 10 06:40:36 2023 -0400
+
+    wayland
+
+commit 494d7b649e4dc85ec4a7407216fd9e207d143fc8
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Oct 10 04:04:34 2023 -0400
+
+    bumped changelog version
+
+commit 3e4facf026f6c746e1523c98ee22902e5aa6b9c1
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Oct 10 04:03:41 2023 -0400
+
+    wayland
+
+commit 2f2286c77b69cf5ab2f7e09168cdce065d822b93
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Oct 9 00:35:26 2023 -0400
+
+    bumped changelog version
+
+commit 7b067f1647961b39c4518bbefeac60ede5824ac4
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Oct 9 00:24:18 2023 -0400
+
+    refactoring
+
+commit a150023f9dc236155b5028416b90090543b6fb7e
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Oct 8 13:39:07 2023 -0400
+
+    bumped changelog version
+
+commit b0076ba9ced908dc4646ba7a38af9544009e4c96
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Oct 8 13:37:43 2023 -0400
+
+    correct signal exit codes
+
+commit 84ed24e6cd25560119c8b36b3fb47d9b5313e2b8
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Oct 8 13:11:06 2023 -0400
+
+    bumped changelog version
+
+commit 8a4811ffcd9247a760ab2629948724a25e6c60c8
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Oct 8 11:53:28 2023 -0400
+
+    wayland
+
+commit bc3840332787a57f738293a10fad1f5c195b1e41
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Oct 8 11:43:43 2023 -0400
+
+    fix
+
+commit 510a07ecc8f15f641525a0406e29839d6c8c656d
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Oct 8 10:18:53 2023 -0400
+
+    wayland
+
+commit 848ec5b10aa5e42f845e4163869e18b57f9180f1
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Oct 8 09:22:14 2023 -0400
+
+    wayland
+
+commit 6a89dad7a6a5c84217132b93c23c141fa20c8a67
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Oct 8 09:19:28 2023 -0400
+
+    wayland
+
+commit 9eabe426db203bbc215af96e14bdb8f51dd3a244
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Oct 8 09:12:41 2023 -0400
+
+    wayland
+
+commit 0c6ea2b67b94ef2365665cd3d368a7e6e143be13
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Oct 8 09:10:23 2023 -0400
+
+    wayland
+
+commit a2d78910386f171f4962381e6c2325ee9771163b
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Oct 8 08:55:42 2023 -0400
+
+    wayland
+
+commit 14122d00a1952d665f61a09bda783d3095010d15
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Oct 8 06:31:52 2023 -0400
+
+    bumped changelog version
+
+commit d86465c790860edd28906fe03967895e5c1765e6
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Oct 8 06:27:35 2023 -0400
+
+    wayland
+
+commit 9bc3db4cf4e5c2bfd38c380c6ee4edff01a506db
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Oct 8 04:34:19 2023 -0400
+
+    wayland
+
+commit 7e97db43913c399077d110355d3e16b7d827c2e7
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Aug 22 18:04:49 2023 -0400
+
+    bumped changelog version
+
+commit a9a3ca181cc9c68c9073cc6bddc341cccbdb3b75
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Aug 22 18:04:24 2023 -0400
+
+    fix paths
+
+commit 9f8247574918b8389c18d34e98126edac003e136
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Aug 22 17:53:14 2023 -0400
+
+    bumped changelog version
+
+commit a92b5feef2020bc20e937bf20552e30d5b2e6039
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Aug 22 17:50:15 2023 -0400
+
+    enable Whonix-Gateway system DNS for meek-azure and snowflake
+    
+    https://forums.whonix.org/t/censorship-circumvention-tor-pluggable-transports/2601/9
+
+commit 3969180fef752e93d9dae56946f983e465727e36
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Aug 22 17:38:58 2023 -0400
+
+    import edit_etc_resolv_conf
+
+commit 3f0fcdd09134cc17bc84aed950a2f041d7b4271f
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Aug 22 17:24:35 2023 -0400
+
+    comment
+
+commit 6cb1cd4be253ca1782e2d99dbc908740e4e1e6be
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Aug 22 17:23:26 2023 -0400
+
+    cleanup
+
+commit 9991b7d59cad15a5f40f92daf2a27db96e80f5b0
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Aug 22 17:21:22 2023 -0400
+
+    output
+
+commit 91d16b5e3381ce83b9688c5ff13bbe7c3956a231
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Aug 22 16:57:47 2023 -0400
+
+    snowflake
+
+commit 9eb5b8e622ac3918902068984f5ce2bff00a0a31
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Aug 22 16:55:06 2023 -0400
+
+    remove unknown country specifics
+
+commit 56123ca4c7d643365685dba2aace7103dc2ed309
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Aug 22 16:29:30 2023 -0400
+
+    move bridges_default file to anon-connection-wizard and depend on it
+    
+    to reduce code duplication
+
+commit 1b8551336216bdb3a1df6932e5c193003e9a7660
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Jul 17 11:51:16 2023 -0400
+
+    bumped changelog version
+
+commit dad9b604dc32b151900522220aee2467401a2c5c
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Jul 17 11:20:09 2023 -0400
+
+    Kicksecure
+
+commit 5c3725118901145439f25d851f9fe44fcf414c28
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Jul 17 11:13:44 2023 -0400
+
+    Kicksecure
+
+commit 6e865e6ff4c997b4ad6bca76fbd592c20db46c34
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Jul 17 11:13:01 2023 -0400
+
+    Kicksecure
+
+commit b32ec6fd43bcd90fdfe0860eb230bf03e773c38e
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Jun 21 09:40:04 2023 +0000
+
+    bumped changelog version
+
+commit 3733299f41ad28b6cfc9a74fbfee199dd8c1e141
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Jun 21 09:11:32 2023 +0000
+
+    bookworm
+
+commit 205b9064c70967adb816911455bee24f85bf444d
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Jun 16 11:10:51 2023 +0000
+
+    bumped changelog version
+
+commit 676df8486d61c20d00536578a92cbd73bab77abc
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Jun 16 10:49:06 2023 +0000
+
+    readme
+
+commit 56120c7d3b6d6833fb3b65bfdd971ab7fc8c82e4
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Jun 15 17:06:47 2023 +0000
+
+    bumped changelog version
+
+commit c54bee77ae4b860ba9f7ee5adb6229629d76e91a
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Jun 14 13:14:48 2023 +0000
+
+    copyright
+
+commit 86ada3c58942a40e93a18b664caf5f9028fa2613
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Jun 12 18:09:44 2023 +0000
+
+    bumped changelog version
+
+commit 5395d2ef94bb20da67c7a4b1a69ece50a2ca0132
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Jun 12 16:22:34 2023 +0000
+
+    Standards-Version: 4.6.1.0
+
+commit d9b17a22b3e1f70ef04cac2c9e2dbebbd4bc7ae2
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Jun 12 15:35:30 2023 +0000
+
+    bumped changelog version
+
+commit 9362bedfbda1f82754c1dce4ddcd8ba2ddee14af
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Jun 12 14:52:03 2023 +0000
+
+    update copyright year
+
+commit 5ab8c32c2493ec8b2eac43748640518494ecc2d7
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Jun 8 11:11:27 2022 -0400
+
+    bumped changelog version
+
+commit 9c405d8acdac16b2243d036d82bf22d19f967fd0
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Jun 1 17:40:08 2022 -0400
+
+    description
+
+commit 4a6444db9ccee8c501b27132522f866588fe0fb9
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Jun 1 17:32:56 2022 -0400
+
+    work towards non-Whonix support
+
+commit cd2dbc59ff970feb456d1f79ee436a3110d3945a
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Jun 1 16:37:36 2022 -0400
+
+    fix `SyntaxWarning: "is" with a literal.`
+    
+    Thanks to @TNT_BOM_BOM for the bug report!
+    
+    https://forums.whonix.org/t/tor-controller-gui-tor-control-panel/5444/89
+
+commit 29cc7a991fb451c84dbe3fdfd1a62a51a26eb459
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun May 29 08:37:31 2022 -0400
+
+    bumped changelog version
+
+commit 5dbe215b1734f7234b0b787755dcad0e98d906a1
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat May 28 14:48:28 2022 -0400
+
+    update default bridges
+
+commit 16cef18797a21dfca5a5464ec4abf2183e45349b
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri May 27 13:05:18 2022 -0400
+
+    bumped changelog version
+
+commit e270a5dea075eaa0c7c47971c3c24fd521b1ff22
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri May 27 13:04:40 2022 -0400
+
+    genmkfile debinstfile
+
+commit 7e88f00b5cfc59f27aec91f464c799c9481df840
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri May 27 13:01:56 2022 -0400
+
+    bumped changelog version
+
+commit df3550f8885cfb71a3601503dc2cd233cf50f168
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri May 27 12:50:10 2022 -0400
+
+    remove tor-control-panel.service
+    
+    since running repair-torrc does not belong into this package
+
+commit cb6b3ce7c021a373d4db703bff2676fd5e63e5f1
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri May 27 12:36:15 2022 -0400
+
+    bumped changelog version
+
+commit d931c09fc05b2ec1b55cc3718f424f72c3497561
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri May 27 12:19:35 2022 -0400
+
+    update path
+
+commit 70db1adebd7264b323d425c60a72925c21859033
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed May 25 06:07:33 2022 -0400
+
+    bumped changelog version
+
+commit 429d06a01931ded58490a55182b600d905331afd
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri May 20 15:27:12 2022 -0400
+
+    readme
+
+commit e61eac66b573f8b49d2a80cb11e9e7ebd4aa057d
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri May 20 14:46:41 2022 -0400
+
+    copyright
+
+commit 059edaf6c633e4d6118c7d49c9ae5ea917c2fc70
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Apr 10 12:40:18 2022 -0400
+
+    readme
+
+commit 44bc7617c0bb3c4b8f163b81a9d455e233b45c89
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Mar 22 09:51:12 2022 -0400
+
+    rename
+
+commit 023ad2483dc5dbe9bdd5bf523bfab8744b4e4a91
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Jan 27 05:50:56 2022 -0500
+
+    bumped changelog version
+
+commit 83db4e81c21e82985a150b00c4589ce92fa13978
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Jan 20 18:14:20 2022 -0500
+
+    fix
+
+commit 4e4f87b865c61dcc98a8611e3306dbd39ccdc6dd
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Jan 20 18:13:02 2022 -0500
+
+    add tag ap_conn_done_pt
+
+commit 05a733f9952054708786b158201f2d431f6cb3b1
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Jan 20 18:11:12 2022 -0500
+
+    fix parsing Tor config file is using plain (not using pluggable transport) bridge
+    
+    https://forums.whonix.org/t/bridges-dont-work/13210/12
+
+commit dabfac891b3defb46900db8821805cee02b0025e
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Jan 19 10:54:05 2022 -0500
+
+    add tag conn_done_pt
+
+commit fe761a7047bf958f7991f48f8c2e5331d2d62c13
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Jan 19 07:08:59 2022 -0500
+
+    bumped changelog version
+
+commit 15fd57ac7aa82196a64361e9891690ed49ac68b8
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Jan 18 05:47:43 2022 -0500
+
+    update default bridges
+
+commit 14acf547874fe126ccaeab49b440def6abedeac0
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Nov 9 14:32:35 2021 -0500
+
+    readme
+
+commit 8de0b614b81dd354f7254d935cdbb46779a0c246
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Nov 9 14:12:06 2021 -0500
+
+    bumped changelog version
+
+commit 833c8567bbadcede61364f09e6f629e911094bb7
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Nov 8 02:28:36 2021 -0500
+
+    output
+
+commit d70f8fe1006f07aa83bc24206c4ec4bece0f417d
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Nov 8 02:26:22 2021 -0500
+
+    typo
+
+commit a4e9b47ba79940d118e6bd708aaf3c362ea715fd
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Sep 12 12:02:51 2021 -0400
+
+    bumped changelog version
+
+commit 577f74e02cb6c8e5ba2658be3d6c227017c3c102
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Sep 11 16:31:44 2021 -0400
+
+    readme
+
+commit e579da9153d73643bdb62bd186bcf7b195387e03
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Aug 5 17:10:27 2021 -0400
+
+    bumped changelog version
+
+commit 8d922d1f5456b5fe2efa7e743384c7a342adef23
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Aug 4 15:10:03 2021 -0400
+
+    lintian FHS
+
+commit 93ad89b7cc83fa77251480567479de0872e05889
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Aug 4 15:09:17 2021 -0400
+
+    lintian FHS
+
+commit 677491804e02feeb2d0b0851b4631b3c0b17315e
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Aug 4 15:08:28 2021 -0400
+
+    lintian FHS
+
+commit 1ba9a4561fdcb14b9a339cd36611ae91ccc0cb24
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Aug 3 12:48:59 2021 -0400
+
+    move /usr/lib/helper-scripts and /usr/lib/curl-scripts to /usr/libexec/helper-scripts as per lintian FHS
+
+commit 833ab52c60c0ce484a97d883d3b77533701146db
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Aug 3 11:47:36 2021 -0400
+
+    re-generate man pages (generated using "genmkfile manpages")
+
+commit 0264c59259ecbb7f93647cf10e400d69ae4bdfde
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Aug 3 11:44:23 2021 -0400
+
+    man page
+
+commit 9ee70fcc02a0a1849f022b886ce14a4bfb89d66d
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Aug 3 05:48:28 2021 -0400
+
+    bullseye
+
+commit d36543306676c74bb90711efaa7aed1c00ac0d3b
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Aug 1 16:24:47 2021 -0400
+
+    readme
+
+commit 2bafe4c3ac9b169ef3b4f424d1976a572c7f07fc
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Jun 11 04:59:08 2021 -0400
+
+    bumped changelog version
+
+commit 39c0d67c7b536cbf9dbf4cb7306161ce63d41ef6
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Jun 11 04:58:32 2021 -0400
+
+    remove obfs2, obfs3
+
+commit 45ba10eb17c90db4c5355ae4406626cb25290427
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Jun 11 04:43:06 2021 -0400
+
+    fix
+
+commit 115b65e34785793b37a6f8f87f70195c5cbfeb99
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Jun 11 04:36:00 2021 -0400
+
+    same default bridges as ACW
+
+commit b780320a04674309f3788a9089dea4534582cd4f
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Mar 18 07:46:36 2021 -0400
+
+    bumped changelog version
+
+commit c3631038b3b10e86efc15ee2f8c15bf6ae83f465
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Mar 18 07:39:57 2021 -0400
+
+    copyright
+
+commit d760b4a5e12572534804be0cd7242fd480b43e47
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Mar 17 12:41:19 2021 -0400
+
+    bumped changelog version
+
+commit a5aeb14740e7d4c834141b6cbab26884d91eedd2
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Mar 17 12:41:18 2021 -0400
+
+    readme
+
+commit 41beee8ac46646969322c27f77d82d72392d15b8
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Mar 17 09:45:24 2021 -0400
+
+    copyright
+
+commit e499e538669be8cfa9ed2752a0a40ae9552528a4
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Dec 25 07:32:06 2020 -0500
+
+    bumped changelog version
+
+commit 1172c5fda1efb8c30e7668527b3a915001bf085d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Dec 25 07:32:05 2020 -0500
+
+    readme
+
+commit 48d3cf0fca7d13990c0e7d0db7ecda6eac80d1d9
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Dec 25 07:03:06 2020 -0500
+
+    output: update connection status tags
+
+commit a59d820b3f6d9ab2c7e4b4b14cd23d2c5006110c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Apr 16 08:47:30 2020 -0400
+
+    bumped changelog version
+
+commit 259db615e77c109a4f1ef3972f18569e6173907f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Apr 15 14:05:39 2020 -0400
+
+    readme
+
+commit ee0a6722f636282599e58dbb7c8f6e07d35ee46c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Apr 2 08:04:51 2020 -0400
+
+    bumped changelog version
+
+commit a93ae88faaaefab2830e4f8cc4629a7e7d3a885e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Apr 2 07:22:55 2020 -0400
+
+    readme
+
+commit 8666c83af793ca859d2949736b1f8f3b114dccaa
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Apr 1 17:35:00 2020 -0400
+
+    remove 'Build-Depends: ronn' since no longer required
+
+commit 9bf4114da96b622a3ae97d07fc0d85363e961946
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Apr 1 16:57:34 2020 -0400
+
+    remove genmkfile
+
+commit 2f67275e796581ff8d9cee2b82e3a3e153b32f55
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Apr 1 16:34:15 2020 -0400
+
+    add debian install file
+
+commit fc3d03b2a49c5c2f30151621fd184a7cdb275a57
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Apr 1 15:56:49 2020 -0400
+
+    add man pages (generated using "genmkfile manpages")
+
+commit 9a94db29a8331a24048d8bf7c5a63d47a00d6f5e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Apr 1 15:49:58 2020 -0400
+
+    no longer create man pages during build process
+    use pre-created man pages
+
+commit b85b13c0ecb606f0d5ad72f358daaee954701429
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Apr 1 15:42:53 2020 -0400
+
+    change path to auto generated man pages
+
+commit fdbdf0811d6bc6138d70e02e024b853d7c77b7f9
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Apr 1 11:05:38 2020 -0400
+
+    bumped changelog version
+
+commit 6af4b6cc7abafa8cfa35f88e969a36511a4ef49b
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Apr 1 09:19:56 2020 -0400
+
+    copyright
+
+commit b85fead9b03668166bf969b14e69d3127451c54f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Apr 1 09:15:15 2020 -0400
+
+    copyright
+
+commit 3b74594326e7ec533ad614f47e1310e2c849e326
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Apr 1 09:12:40 2020 -0400
+
+    remove obsolete comment
+
+commit 8a93bf5e7074f41fde41cecf1e32150ea5b9ded9
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Apr 1 08:50:00 2020 -0400
+
+    update copyright year
+
+commit bcb3d3f391444811a3b7a42f750dc660eaf68e71
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jan 27 04:53:26 2020 -0500
+
+    bumped changelog version
+
+commit c240cbda120d3f67370bc66bdaab4f9f3e07bb34
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jan 26 04:04:58 2020 -0500
+
+    fix onioncircuits started from tor-control-panel
+    
+    by running it under user debian-tor rather than root
+    
+    https://forums.whonix.org/t/onion-circuits-does-not-appear-in-the-tor-control-panel/8838
+    
+    Thanks to @Masaika for reporting this bug!
+
+commit ea0c38b02201f311353e993b02fcd784c7fc004c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Aug 28 12:49:13 2019 +0000
+
+    bumped changelog version
+
+commit 5c4ca7ee89ec6644f382331c26336ecac38782e4
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Aug 28 11:35:30 2019 +0000
+
+    use properly override_dh_installman
+
+commit 997734b9b8ce4823fefac55d1508067583cbdd4f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Aug 10 06:37:06 2019 +0000
+
+    bumped changelog version
+
+commit 491a677577661f716357858f02247b9a0a0b311f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Aug 10 02:28:20 2019 -0400
+
+    lxsu -> lxsudo
+
+commit 1b376a4c1928fb89ab4234b7b71dedb1e1ee5e2c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Aug 1 12:08:05 2019 +0000
+
+    bumped changelog version
+
+commit abaf05d672dc5bd34e0bc3df33ab03d05d8ad886
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Aug 1 11:13:45 2019 +0000
+
+    readme
+
+commit ac5aaf924c9e77fbefda90c1b32f43ec32a8c8e5
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jul 31 07:47:10 2019 +0000
+
+    bumped changelog version
+
+commit 9d3a1470703f191594eb5842b61fcdf10f6b2e31
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jul 31 03:12:38 2019 -0400
+
+    /var/run -> /run
+
+commit b0b61798586be04f476b3b1edb938df3d9d30de4
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jul 28 19:35:14 2019 +0000
+
+    bumped changelog version
+
+commit a09643cb38f3b993150cec5065619c8abf660184
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jul 28 19:31:23 2019 +0000
+
+    deprecate debian/gain-root-command
+
+commit 6dd5f4ed03039a7d256ce3bd7fefb5b400906d03
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jul 7 08:38:27 2019 +0000
+
+    bumped changelog version
+
+commit 0c585f0c6f0febfbf096260e5f78484af4726b06
+Merge: 50750b7 8082803
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jul 6 20:40:15 2019 -0400
+
+    Merge remote-tracking branch 'troubadoour/master'
+
+commit 80828030094090c5d436309f6ba8de4e5ee589c0
+Author: troubadoour <trobador@riseup.net>
+Date:   Sat Jul 6 21:01:33 2019 +0000
+
+    missing "import json" in torrc_gen
+    crashing tor-control-panel on bridges selection
+
+commit 50750b7640cdd145e7a6710cb8c3ea5b1877120a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jun 30 07:13:48 2019 -0400
+
+    bumped changelog version
+
+commit 5d00174948f95b74f0f7dbc274e398d026d3c01d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jun 29 13:45:41 2019 +0000
+
+    man page
+
+commit 88bacb5eda209a77a646634ce02c05769ee8cd42
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jun 23 19:58:14 2019 +0000
+
+    bumped changelog version
+
+commit 3dbe6dd9e8f0d4c898f03edb8b51f2f6274bceee
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jun 23 17:37:54 2019 +0000
+
+    copyright
+
+commit 076a86935819aefb63df8a6a3a9bf6d917e9b733
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jun 23 17:35:04 2019 +0000
+
+    copyright
+
+commit 08a98de93acba53b38711e08b1110612cd7f00c7
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jun 8 11:37:06 2019 +0000
+
+    bumped changelog version
+
+commit e07e643351715cfc657165ee8a71097c91c8b7c5
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jun 8 00:05:37 2019 -0400
+
+    fix debian/watch lintian warning debian-watch-contains-dh_make-template
+
+commit 734d82011ff68b894d2f95bc15e0adb8464ee438
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri May 24 20:56:56 2019 +0000
+
+    bumped changelog version
+
+commit 6e5ab6b11ac763f2309991671a50a5ae5b559771
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri May 24 12:29:11 2019 -0400
+
+    readme
+
+commit 97bc42f5aad76a0a5cb473c04e68dd9409bb4995
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun May 12 10:52:22 2019 +0000
+
+    bumped changelog version
+
+commit b99fa464c139c04cbc65d4813a190362ad816ee0
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun May 12 02:50:16 2019 -0400
+
+    anon-shared-helper-scripts -> helper-scripts
+
+commit 7b9bea4ed16c4eb41a1cc454434f8a62e7462f34
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri May 3 11:39:07 2019 +0000
+
+    bumped changelog version
+
+commit d5b90e6cf3c024e487f0ad590742c64155c528ef
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri May 3 10:56:57 2019 +0000
+
+    update
+
+commit aa068c504dddc65e95e7c1c0f23f50b72f34b931
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Apr 8 13:06:11 2019 +0000
+
+    bumped changelog version
+
+commit bf0cd50a815dd7e8435b9ce52fe9c8bf6079ad02
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Apr 8 12:57:17 2019 +0000
+
+    sudo
+
+commit 089530451a9ab49a4a224e38c1c588e6e28cc35e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Apr 8 12:53:56 2019 +0000
+
+    sudo
+
+commit d59d5af5a1e2777f4d12fbb9c51d03e71e4d2e07
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Apr 6 12:18:21 2019 +0000
+
+    bumped changelog version
+
+commit 48cf10cc7014db296f1964d2ae8b4279c28e03f4
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Apr 6 11:27:27 2019 +0000
+
+    sudo
+
+commit a1fea28f4c928d09f4f200b5009064a188b514a5
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Apr 6 09:56:57 2019 +0000
+
+    sudo
+
+commit 58ffae2d13f0187cdcf855914d53bec314a4e084
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Apr 5 17:02:43 2019 -0400
+
+    gksudo
+
+commit 7d5c9f89b22c553fdfaeb82a08cbc645bb9a690e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Apr 5 09:48:22 2019 -0400
+
+    fix lintian warning
+    
+    P: tor-control-panel source: file-contains-trailing-whitespace debian/control (line 17)
+
+commit e9140a1201b10237d9779245771c24f30ded8e1d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Apr 4 05:55:52 2019 -0400
+
+    port to debian buster
+
+commit 357577e90b527de05ac917a238332a7c7abfd007
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Apr 4 05:51:08 2019 -0400
+
+    port to debian buster
+
+commit 977d2d83f9d7ec5a495083dd99b8ad1eaf0754b5
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Apr 3 18:05:57 2019 -0400
+
+    readme
+
+commit 3295a1ba4cb8de02732071737599c49865d1c4f2
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Mar 29 10:07:32 2019 +0000
+
+    bumped changelog version
+
+commit 82fab99985bec937a0618963433b4824564ffbc8
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Mar 29 09:03:19 2019 +0000
+
+    https://www.whonix.org/wiki/Dev/Licensing
+
+commit 963eaba9efc99d131a4472f89d6bd6eb48046456
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Mar 12 11:41:07 2019 +0000
+
+    bumped changelog version
+
+commit 2d3564d81459a0d68995c03297c7e618a6ac939e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Mar 1 14:32:42 2019 +0000
+
+    add improved legal protections clauses
+    
+    The license for software created by Whonix is the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version with additional terms applicable per GNU GPL version 3 section 7.
+    
+    The additional terms are based on the Doom 3 license which is Debian refers to as `GPL-3+-with-id-software-additional-terms`, which is Debian DFSG [1] (The Debian Free Software Guidelines) approved and which is therefore suitable for Debian `main`. Whonix made applied minimal changes to it:
+    
+    * Rewrite `The Doom 3 BFG Edition GPL Source Code` to the more common `this program` which is used throughout the GPL.
+    * Added a "trump clause" [2], in other words, any conflicts or disputes between the additional terms and the GPLv3 shall be resolved in favor of the GPLv3 by adding `Notwithstanding any other provision of this License` (as mentioned in GPL FAQ [3]) at the beginning of the additional terms.
+    
+    [1] https://www.debian.org/social_contract#guidelines
+    [2] https://www.fsf.org/news/canonical-updated-licensing-terms
+    [3] https://www.gnu.org/licenses/gpl-faq.html#v3Notwithstanding
+    
+    For more considerations, see also:
+    https://www.whonix.org/wiki/Dev/Licensing
+
+commit d354acdd50e0a8a05adc4f9577f3d647de2aa5f8
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Aug 27 16:54:33 2018 +0000
+
+    bumped changelog version
+
+commit 902cd39999a71eea6eb6ec61c9fa676fdadc4012
+Merge: 0b62a06 f23cd7d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Aug 23 06:16:44 2018 -0400
+
+    Merge remote-tracking branch 'troubadoour/master'
+
+commit f23cd7d4d1e370dca78058580c9fb8f477b97b61
+Merge: a70061f 0b62a06
+Author: troubadoour <trobador@riseup.net>
+Date:   Wed Aug 22 19:30:32 2018 +0000
+
+    Merge remote-tracking branch 'whonix/master'
+
+commit a70061fa453f063508b465cc227cfef08586b117
+Author: troubadoour <trobador@riseup.net>
+Date:   Wed Aug 22 18:32:22 2018 +0000
+
+    tor-status logic
+
+commit 0b62a0622a53c0756de35d54ac0898ab10cd0199
+Merge: bc06f04 4b78169
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Aug 21 05:24:13 2018 +0800
+
+    Merge remote-tracking branch 'troubadoour/master'
+
+commit bc06f045babaaac38c1b80d0e1b0ad64b788c7a2
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Aug 21 05:18:40 2018 +0800
+
+    readme
+
+commit 4b781695de16371c605ebc88b6a4b16de4ec419e
+Author: troubadoour <trobador@riseup.net>
+Date:   Mon Aug 20 18:57:05 2018 +0000
+
+    import cleaning and missing
+
+commit 28f9dc80e7f5331616475df1b0608d41ec0ffed3
+Author: troubadoour <trobador@riseup.net>
+Date:   Mon Aug 20 18:35:38 2018 +0000
+
+    run repair_torrc
+
+commit f16c15f57190667903071586eada346caa8eecdf
+Author: troubadoour <trobador@riseup.net>
+Date:   Mon Aug 20 18:29:12 2018 +0000
+
+    code simplification
+
+commit 7acd91f80b9112a99e9876e693c3e76d0ecdfdf7
+Author: troubadoour <trobador@riseup.net>
+Date:   Sun Aug 19 21:13:37 2018 +0000
+
+    make code resilient if /var/run/tor does not exist
+
+commit fe3d55f2507d418c538220f4e29583fb8a6e97d8
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Aug 18 16:20:21 2018 +0000
+
+    fix lintian warning desktop-mime-but-no-exec-code
+
+commit 43b0c5fabef5ad75b9efca43672b99fd052bf441
+Merge: c7e5543 d3384c0
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Aug 18 16:01:23 2018 +0000
+
+    Merge remote-tracking branch 'troubadoour/master'
+
+commit d3384c0df4060f3e471ba321ea1c6addb0cb1266
+Author: troubadoour <trobador@riseup.net>
+Date:   Sat Aug 18 14:28:26 2018 +0000
+
+    tor-control-panel.desktop + Type=Application
+
+commit aeda3a0109553ed620e3321dece7696df9de4465
+Author: troubadoour <trobador@riseup.net>
+Date:   Thu Aug 16 20:16:54 2018 +0000
+
+    add dependency anon-shared-helper-scripts
+
+commit 85794d2a5cfaa144b7a97a1b549a1c02070e8ec3
+Author: troubadoour <trobador@riseup.net>
+Date:   Thu Aug 16 18:19:16 2018 +0000
+
+    modify tor-control-panel.service for new repair_torrc path
+
+commit fe6897055d1a82835e911eef59d17c42bcd8950a
+Author: troubadoour <trobador@riseup.net>
+Date:   Thu Aug 16 18:16:48 2018 +0000
+
+    remove repair_torrc from package
+
+commit 09a379e6b8d962f4511e851912b5a269c9accd19
+Author: troubadoour <trobador@riseup.net>
+Date:   Thu Aug 16 18:11:28 2018 +0000
+
+    remove usr/lib/other-anonymizer-config/torrc-parser
+
+commit 28b08fa24082dea6935f029b395eb057d3481571
+Author: troubadoour <trobador@riseup.net>
+Date:   Thu Aug 16 17:59:48 2018 +0000
+
+    fix logic flaw in tor status
+
+commit fb296a9900d50b4065af97475736d028c5c55b47
+Author: troubadoour <trobador@riseup.net>
+Date:   Thu Aug 16 17:57:15 2018 +0000
+
+    remove import repair_torrc
+
+commit 75c85bba57f83f555c1b2d6fca1f0a5289386f42
+Author: troubadoour <trobador@riseup.net>
+Date:   Thu Aug 16 12:43:04 2018 +0000
+
+    remove repair_torrc from tor-control-panel
+
+commit c7e554386941a81b3b0bcaeb2e8288141c62e654
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Aug 9 20:28:05 2018 +0000
+
+    bumped changelog version
+
+commit 89f1a550d18e83c02f17bc072416872246c14131
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Aug 9 16:51:20 2018 +0000
+
+    lib/systemd/system/other-anonymizer-config.service -> lib/systemd/system/tor-control-panel.service
+
+commit 0de45255a4c19becb0a5f29e2c4667630042b886
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Aug 9 16:02:44 2018 +0000
+
+    bumped changelog version
+
+commit 175c7024b7800c1495c75bc234bd5898fcf9a2c5
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Aug 7 11:58:10 2018 +0000
+
+    code simplification
+
+commit e7f2f227f82ac5e72ad60445cb064607122d573f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Aug 7 19:21:09 2018 +0800
+
+    sudoers.d asterix hardening
+
+commit c6272a3dc13b9f75c35b989dcb9fb59c3527fc9e
+Merge: d238aa6 d8651ab
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Aug 7 19:17:52 2018 +0800
+
+    Merge remote-tracking branch 'troubadoour/master'
+
+commit d8651ab20d7d387a816e6f44980a46a660c17b32
+Author: troubadoour <trobador@riseup.net>
+Date:   Mon Aug 6 19:35:59 2018 +0000
+
+    tor_is_enabled if 'missing_disablenetwork_line'
+
+commit 0a4fc8a90f4f916ee2091d84d7da24690cce0d36
+Author: troubadoour <trobador@riseup.net>
+Date:   Mon Aug 6 18:11:32 2018 +0000
+
+    systemd other-anonymizer-config.service to set torrc for tor-control-panel
+    in both whonix and other (run repair_torrc())
+
+commit 2f703fab33e261f07c6c948a5e4983ce2895fbc0
+Author: troubadoour <trobador@riseup.net>
+Date:   Sun Aug 5 15:27:12 2018 +0000
+
+    fix mime type
+
+commit bd00227f6bb854ee69273f2349308e62f76b1d6d
+Author: troubadoour <trobador@riseup.net>
+Date:   Fri Aug 3 15:16:11 2018 +0000
+
+    uses /var/run/tor/log in read log
+    uses /var/run/tor/html-log in write log
+
+commit c2e5f3cccaa8deba5310baf40825b2153982cae8
+Author: troubadoour <trobador@riseup.net>
+Date:   Fri Aug 3 11:59:35 2018 +0000
+
+    dependencies
+
+commit ea30c674d7f75accff29433bf4fc79d0c80d51d4
+Author: troubadoour <trobador@riseup.net>
+Date:   Tue Jul 31 21:18:43 2018 +0000
+
+    repair_torrc: write "DisableNetwork 0" and "Log notice" only in non-whonix
+    if "torrc.d/40_tor_control_panel.conf" does not exist
+
+commit 7768ba66dcf679675a35668d4585ce8d411623e1
+Author: troubadoour <trobador@riseup.net>
+Date:   Tue Jul 31 18:56:19 2018 +0000
+
+    torrc path 40_tor_control_panel.conf
+    get paths in repair_torrc
+
+commit b105efca1d280d1f109e325a4d1655cf0356ee48
+Author: troubadoour <trobador@riseup.net>
+Date:   Mon Jul 30 17:56:19 2018 +0000
+
+    minor display text
+
+commit 00a5c9b3cbfb0dd580c42c47569f3646614042f2
+Author: troubadoour <trobador@riseup.net>
+Date:   Mon Jul 30 17:54:42 2018 +0000
+
+    Log notice in 40_xxxxx.conf
+
+commit eb21280e51ef2f023b5126061c161b7e60750252
+Author: troubadoour <trobador@riseup.net>
+Date:   Mon Jul 30 14:12:01 2018 +0000
+
+    Enable network <--> Enable tor
+
+commit 7c5bcf27583207a24387092c73757e57f4420afb
+Author: troubadoour <trobador@riseup.net>
+Date:   Sun Jul 29 20:59:47 2018 +0000
+
+    enable / disable tor
+
+commit c0d33dd155242b3443dcc21871f37aa1a32051be
+Author: troubadoour <trobador@riseup.net>
+Date:   Fri Jul 27 14:32:35 2018 +0000
+
+    tor log for non-whonix distributions
+
+commit 9049a822e798a30eb43e4ec494c55e56850bb174
+Author: troubadoour <trobador@riseup.net>
+Date:   Fri Jul 27 14:19:00 2018 +0000
+
+    get torrc path from a single place
+    use 40_tor_control_panel.conf for non-whonix distributions
+
+commit d238aa633f848f92c2390a540d25f5397e7b3c33
+Merge: 5e141e8 7d4b3d3
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jul 27 11:35:47 2018 +0800
+
+    Merge remote-tracking branch 'troubadoour/master'
+
+commit 7d4b3d38e515bc763b3ecf8716eb1b3ab32d4f7d
+Author: troubadoour <trobador@riseup.net>
+Date:   Thu Jul 26 20:54:57 2018 +0000
+
+    license
+
+commit 5e141e85a0942bfee293dc4c8ce7b9eb0ba6dc1d
+Merge: e7762e2 19ab05d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jul 27 00:58:52 2018 +0800
+
+    Merge remote-tracking branch 'troubadoour/master'
+
+commit 19ab05d3ec06a26790ae2bbf7d3fa17e725c7ab9
+Author: troubadoour <trobador@riseup.net>
+Date:   Thu Jul 26 16:16:08 2018 +0000
+
+    remove make file
+
+commit 7baac2ad1b693686825b3ca7efe9c0d997a927f6
+Author: troubadoour <trobador@riseup.net>
+Date:   Thu Jul 26 16:03:26 2018 +0000
+
+    merge restart-tor-gui
+
+commit 33bbb9398686b7c1ae187a561b20ab9fdd08c602
+Author: troubadoour <trobador@riseup.net>
+Date:   Thu Jul 19 16:23:45 2018 +0000
+
+    same config file name as anon-connection-wizard in all files
+
+commit e7762e23606f6392d9cd53c634b811d13ab8fdc9
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jul 19 15:06:57 2018 +0000
+
+    bumped changelog version
+
+commit 8691ea5af7f3d322f9ccf2eb185188009fe364f9
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jul 19 14:54:20 2018 +0000
+
+    same config file name as anon-connection-wizard
+
+commit fb5417956b22fb0e642f9b77763e1db60d1cfd50
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jul 19 14:46:13 2018 +0000
+
+    fix
+
+commit 12c217ebd34052ae7f388218cb98b26f07db7f14
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jul 19 14:29:53 2018 +0000
+
+    bumped changelog version
+
+commit 95c828eb785d735080b429320cae4a36689fbce2
+Merge: 389a3b5 381f09b
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Jul 17 14:00:43 2018 +0800
+
+    Merge remote-tracking branch 'troubadoour/master'
+
+commit 381f09bc0b4c07b0f367a6a20216c8edce4c4bd8
+Author: troubadoour <trobador@riseup.net>
+Date:   Mon Jul 16 20:14:45 2018 +0000
+
+    fix mistake
+
+commit 48274e81a650ab115e26dcb29a32ea3d1a104612
+Author: troubadoour <trobador@riseup.net>
+Date:   Mon Jul 16 18:59:33 2018 +0000
+
+    Add repair_torrc.py with additions.
+    
+    Create 95_whonix.conf, 40_tor_control_panel.conf
+    and 50_user.conf here if they do not exist.
+    
+    Set torrc path for whonix and non-whonix distributions.
+
+commit 33f5a6924cba974f7f699fe3870e4c50d807b6c7
+Author: troubadoour <trobador@riseup.net>
+Date:   Sat Jul 14 20:03:32 2018 +0000
+
+    author in man page
+
+commit 788ca9b525f1f6f7c38c8dea22bbf47b4e79dd43
+Author: troubadoour <trobador@riseup.net>
+Date:   Sat Jul 14 18:57:45 2018 +0000
+
+    add repair_torrc.py
+
+commit 3b083fdffedd41fe7d3b1c103ee080bca0421292
+Author: troubadoour <trobador@riseup.net>
+Date:   Sat Jul 14 18:46:55 2018 +0000
+
+    check if run as root
+
+commit 389a3b5a6ae05be3b58a9ff816af007f02cde175
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jul 12 07:58:50 2018 +0000
+
+    fix lintian warnings
+
+commit bcacc9ed686eec3ce061d5983409e2b132cdb983
+Merge: 60fa4a2 f87bb84
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jul 12 07:25:25 2018 +0000
+
+    Merge remote-tracking branch 'troubadoour/master'
+
+commit f87bb846c5a5dfa12a064eb44f8fc06fe42a983e
+Author: troubadoour <trobador@riseup.net>
+Date:   Wed Jul 11 21:03:37 2018 +0000
+
+    add copyright
+
+commit 709b89717cc77d11a5ee21454858265189f631e5
+Author: troubadoour <trobador@riseup.net>
+Date:   Wed Jul 11 20:19:44 2018 +0000
+
+    disable newnym button if tor is stopped
+
+commit 60fa4a2ecc70c62ebb7b3d390562f1ec817ff4b7
+Author: troubadoour <trobador@riseup.net>
+Date:   Sun Jul 8 13:47:13 2018 +0000
+
+    desktop file, minor gui
+
+commit 311750e07307d71107d0b4274226378264232673
+Author: troubadoour <trobador@riseup.net>
+Date:   Sat Jul 7 19:03:53 2018 +0000
+
+    minor GUI
+
+commit 3e7a9e41a06471bfd88e55d90f9cb0442a4997df
+Author: troubadoour <trobador@riseup.net>
+Date:   Fri Jul 6 20:52:20 2018 +0000
+
+    tail n lines from tor log
+    misc gui
+
+commit 0d75378371a21cb35e9099173bad41b1c6c610df
+Author: troubadoour <trobador@riseup.net>
+Date:   Mon Jun 25 15:24:36 2018 +0000
+
+    layout status frame
+
+commit 720b9b1742a7370e0999900163ac11041c016c61
+Author: troubadoour <trobador@riseup.net>
+Date:   Sun Jun 24 19:42:09 2018 +0000
+
+    layout user frame
+
+commit 0262a35b7795357d3eb2b3efd2ce8ccc4777b3e6
+Author: troubadoour <trobador@riseup.net>
+Date:   Sun Jun 24 14:35:39 2018 +0000
+
+    custom bridges layout
+
+commit 81f66f9dbd050fefa65a693dff487f8202375c7f
+Author: troubadoour <trobador@riseup.net>
+Date:   Sat Jun 23 18:45:55 2018 +0000
+
+    gui layout for resizing window
+
+commit 9d60e4de47f9b180e97d60843579bc762db49111
+Author: troubadoour <trobador@riseup.net>
+Date:   Fri Jun 22 19:27:40 2018 +0000
+
+    misc gui, cleanup
+
+commit c494f4f8c03ce2dac0cca2db82a1af2acea093c9
+Author: troubadoour <trobador@riseup.net>
+Date:   Fri Jun 22 16:07:19 2018 +0000
+
+    move refresh button in logs tab
+
+commit e88d13f0cbc510d558495c50d9fcb8b23282f468
+Author: troubadoour <trobador@riseup.net>
+Date:   Mon Jun 18 20:58:59 2018 +0000
+
+    move bridges_default to /usr/shre/tor-control-panel
+
+commit 64248725ffc5a7afd07cc13338b391460628f918
+Author: troubadoour <trobador@riseup.net>
+Date:   Mon Jun 18 20:46:50 2018 +0000
+
+    remove meek-amazon add snowflake
+
+commit 8ad424ff84c903f154220ee3d18f01b376c0fce1
+Author: troubadoour <trobador@riseup.net>
+Date:   Mon Jun 11 20:04:54 2018 +0000
+
+    misg gui logs
+
+commit 0cdb7f214c13835efd94ac5981cdf2959adf4644
+Author: troubadoour <trobador@riseup.net>
+Date:   Mon Jun 4 21:06:34 2018 +0000
+
+    window and widgets expanding, misc
+
+commit 448d309842a608ba12e8f4f342211ffe3fad61e3
+Author: troubadoour <trobador@riseup.net>
+Date:   Sat Jun 2 21:31:20 2018 +0000
+
+    utilities tweaking 3
+
+commit 44e790c03942f028661c0ed406211e78164f815a
+Author: troubadoour <trobador@riseup.net>
+Date:   Sat Jun 2 20:49:41 2018 +0000
+
+    utilities tweaking 2
+
+commit 6762454e092651332e72a637b958d85e63a46ff2
+Author: troubadoour <trobador@riseup.net>
+Date:   Sat Jun 2 18:43:48 2018 +0000
+
+    utilities teaking
+
+commit 884dd465060282cfdf14f55adc62da58182baf26
+Author: troubadoour <trobador@riseup.net>
+Date:   Fri Jun 1 22:19:30 2018 +0000
+
+    newnym onioncircuits step 2
+
+commit 2340c7f49963ef90fa7feb4098fc4078d92332f9
+Author: troubadoour <trobador@riseup.net>
+Date:   Thu May 31 20:34:18 2018 +0000
+
+    newnym onioncircuits provisional
+
+commit 0d84fbfcf7b72fdf7e64b5e5c3609520632f3753
+Author: troubadoour <trobador@riseup.net>
+Date:   Wed May 30 21:30:03 2018 +0000
+
+    utilities step 1
+
+commit deea334d928a215cb7b66f0631bd9a6511d7c0a9
+Author: troubadoour <trobador@riseup.net>
+Date:   Mon May 28 20:42:17 2018 +0000
+
+    misc gui
+
+commit 6bc2b855f1f695e8b858ef52062d1086af3fd7c8
+Author: troubadoour <trobador@riseup.net>
+Date:   Mon May 28 14:47:11 2018 +0000
+
+    highlight warning error to end of line
+
+commit 952ee2cfffbed365df34bcc12f54f43c64101e9b
+Author: troubadoour <trobador@riseup.net>
+Date:   Sun May 27 20:54:52 2018 +0000
+
+    fix for the previous commit
+
+commit 0436c7147701eabd93f9ac0708895b1314a645f2
+Author: troubadoour <trobador@riseup.net>
+Date:   Sun May 27 20:18:37 2018 +0000
+
+    highlight warnings in tor log text browser. step1.
+
+commit 8a7145f21c4ffa87e3c0a8ba876cd60dbd4df950
+Author: troubadoour <trobador@riseup.net>
+Date:   Wed Apr 11 20:51:03 2018 +0000
+
+    misc
+
+commit 948789537228cfa556299f8ced7bc945aa8cb757
+Author: troubadoour <trobador@riseup.net>
+Date:   Mon Apr 9 20:28:32 2018 +0000
+
+    misc parse torrc, check ip
+
+commit 2f14f36d35e955fc23bfbaf279d105a51692073a
+Author: troubadoour <trobador@riseup.net>
+Date:   Sun Apr 8 20:02:31 2018 +0000
+
+    parse torrc logic
+
+commit 4632b3ccab1ae51162682908ce331fcf675dcace
+Author: troubadoour <trobador@riseup.net>
+Date:   Sat Apr 7 21:39:40 2018 +0000
+
+    parse torrc logic
+
+commit b4303f894b4c7d1b5104a83f3b513d3af94feed1
+Author: troubadoour <trobador@riseup.net>
+Date:   Fri Apr 6 21:09:19 2018 +0000
+
+    torrc generator, torrc parser
+
+commit 4b3fc9aa24e8abd7fdca09bd7ee4c6a1481739bb
+Author: troubadoour <trobador@riseup.net>
+Date:   Fri Apr 6 19:36:48 2018 +0000
+
+    proxy username password, parse torrc
+
+commit bbf93c661fd2fcc817fadf9d1da4fd2a6649adc9
+Author: troubadoour <trobador@riseup.net>
+Date:   Fri Mar 30 15:56:16 2018 +0000
+
+    proxy usrname and password
+
+commit 84711ff13e7c0d8dc95e26d5b5b0167afb133eb9
+Author: troubadoour <trobador@riseup.net>
+Date:   Sat Mar 24 21:32:40 2018 +0000
+
+    various
+
+commit 6b6a755f47dcf132f4b31d97b22e0630a44f4f8b
+Author: troubadoour <trobador@riseup.net>
+Date:   Fri Mar 23 22:39:16 2018 +0000
+
+    default configuration button
+
+commit 65e42a3f4afe1968634691e93e392492fd376e50
+Author: troubadoour <trobador@riseup.net>
+Date:   Fri Mar 23 20:49:17 2018 +0000
+
+    + python3-ipy --> use "ipaddress" in check proxy settings
+    better parsing, support ipv6
+
+commit e60c8c4a5904c047f7592c3dde62e2a1f6418e32
+Author: troubadoour <trobador@riseup.net>
+Date:   Fri Mar 23 19:30:35 2018 +0000
+
+    misc icons, check proxy settings
+
+commit c60df897159a18447d1b736e00bbaf9a597ecee7
+Author: troubadoour <trobador@riseup.net>
+Date:   Thu Mar 22 21:35:36 2018 +0000
+
+    misc logic, text boxes
+
+commit b088aaec2440496020fcdf5ce8d0ee251e3fea75
+Author: troubadoour <trobador@riseup.net>
+Date:   Thu Mar 22 20:55:26 2018 +0000
+
+    torrc-gen tweakings 2
+
+commit 122fd6a251c11ffcac2c1cd9699fd32618df474e
+Author: troubadoour <trobador@riseup.net>
+Date:   Thu Mar 22 17:33:21 2018 +0000
+
+    gen_torrc tweaking
+
+commit 32b3a6c3bc361ad6572e4d87d3b05e68856d03f5
+Author: troubadoour <trobador@riseup.net>
+Date:   Wed Mar 21 21:52:05 2018 +0000
+
+    custom bridges accept
+
+commit a6bcb12efa8c4f21557002a8bcf7cf73401dfbef
+Author: troubadoour <trobador@riseup.net>
+Date:   Tue Mar 20 21:58:32 2018 +0000
+
+    reverse testing
+
+commit 51b67084249a17ceb6a02bd264fb44a6f9b0460e
+Author: troubadoour <trobador@riseup.net>
+Date:   Tue Mar 20 21:53:00 2018 +0000
+
+    custom bridges gui step 1
+
+commit 7c497a859a00ef45333e1f24c56cbd598aa8a94e
+Author: troubadoour <trobador@riseup.net>
+Date:   Mon Mar 19 19:49:53 2018 +0000
+
+    configuration logic
+
+commit af6d89138a63d8351804757394ca2aaaff0dc4cf
+Author: troubadoour <trobador@riseup.net>
+Date:   Mon Mar 19 12:30:10 2018 +0000
+
+    cleanup
+
+commit 4b43e2f8c3ea614e55c3ef856100584fa411ac52
+Author: troubadoour <trobador@riseup.net>
+Date:   Sun Mar 18 20:54:34 2018 +0000
+
+    anon-connection-wizard integration: bridges, proxy settings
+
+commit 8d3692ae846134365d317bff274c8c4454419d52
+Author: troubadoour <trobador@riseup.net>
+Date:   Sat Mar 17 22:30:16 2018 +0000
+
+    previous button in configuration frame (temporary)
+
+commit 62759b6941a6daad3f4e6813ea9d50ca75bba667
+Author: troubadoour <trobador@riseup.net>
+Date:   Sat Mar 17 17:15:07 2018 +0000
+
+    fixes, help buttons, proxies
+
+commit f16a9b8d6c5574e2aed30a714eaddad28c59f562
+Author: troubadoour <trobador@riseup.net>
+Date:   Wed Mar 14 19:07:41 2018 +0000
+
+    proxy details in torrc_gen
+
+commit 5efd135fc573e695e7774c464280b045498fc182
+Author: troubadoour <trobador@riseup.net>
+Date:   Tue Mar 13 19:19:21 2018 +0000
+
+    integration of anon-connection-wizard, step 1
+
+commit e22f03eec62eb066caa0bb61fec8e5f88c1fca59
+Author: troubadoour <trobador@riseup.net>
+Date:   Mon Mar 5 20:53:29 2018 +0000
+
+    cleanup
+
+commit 997f3c18e3e09b348e920432d0204292574e723c
+Author: troubadoour <trobador@riseup.net>
+Date:   Sun Mar 4 21:59:38 2018 +0000
+
+    remove stop_bootstrap
+
+commit 5cfdfde0f20a8c7cf79c2fdb99efd1eb1dbd2a3f
+Author: troubadoour <trobador@riseup.net>
+Date:   Sun Mar 4 20:05:26 2018 +0000
+
+    intial commit
