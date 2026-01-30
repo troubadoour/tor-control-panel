@@ -194,7 +194,6 @@ def parse_torrc():
             proxy_username = ''
             proxy_password = ''
 
-        return (bridge_type, proxy_type, proxy_ip, proxy_port, proxy_username, proxy_password,
-                use_bridge, use_proxy)
+        return (bridge_type, proxy_type, proxy_ip, proxy_port, proxy_username, proxy_password)
 
     return None
