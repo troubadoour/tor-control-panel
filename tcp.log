@@ -1,0 +1,12 @@
+/usr/libexec/anon-gw-anonymizer-config/generate-tor-service-defaults-torrc-anondist: BEGIN
+/usr/libexec/anon-gw-anonymizer-config/generate-tor-service-defaults-torrc-anondist: INFO: No IPv6 routes available, assuming IPv6 disabled.
+/usr/libexec/anon-gw-anonymizer-config/generate-tor-service-defaults-torrc-anondist: INFO: Commenting out IPv6 configuration in '/usr/share/tor/tor-service-defaults-torrc.anondist'.
+/usr/libexec/anon-gw-anonymizer-config/generate-tor-service-defaults-torrc-anondist: INFO: Commented out IPv6 configuration in '/usr/share/tor/tor-service-defaults-torrc.anondist'.
+/usr/libexec/anon-gw-anonymizer-config/generate-tor-service-defaults-torrc-anondist: END
+tor_status was called.
+tor_status status: tor_enabled
+/usr/libexec/anon-gw-anonymizer-config/generate-tor-service-defaults-torrc-anondist: BEGIN
+/usr/libexec/anon-gw-anonymizer-config/generate-tor-service-defaults-torrc-anondist: INFO: No IPv6 routes available, assuming IPv6 disabled.
+/usr/libexec/anon-gw-anonymizer-config/generate-tor-service-defaults-torrc-anondist: INFO: Commenting out IPv6 configuration in '/usr/share/tor/tor-service-defaults-torrc.anondist'.
+/usr/libexec/anon-gw-anonymizer-config/generate-tor-service-defaults-torrc-anondist: INFO: Commented out IPv6 configuration in '/usr/share/tor/tor-service-defaults-torrc.anondist'.
+/usr/libexec/anon-gw-anonymizer-config/generate-tor-service-defaults-torrc-anondist: END
