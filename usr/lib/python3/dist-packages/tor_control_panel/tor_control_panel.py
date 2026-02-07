@@ -610,7 +610,7 @@ class TorControlPanel(QDialog):
                 print(f"DEBUG Disable network  : {self.bridges_combo.currentText() }")
                 tor_status.set_disabled()
                 # self.restart_tor()
-                self.exit_configuration()
+                # self.exit_configuration()
 
             elif self.bridges_combo.currentText() == 'Enable network':
                 tor_status.set_enabled()
