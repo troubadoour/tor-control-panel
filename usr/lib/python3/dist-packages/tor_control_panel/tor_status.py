@@ -111,10 +111,6 @@ def set_disabled():
     if disable_network_found:
         with open(torrc_file_path,'r') as f:
             content = f.read().replace('DisableNetwork 0', 'DisableNetwork 1')
-            with open(torrc_file_path, 'r') as f:
-                torrc = f.readlines()
-                for line in torrc:
-                    print(f" DEBUG liness dffg {line}")
 
     else:
         if os.path.exists(torrc_file_path):
@@ -152,6 +148,7 @@ def write_to_temp_then_move(content):
     subprocess.check_call(command)
 
     print("after 2:")
+
     cat(torrc_file_path)
 
 def cat(filename):

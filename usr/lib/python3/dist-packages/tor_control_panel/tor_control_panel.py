@@ -51,7 +51,6 @@ class TorControlPanel(QDialog):
 
         self.message = ''
         self.tor_message = info.tor_stopped()
-        #self.tor_path = '/run/tor'
         self.tor_running_path = '/run/tor/tor.pid'
         self.torrc_file_path =  '/usr/local/etc/torrc.d/40_tor_control_panel.conf'
 
@@ -184,7 +183,6 @@ class TorControlPanel(QDialog):
         self.prev_button = QPushButton(self.back_icon, '')
         self.prev_button.clicked.connect(self.exit_configuration)
 
-        #self.proxy_frame = QFrame()
         self.proxy_settings_layout = QGridLayout()  #(self.proxy_frame)
         self.proxy_settings_layout.addWidget(self.proxy_ip_label, 1, 0)
         self.proxy_settings_layout.addWidget(self.proxy_ip_edit, 1, 1)
@@ -200,7 +198,6 @@ class TorControlPanel(QDialog):
         self.config_layout = QVBoxLayout(self.config_frame)
         self.config_layout.addLayout(self.config_frame_layout)
         self.config_layout.addLayout(self.proxy_settings_layout)
-        #self.config_layout.addWidget(self.proxy_frame)
 
         self.user_layout.addWidget(self.config_frame)
 
@@ -504,7 +501,7 @@ class TorControlPanel(QDialog):
 
         else:
             self.hide_custom_bridges()
-            self.write_torrc()
+            self.set_torrc()
 
     def valid_ip(self, address):
         import socket
@@ -607,10 +604,8 @@ class TorControlPanel(QDialog):
                 self.use_default_bridges = False
 
             elif self.bridges_combo.currentText() == 'Disable network':
-                print(f"DEBUG Disable network  : {self.bridges_combo.currentText() }")
                 tor_status.set_disabled()
-                # self.restart_tor()
-                # self.exit_configuration()
+                self.exit_configuration()
 
             elif self.bridges_combo.currentText() == 'Enable network':
                 tor_status.set_enabled()
@@ -628,10 +623,14 @@ class TorControlPanel(QDialog):
             else:
                 self.use_proxy = False
 
-            if not self.use_custom_bridges:
-                self.write_torrc()
+            tor_is_enabled = tor_status.tor_status() == 'tor_enabled'
+            if not tor_is_enabled:
+                self.refresh(True)
+                self.restart_button.setEnabled(False)
+            if not self.use_custom_bridges and tor_is_enabled :
+                self.set_torrc()
 
-    def write_torrc(self):
+    def set_torrc(self):
         args = []
 
         if self.use_default_bridges:
@@ -763,6 +762,7 @@ class TorControlPanel(QDialog):
             ## would be destroyed while running, crashing the program.
             if bootstrap:
                 self.start_bootstrap()
+
         else:
             if not tor_is_running:
                 self.tor_status = 'stopped'
@@ -774,12 +774,15 @@ class TorControlPanel(QDialog):
                 if tor_is_running:
                     self.tor_status = 'disabled-running'
                     tor_state = True
+                    self.bridges_combo.removeItem(8)
+                    self.bridges_combo.addItem('Enable network')
+
 
                 elif not tor_is_running:
                     self.tor_status = 'disabled'
                     tor_state = False
-                self.bridges_combo.removeItem(8)
-                self.bridges_combo.addItem('Enable network')
+                    self.bridges_combo.removeItem(8)
+                    self.bridges_combo.addItem('Enable network')
 
             self.message = self.tor_message[self.tor_status_list.index
             (self.tor_status)]

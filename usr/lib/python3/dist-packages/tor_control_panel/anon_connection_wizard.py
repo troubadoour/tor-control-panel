@@ -265,10 +265,7 @@ class BridgesWizardPage(QWizardPage):
         self.custom_bridges_help.setText('&How to get Bridges?')
         self.custom_bridges_help.clicked.connect(info.custom_bridges_help)
 
-        # self.custom_bridges.setLineWrapColumnOrWidth(1000)
         self.custom_bridges.setLineWrapMode(QTextEdit.NoWrap)
-        # self.custom_bridges.setLineWrapMode(QTextEdit.LineWrapMode.FixedPixelWidth)
-        # self.custom_bridges.setLineWrapMode(QTextEdit.LineWrapMode.FixedPixelWidth)
 
     def show_bridges_panel(self):
         if  self.bridges_checkbox.isChecked():
