@@ -16,13 +16,24 @@ torrc_file_path = '/usr/local/etc/torrc.d/40_tor_control_panel.conf'
 acw_comm_file_path = '/run/anon-connection-wizard/tor.conf'
 
 
+
 def tor_status():
     print("tor_status was called.")
 
-    output = subprocess.check_output('/usr/libexec/helper-scripts/tor_enabled_check')
-    output = output.decode("UTF-8").strip()
+    # output = self.tor_enabled_check()  #subprocess.check_output('/usr/libexec/helper-scripts/tor_enabled_check')
+    # output = output.decode("UTF-8").strip()
 
-    if output == "true":
+    def tor_enabled_check():
+        if os.path.exists(torrc_file_path):
+            with open(torrc_file_path, 'r') as f:
+                content = f.readlines()
+                for line in content:
+                    if  "DisableNetwork 1" in line:
+                        return False
+                    elif "DisableNetwork 0" in line:
+                        return True
+
+    if tor_enabled_check():
         print("tor_status status: tor_enabled")
         return "tor_enabled"
     else:
