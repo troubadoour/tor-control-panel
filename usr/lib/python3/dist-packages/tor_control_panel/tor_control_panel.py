@@ -18,7 +18,7 @@ import re
 import glob
 import tempfile
 
-from . import tor_status, tor_bootstrap, torrc_gen, info
+from . import tor_status, tor_bootstrap, torrc_gen, info, commands
 
 
 class TorControlPanel(QDialog):
@@ -26,7 +26,7 @@ class TorControlPanel(QDialog):
         super(TorControlPanel, self).__init__()
 
         ## Make sure torrc exists.
-        command = 'leaprun tor-config-sane'
+        command = commands.command("tor_config_sane")  # 'leaprun tor-config-sane'
         call(command, shell=True)
 
         self.setMinimumSize(650, 465)
@@ -56,8 +56,8 @@ class TorControlPanel(QDialog):
 
         self.button_name = ['systemd &journal', 'Tor &log', '&torrc']
 
-        self.journal_command = ['leaprun',
-                                'tor-control-panel-read-tor-default-log']
+        self.journal_command = commands.command("tor_log")
+        # ['leaprun','tor-control-panel-read-tor-default-log']
 
         self.bridges = ['None',
                         'obfs4',
@@ -801,7 +801,7 @@ class TorControlPanel(QDialog):
         self.stop_tor()
         self.restart_button.setEnabled(False)
 
-        restart_command = 'leaprun acw-tor-control-restart'
+        restart_command = commands.command("restart_tor")# 'leaprun acw-tor-control-restart'
         p = Popen(restart_command, shell=True)
         self.start_bootstrap()
 
@@ -810,7 +810,7 @@ class TorControlPanel(QDialog):
         if not self.bootstrap_done:
             self.bootstrap_progress.hide()
             self.bootstrap_thread.terminate()
-        stop_command = 'leaprun acw-tor-control-stop'
+        stop_command =  commands.command("stop_tor")  # 'leaprun acw-tor-control-stop'
         p = Popen(stop_command, shell=True)
         p.wait()
         self.refresh(True)

@@ -4,6 +4,7 @@
 ## See the file COPYING for copying conditions.
 
 import os, subprocess, fcntl
+from . import commands
 
 if os.path.exists('/usr/share/anon-gw-base-files/gateway'):
     whonix=True
@@ -14,7 +15,6 @@ else:
 ## Should use same variable as in anon_connection_wizard.py.
 torrc_file_path = '/usr/local/etc/torrc.d/40_tor_control_panel.conf'
 acw_comm_file_path = '/run/anon-connection-wizard/tor.conf'
-
 
 
 def tor_status():
@@ -80,17 +80,17 @@ def set_enabled():
 
     write_to_temp_then_move(content)
 
-    command = 'leaprun acw-tor-control-restart'
+    command = commands.command("restart_tor")  #leaprun acw-tor-control-restart'
     tor_status_code = subprocess.call(command, shell=True)
 
     if tor_status_code != 0:
         return 'cannot_connect', tor_status_code
 
     ## we have to reload to open /run/tor/control and create /run/tor/control.authcookie
-    command = 'leaprun acw-tor-control-reload'
+    command = commands.command("reload_tor")   #leaprun acw-tor-control-reload'
     subprocess.call(command, shell=True)
 
-    command = 'leaprun acw-tor-control-status'
+    command = commands.command("tor_status")  # 'leaprun acw-tor-control-status'
     tor_status_code = subprocess.call(command, shell=True)
 
     if tor_status_code != 0:
@@ -132,7 +132,7 @@ def set_disabled():
 
     write_to_temp_then_move(content)
 
-    command = 'leaprun acw-tor-control-stop'
+    command = commands.command("stop_tor")  # 'leaprun acw-tor-control-stop'
     subprocess.call(command, shell=True)
 
     return 'tor_disabled'
@@ -154,7 +154,7 @@ def write_to_temp_then_move(content):
     print("after 1:")
     cat(acw_comm_file_path)
 
-    command = ['leaprun', 'acw-write-torrc']
+    command = commands.command("write_torrc")   # ['leaprun', 'acw-write-torrc']
     print("tor_status.py: executing:", ' '.join(command))
     subprocess.check_call(command)
 
