@@ -14,6 +14,8 @@ def command(command):
                                         'tor_status': 'leaprun acw-tor-control-status',
                                         'write_torrc': ['leaprun', 'acw-write-torrc'],
                                         'tor_config_sane': ['leaprun', 'tor-config-sane'],
+                                        'dns_add': ['leaprun', 'anon-dns-add'],
+                                        'dns_remove': ['leaprun', 'anon-dns-remove'],
                                         }
 
     debian_commands = {'restart_tor': '',
@@ -23,6 +25,8 @@ def command(command):
                                         'tor_status': '',
                                         'write_torrc': '',
                                         'tor_config_sane': '',
+                                        'dns_add': '',
+                                        'dns_remove': '',
                                         }
 
     if whonix:

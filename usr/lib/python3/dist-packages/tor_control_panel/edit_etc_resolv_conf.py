@@ -17,7 +17,7 @@ def edit_etc_resolv_conf_add():
       return
 
    try:
-      command = ['leaprun', 'anon-dns-add']
+      command = commands.command('dns_add')   # ['leaprun', 'anon-dns-add']
       p = Popen(command, stdout=PIPE, stderr=PIPE)
       stdout, stderr = p.communicate()
    except BaseException:
@@ -30,7 +30,7 @@ def edit_etc_resolv_conf_remove():
       return
 
    try:
-      command = ['leaprun', 'anon-dns-remove']
+      command = commands.ommand('dns_remove')    #['leaprun', 'anon-dns-remove']
       p = Popen(command, stdout=PIPE, stderr=PIPE)
       stdout, stderr = p.communicate()
    except BaseException:

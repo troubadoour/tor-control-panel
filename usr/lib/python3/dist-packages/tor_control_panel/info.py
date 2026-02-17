@@ -68,22 +68,8 @@ If you do not know these, leave them blank and see if the connection succeeds. I
 
 def custom_bridges_help():
     reply = QtWidgets.QMessageBox(QtWidgets.QMessageBox.NoIcon, 'Custom Bridges Help',
-                                  '''
-<p>As an alternative to using the provided bridges, you can obtain a
-custom set of addresses using one of the following methods:</p>
-
-<p><b>1.</b> Use a web browser to visit:
-<b>https://bridges.torproject.org/options</b></p>
-
-<p><b>2.</b> Send an email to <b>bridges@torproject.org</b> with the line 'get bridges' in the body of the message.
- You must send this request from one of the following email providers
-(listed in order of preference):<br>
-https://www.riseup.net, https://mail.google.com, or https://mail.yahoo.com</p>
-<p>For assistance, visit <b>torproject.org/about/contact.html#support</b></p>
-<p>Paste the bridge list received from the Tor Project:</p>
-''', QtWidgets.QMessageBox.Ok)
+                         tcp_custom_bridges_help(), QtWidgets.QMessageBox.Ok)
     reply.exec_()
-
 
 def tcp_custom_bridges_help():
     text = '''
@@ -96,7 +82,7 @@ custom set of addresses using one of the following methods:</p>
 <p><b>2.</b> Send an email to <b>bridges@torproject.org</b> with the line 'get bridges' in the body of the message.
  You must send this request from one of the following email providers
 (listed in order of preference):<br>
-https://www.riseup.net, https://mail.google.com, or https://mail.yahoo.com</p>
+https://www.riseup.net, https://mail.google.com</p>
 <p>For assistance, visit <b>torproject.org/about/contact.html#support</b></p>
 <p>Paste the bridge list received from the Tor Project:</p>
 '''
