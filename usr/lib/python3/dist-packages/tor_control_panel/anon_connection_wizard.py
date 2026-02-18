@@ -211,11 +211,18 @@ class BridgesWizardPage(QWizardPage):
         self.h_spacer = QSpacerItem(40, 20, QSizePolicy.Minimum, QSizePolicy.Expanding)
         self.custom_bridges = QtWidgets.QTextEdit(self.custom_frame)
         self.custom_bridges.setMinimumSize(440, 480)
-        self.custom_layout.addWidget(self.custom_label, 1, 0, QSizePolicy.Minimum, QSizePolicy.Expanding)
-        self.custom_layout.addWidget(self.custom_bridges_help, 1, 1, QSizePolicy.Minimum, QSizePolicy.Expanding,
-                                     Qt.AlignmentFlag.AlignRight)
+
+        self.custom_label.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Expanding)
+        self.custom_layout.addWidget(self.custom_label, 1, 0)
+
+        self.custom_bridges_help.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Expanding)
+        self.custom_layout.addWidget(self.custom_bridges_help, 1, 1, Qt.AlignmentFlag.AlignRight)
+
         self.custom_layout.addItem(self.h_spacer, 2, 0)
-        self.custom_layout.addWidget(self.custom_bridges, 3, 0, QSizePolicy.Expanding, QSizePolicy.Expanding )
+
+        self.custom_bridges.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        self.custom_layout.addWidget(self.custom_bridges, 3, 0)
+
         self.dummy_frame = QFrame()
 
         self.layout = QVBoxLayout()
