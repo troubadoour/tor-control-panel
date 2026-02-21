@@ -425,10 +425,15 @@ class TorControlPanel(QDialog):
     def newnym(self):
         from stem import Signal
         from stem.control import Controller
-        with Controller.from_socket_file('/run/tor/control') as controller:
-            controller.authenticate()
-            controller.signal(Signal.NEWNYM)
-            self.restart_tor()
+
+        try:
+            with Controller.from_socket_file('/run/tor/control') as controller:
+                controller.authenticate()
+                controller.signal(Signal.NEWNYM)
+                self.restart_tor()
+
+        except stem.UnsatisfiableRequest:
+            print('signal NEWNYM  failed to be processed')
 
     def onioncircuits(self):
         command = 'onioncircuits &'
