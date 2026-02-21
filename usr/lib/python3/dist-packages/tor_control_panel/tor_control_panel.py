@@ -25,7 +25,7 @@ class TorControlPanel(QDialog):
     def __init__(self):
         super(TorControlPanel, self).__init__()
 
-        ## Make sure torrc exists.
+        # Make sure torrc exists.
         command = commands.command("tor_config_sane")  # 'leaprun tor-config-sane'
         call(command, shell=True)
 
@@ -57,7 +57,6 @@ class TorControlPanel(QDialog):
         self.button_name = ['systemd &journal', 'Tor &log', '&torrc']
 
         self.journal_command = commands.command("tor_log")
-        # ['leaprun','tor-control-panel-read-tor-default-log']
 
         self.bridges = ['None',
                         'obfs4',

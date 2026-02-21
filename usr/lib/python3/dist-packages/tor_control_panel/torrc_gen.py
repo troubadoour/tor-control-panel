@@ -45,10 +45,8 @@ proxy_auth = ['HTTPSProxyAuthenticator',
 def torrc_path():
     return torrc_file_path
 
-
 def user_path():
     return torrc_user_file_path
-
 
 def gen_torrc(args):
     bridge_type = str(args[0]) if len(args) > 0 else 'None'

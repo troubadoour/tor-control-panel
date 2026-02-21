@@ -86,14 +86,14 @@ https://www.riseup.net, https://mail.google.com</p>
 <p>For assistance, visit <b>torproject.org/about/contact.html#support</b></p>
 <p>Paste the bridge list received from the Tor Project:</p>
 '''
-    return text
+    return text.strip()
 
 def invalid_custom_bridges():
     text = '''
 <p><b>  Custom bridge list is blank or invalid</b></p>
  <p> Please input valid custom bridges or use provided default bridges instead.</p>
 '''
-    return text
+    return text.strip()
 
 def tor_stopped():
     text = [
@@ -148,15 +148,14 @@ but we cannot read that file (probably due to permissions)</p>
 
 
 def no_controller():
-    reply = QtWidgets.QMessageBox(QtWidgets.QMessageBox.NoIcon, 'Tor Controller',
-                                  '''<b>ERROR: Tor Controller Not Constructed</b><p>The Tor \
+    text = '''
+<b>ERROR: Tor Controller Not Constructed</b><p>The Tor \
 controller cannot be constructed. This is most likely because \
 you have a \"DisableNetwork 1\" line in a torrc file.\
 Please manually remove or comment out those lines, then run \
 anon-connection-wizard or restart Tor.
-''', QtWidgets.QMessageBox.Ok)
-    reply.exec_()
-
+'''
+    return text.strip()
 
 def invalid_ip_port():
     text = '''

@@ -59,7 +59,7 @@ def set_enabled():
     content = ''
 
     if os.path.exists(torrc_file_path):
-        with open(torrc_file_path, 'r') as f:
+        with open(torrc_file_path, 'r', encoding="utf-8") as f:
             content = f.readlines()
 
     disable_network_found = False
@@ -69,7 +69,7 @@ def set_enabled():
             break
 
     if disable_network_found:
-        with open(torrc_file_path,'r') as f:
+        with open(torrc_file_path,'r', encoding="utf-8") as f:
             content = f.read().replace('DisableNetwork 1', 'DisableNetwork 0')
     else:
         if os.path.exists(torrc_file_path):
@@ -110,7 +110,7 @@ def set_disabled():
     content = ''
 
     if os.path.exists(torrc_file_path):
-        with open(torrc_file_path, 'r') as f:
+        with open(torrc_file_path, 'r',  encoding="utf-8") as f:
             content = f.readlines()
 
     disable_network_found = False
@@ -120,12 +120,12 @@ def set_disabled():
             break
 
     if disable_network_found:
-        with open(torrc_file_path,'r') as f:
+        with open(torrc_file_path,'r', encoding="utf-8") as f:
             content = f.read().replace('DisableNetwork 0', 'DisableNetwork 1')
 
     else:
         if os.path.exists(torrc_file_path):
-            with open(torrc_file_path,'r') as f:
+            with open(torrc_file_path,'r', encoding="utf-8") as f:
                 content = f.read() + '\n' + 'DisableNetwork 1' + '\n'
         else:
             content = 'DisableNetwork 1' + '\n'
