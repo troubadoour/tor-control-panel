@@ -112,86 +112,86 @@ def gen_torrc(args):
 
 def parse_torrc():
     ## Make sure Torrc exists.
-    command = 'leaprun tor-config-sane'
-    call(command, shell=True)
+    # command = 'leaprun tor-config-sane'
+    # call(command, shell=True)
 
-    if os.path.exists(torrc_file_path):
-        use_bridge = 'UseBridges' in open(torrc_file_path).read()
-        use_custom_bridges = '# Custom briges are used' in open(torrc_file_path).read()
-        use_proxy = 'Proxy' in open(torrc_file_path).read()
+    # if os.path.exists(torrc_file_path):
+    use_bridge = 'UseBridges' in open(torrc_file_path).read()
+    use_custom_bridges = '# Custom briges are used' in open(torrc_file_path).read()
+    use_proxy = 'Proxy' in open(torrc_file_path).read()
 
-        bridge_type = ''
+    bridge_type = ''
 
-        if use_bridge:
-            with open(torrc_file_path, 'r') as f:
-                for line in f:
-                    if line.startswith('#'):
-                        continue
+    if use_bridge:
+        with open(torrc_file_path, 'r') as f:
+            for line in f:
+                if line.startswith('#'):
+                    continue
 
-                    if line.startswith('Bridge'):
-                        line = line.split()
-                        # The bridge name is 'meek_lite', the bridge type is 'meek'
-                        if line[1].startswith('meek_lite'):
-                            line[1] = 'meek'
-                        bridge_type = line[1]
+                if line.startswith('Bridge'):
+                    line = line.split()
+                    # The bridge name is 'meek_lite', the bridge type is 'meek'
+                    if line[1].startswith('meek_lite'):
+                        line[1] = 'meek'
+                    bridge_type = line[1]
 
-                    if use_custom_bridges:
-                        bridge_type = 'Custom bridges'
-        else:
-            bridge_type = 'None'
+                if use_custom_bridges:
+                    bridge_type = 'Custom bridges'
+    else:
+        bridge_type = 'None'
 
-        if use_proxy:
-            auth_check = False
-            proxy_type = proxy_ip = proxy_port = proxy_username = proxy_password = ''
-            with open(torrc_file_path, 'r') as f:
-                for line in f:
-                    line = line.strip()
-                    if not line:
-                        continue
+    if use_proxy:
+        auth_check = False
+        proxy_type = proxy_ip = proxy_port = proxy_username = proxy_password = ''
+        with open(torrc_file_path, 'r') as f:
+            for line in f:
+                line = line.strip()
+                if not line:
+                    continue
 
-                    parts = line.split()
-                    if len(parts) < 2:
-                        continue
+                parts = line.split()
+                if len(parts) < 2:
+                    continue
 
-                    key, value = parts[0], parts[1]
+                key, value = parts[0], parts[1]
 
-                    if key in proxy_torrc:
-                        proxy_type = proxies[proxy_torrc.index(key)]
-                        if ':' in value:
-                            ip_port = value.split(':', 1)
-                            proxy_ip = ip_port[0]
-                            proxy_port = ip_port[1] if len(ip_port) > 1 else ''
-                        continue
+                if key in proxy_torrc:
+                    proxy_type = proxies[proxy_torrc.index(key)]
+                    if ':' in value:
+                        ip_port = value.split(':', 1)
+                        proxy_ip = ip_port[0]
+                        proxy_port = ip_port[1] if len(ip_port) > 1 else ''
+                    continue
 
-                    if key == proxy_auth[0]:  # HTTPSProxyAuthenticator
-                        auth_check = True
-                        if ':' in value:
-                            user_pass = value.split(':', 1)
-                            proxy_username = user_pass[0]
-                            proxy_password = user_pass[1] if len(user_pass) > 1 else ''
-                        continue
+                if key == proxy_auth[0]:  # HTTPSProxyAuthenticator
+                    auth_check = True
+                    if ':' in value:
+                        user_pass = value.split(':', 1)
+                        proxy_username = user_pass[0]
+                        proxy_password = user_pass[1] if len(user_pass) > 1 else ''
+                    continue
 
-                    if key == proxy_auth[1]:  # Socks5ProxyUsername
-                        auth_check = True
-                        proxy_username = value
-                        continue
+                if key == proxy_auth[1]:  # Socks5ProxyUsername
+                    auth_check = True
+                    proxy_username = value
+                    continue
 
-                    if key == proxy_auth[2]:  # Socks5ProxyPassword
-                        auth_check = True
-                        proxy_password = value
-                        continue
+                if key == proxy_auth[2]:  # Socks5ProxyPassword
+                    auth_check = True
+                    proxy_password = value
+                    continue
 
-            if not auth_check:
-                proxy_username = ''
-                proxy_password = ''
-
-        else:
-            proxy_type = 'None'
-            proxy_ip = ''
-            proxy_port = ''
+        if not auth_check:
             proxy_username = ''
             proxy_password = ''
 
-        return (bridge_type, proxy_type, proxy_ip, proxy_port, proxy_username, proxy_password)
+    else:
+        proxy_type = 'None'
+        proxy_ip = ''
+        proxy_port = ''
+        proxy_username = ''
+        proxy_password = ''
+
+    return (bridge_type, proxy_type, proxy_ip, proxy_port, proxy_username, proxy_password)
 
     return None

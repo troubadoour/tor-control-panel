@@ -24,14 +24,14 @@ def tor_status():
     # output = output.decode("UTF-8").strip()
 
     def tor_enabled_check():
-        if os.path.exists(torrc_file_path):
-            with open(torrc_file_path, 'r') as f:
-                content = f.readlines()
-                for line in content:
-                    if  "DisableNetwork 1" in line:
-                        return False
-                    elif "DisableNetwork 0" in line:
-                        return True
+        # if os.path.exists(torrc_file_path):
+        with open(torrc_file_path, 'r') as f:
+            content = f.readlines()
+            for line in content:
+                if  "DisableNetwork 1" in line:
+                    return False
+                elif "DisableNetwork 0" in line:
+                    return True
 
     if tor_enabled_check():
         print("tor_status status: tor_enabled")
@@ -58,9 +58,9 @@ def set_enabled():
 
     content = ''
 
-    if os.path.exists(torrc_file_path):
-        with open(torrc_file_path, 'r', encoding="utf-8") as f:
-            content = f.readlines()
+    # if os.path.exists(torrc_file_path):
+    with open(torrc_file_path, 'r', encoding="utf-8") as f:
+        content = f.readlines()
 
     disable_network_found = False
     for line in content:
@@ -72,11 +72,11 @@ def set_enabled():
         with open(torrc_file_path,'r', encoding="utf-8") as f:
             content = f.read().replace('DisableNetwork 1', 'DisableNetwork 0')
     else:
-        if os.path.exists(torrc_file_path):
-            with open(torrc_file_path,'r') as f:
-                content = f.read() + '\n' + 'DisableNetwork 0' + '\n'
-        else:
-            content = 'DisableNetwork 0'
+        # if os.path.exists(torrc_file_path):
+        with open(torrc_file_path,'r') as f:
+            content = f.read() + '\n' + 'DisableNetwork 0' + '\n'
+        # else:
+        #     content = 'DisableNetwork 0'
 
     write_to_temp_then_move(content)
 
@@ -109,9 +109,9 @@ def set_disabled():
 
     content = ''
 
-    if os.path.exists(torrc_file_path):
-        with open(torrc_file_path, 'r',  encoding="utf-8") as f:
-            content = f.readlines()
+    # if os.path.exists(torrc_file_path):
+    with open(torrc_file_path, 'r',  encoding="utf-8") as f:
+        content = f.readlines()
 
     disable_network_found = False
     for line in content:
@@ -124,11 +124,11 @@ def set_disabled():
             content = f.read().replace('DisableNetwork 0', 'DisableNetwork 1')
 
     else:
-        if os.path.exists(torrc_file_path):
-            with open(torrc_file_path,'r', encoding="utf-8") as f:
-                content = f.read() + '\n' + 'DisableNetwork 1' + '\n'
-        else:
-            content = 'DisableNetwork 1' + '\n'
+        # if os.path.exists(torrc_file_path):
+        with open(torrc_file_path,'r', encoding="utf-8") as f:
+            content = f.read() + '\n' + 'DisableNetwork 1' + '\n'
+        # else:
+        #     content = 'DisableNetwork 1' + '\n'
 
     write_to_temp_then_move(content)
 

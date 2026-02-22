@@ -25,9 +25,9 @@ class TorControlPanel(QDialog):
     def __init__(self):
         super(TorControlPanel, self).__init__()
 
-        # Make sure torrc exists.
-        command = commands.command("tor_config_sane")  # 'leaprun tor-config-sane'
-        call(command, shell=True)
+        # # Make sure torrc exists.
+        # command = commands.command("tor_config_sane")  # 'leaprun tor-config-sane'
+        # call(command, shell=True)
 
         self.setMinimumSize(650, 465)
 
@@ -53,6 +53,20 @@ class TorControlPanel(QDialog):
         self.tor_message = info.tor_stopped()
         self.tor_running_path = '/run/tor/tor.pid'
         self.torrc_file_path =  '/usr/local/etc/torrc.d/40_tor_control_panel.conf'
+
+        """
+        Rationalize code.
+        If torrc_file_path does not exist, write a torrc template at the start of the app.
+        Therefore repair_torrc.py and tor_config_sane are no longer needed.
+        Since we are confident that a torrc file exists, we can avoid all the calls to
+        " if os.path.exists(self.torrc_file_path):" in the whole package.
+        It is required once, below.
+        """
+        if os.path.exists(self.torrc_file_path):
+            pass
+        else:
+            args = ['None', 'None', 'None']
+            torrc_gen.gen_torrc(args)
 
         self.button_name = ['systemd &journal', 'Tor &log', '&torrc']
 
@@ -590,18 +604,18 @@ class TorControlPanel(QDialog):
                 self.user_frame.hide()
 
                 ## Retrieve custom bridges
-                if os.path.exists(self.torrc_file_path):
-                    with open(self.torrc_file_path, 'r') as f:
-                        if '# Custom' in f.read():
-                            self.custom_bridges.clear()
-                            f.seek(0)
-                            lines = f.readlines()
-                            for line in lines:
-                                if line.startswith('Bridge'):
-                                    line = line.strip('Bridge' '\n')
-                                    self.custom_bridges.append(line)
-                    f.close()
-                    self.custom_bridges.moveCursor(QtGui.QTextCursor.Start)
+                # if os.path.exists(self.torrc_file_path):
+                with open(self.torrc_file_path, 'r') as f:
+                    if '# Custom' in f.read():
+                        self.custom_bridges.clear()
+                        f.seek(0)
+                        lines = f.readlines()
+                        for line in lines:
+                            if line.startswith('Bridge'):
+                                line = line.strip('Bridge' '\n')
+                                self.custom_bridges.append(line)
+                f.close()
+                self.custom_bridges.moveCursor(QtGui.QTextCursor.Start)
 
                 self.custom_bridges_frame.show()
                 self.use_custom_bridges = True

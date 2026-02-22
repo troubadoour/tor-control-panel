@@ -632,6 +632,19 @@ class AnonConnectionWizard(QWizard):
     def __init__(self):
         super(AnonConnectionWizard, self).__init__()
 
+        """
+        Rationalize code.
+        If torrc_file_path does not exist, write a torrc template at the start of the app.
+        Therefore repair_torrc.py in no longer needed, as well as tor_config_sane
+        Since we are confident that a torrc file exists,  we can avoid all the
+        " if os.path.exists(self.torrc_file_path):" in the whole package.
+        """
+        if os.path.exists(Common.torrc_file_path):
+            pass
+        else:
+            args = ['None', 'None', 'None']
+            torrc_gen.gen_torrc(args)
+
         self.steps = Common.wizard_steps
 
         self.connection_main_page = ConnectionMainPage()
@@ -676,18 +689,18 @@ class AnonConnectionWizard(QWizard):
 
         if Common.use_custom_bridges:
         # Retrieve custom bridges
-            if os.path.exists(Common.torrc_file_path):
-                with open(Common.torrc_file_path, 'r') as f:
-                    if '# Custom' in f.read():
-                        self.bridge_wizard_page.custom_bridges.clear()
-                        f.seek(0)
-                        lines = f.readlines()
-                        for line in lines:
-                            if line.startswith('Bridge'):
-                                line = line.strip('Bridge' '\n')
-                                self.bridge_wizard_page.custom_bridges.append(line)
-                f.close()
-                self.bridge_wizard_page.custom_bridges.moveCursor(QtGui.QTextCursor.Start)
+            # if os.path.exists(Common.torrc_file_path):
+            with open(Common.torrc_file_path, 'r') as f:
+                if '# Custom' in f.read():
+                    self.bridge_wizard_page.custom_bridges.clear()
+                    f.seek(0)
+                    lines = f.readlines()
+                    for line in lines:
+                        if line.startswith('Bridge'):
+                            line = line.strip('Bridge' '\n')
+                            self.bridge_wizard_page.custom_bridges.append(line)
+            f.close()
+            self.bridge_wizard_page.custom_bridges.moveCursor(QtGui.QTextCursor.Start)
 
         if Common.use_default_bridges or Common.use_custom_bridges:
                 self.bridge_wizard_page.bridges_checkbox.setChecked(True)
@@ -792,13 +805,13 @@ class AnonConnectionWizard(QWizard):
 
             '''Arranging different tor_status_page according to the value of disable_tor.'''
             if not Common.disable_tor:
-                if os.path.exists(Common.torrc_file_path):
-                    ## Move the tmp file to the real .conf only when user
-                    ## clicks the connect button. This may overwrite the
-                    ## previous .conf, but it does not matter.
-                    cat(Common.acw_comm_file_path)
-                    content = open(Common.torrc_file_path).read()
-                    write_to_temp_then_move(content)
+                # if os.path.exists(Common.torrc_file_path):
+                ## Move the tmp file to the real .conf only when user
+                ## clicks the connect button. This may overwrite the
+                ## previous .conf, but it does not matter.
+                cat(Common.acw_comm_file_path)
+                content = open(Common.torrc_file_path).read()
+                write_to_temp_then_move(content)
 
                 self.tor_status_page.bootstrap_progress.show()
 
@@ -843,7 +856,6 @@ class AnonConnectionWizard(QWizard):
                 self.show_finish_button()
 
     def write_torrc(self):
-        repair_torrc.repair_torrc()  # This guarantees a good set of torrc files
 
         args = []
 
